@@ -53,7 +53,7 @@ module.exports = {
                     IdUsuario: IdUsuario,
                     IdApps: AppIds,
                   },
-                  process.env.JWT_SECRET_KEY,
+                  process.env.LOGIN_B_APP_JWT_SECRET_KEY,
                   {
                     expiresIn: "45m",
                   }

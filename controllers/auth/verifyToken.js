@@ -3,8 +3,8 @@ var moment = require("moment-timezone");
 
 module.exports = {
   isLoggedIn: (req, res) => {
-    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    let tokenHeaderKey = process.env.LOGIN_B_APP_TOKEN_HEADER_KEY;
+    let jwtSecretKey = process.env.LOGIN_B_APP_JWT_SECRET_KEY;
 
     try {
       const token = req.header(tokenHeaderKey);
@@ -32,8 +32,8 @@ module.exports = {
   },
 
   verifyJWT: (req, res, next) => {
-    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    let tokenHeaderKey = process.env.LOGIN_B_APP_TOKEN_HEADER_KEY;
+    let jwtSecretKey = process.env.LOGIN_B_APP_JWT_SECRET_KEY;
     const token = req.header(tokenHeaderKey);
     if (!token) {
       res.send("Necesitas un token.");

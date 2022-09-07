@@ -18,15 +18,15 @@ module.exports = {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.EMAIL_USER, // enter your email address
-        pass: process.env.EMAIL_PASSWORD, // enter your visible/encripted password
+        user: process.env.LOGIN_B_APP_EMAIL_USER, // enter your email address
+        pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD, // enter your visible/encripted password
       },
       tls : { rejectUnauthorized: false }
 
     });
 
     var mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.LOGIN_B_APP_EMAIL_USER,
       to: to,
       subject: subject,
       text: "Plaintext version of the message",
