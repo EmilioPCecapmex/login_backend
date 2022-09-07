@@ -17,17 +17,18 @@ module.exports = {
         db.query(
           `CALL sp_CambiarContrasena('${userId}','${hash}')`,
           (err, result) => {
-            const userData = result[0][0];
-            if (userData === undefined) {
-              return res.status(409).send({
-                error: "Verificar Id Usuario",
-              });
-            }
+       
             if (err) {
               return res.status(401).send({
                 error: "Error",
               });
             } else {
+              const userData = result[0][0];
+              if (userData === undefined) {
+                return res.status(409).send({
+                  error: "Verificar Id Usuario",
+                });
+              }
               const d = {
                 to: userData.CorreoElectronico,
                 subject: "¡Cambio de Contraseña!",

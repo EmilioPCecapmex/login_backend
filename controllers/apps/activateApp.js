@@ -1,9 +1,9 @@
 const db = require("../../config/db.js");
 
 module.exports = {
-  activateUser: (req, res) => {
-    const userId = req.body.IdUsuario;
-    db.query(`CALL sp_ActivarUsuario('${userId}')`, (err, result) => {
+  activateApp: (req, res) => {
+    const appId = req.body.IdApp;
+    db.query(`CALL sp_ActivarApp('${appId}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",
@@ -13,7 +13,7 @@ module.exports = {
 
       if (result[0][0].Result) {
         return res.status(200).send({
-          IdUsuario: d.UserId,
+          appId: d.appId,
           result: d.Result,
         });
       } else {

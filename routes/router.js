@@ -18,7 +18,8 @@ const { modifyUser } = require("../controllers/users/modifyUser.js");
 const { modifyApp } = require("../controllers/apps/modifyApp.js");
 const { changePassword } = require("../controllers/users/changePassword.js");
 const { createApp } = require("../controllers/apps/createApp.js");
-const { linkUserApp } = require("../controllers/apps/linkUserApp.js");
+const { linkUserApp, unlinkUserApp } = require("../controllers/apps/linkUserApp.js");
+const { activateApp } = require("../controllers/apps/activateApp.js");
 
 // routes/router.js
 
@@ -74,8 +75,16 @@ router.post("/create-app", verifyToken.verifyJWT, (req, res, next) => {
   createApp(req, res);
 });
 
+router.post("/activate-app", verifyToken.verifyJWT, (req, res, next) => {
+  activateApp(req, res);
+});
+
 router.post("/link-userapp", verifyToken.verifyJWT, (req, res, next) => {
   linkUserApp(req, res);
+});
+
+router.post("/unlink-userapp", verifyToken.verifyJWT, (req, res, next) => {
+  unlinkUserApp(req, res);
 });
 
 router.post("/sign-up", registerUser.validateRegister, (req, res, next) => {
