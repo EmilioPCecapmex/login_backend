@@ -51,12 +51,13 @@ module.exports = {
                      )`,
 
                 (err, result) => {
-                  var userId = result[0][0].Id;
                   if (err) {
                     return res.status(500).send({
                       error: "Error",
                     });
                   } else {
+                    var userId = result[0][0].Id;
+
                     const d = {
                       to: userData.CorreoElectronico,
                       subject: "¡Bienvenido!",
