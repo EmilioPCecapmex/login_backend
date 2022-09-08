@@ -6,12 +6,14 @@ module.exports = {
     const name = req.body.Nombre;
     const nameAP = req.body.ApellidoPaterno;
     const nameAM = req.body.ApellidoMaterno;
+    const estaActivo = req.body.EstaActivo;
     const userUpdateId = req.body.IdUsuarioModificador;
 
     db.query(
-      `CALL sp_ModificaUsuario('${userId}','${name}','${nameAP}','${nameAM}','${userUpdateId}')`,
+      `CALL sp_ModificaUsuario('${userId}','${name}','${nameAP}','${nameAM}',${estaActivo},'${userUpdateId}')`,
       (err, result) => {
         if (err) {
+          console.log(err)
           return res.status(500).send({
             error: "Error",
           });
