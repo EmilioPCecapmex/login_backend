@@ -51,7 +51,6 @@ module.exports = {
                   {
                     NombreUsuario: NombreUsuario,
                     IdUsuario: IdUsuario,
-                    IdApps: AppIds,
                   },
                   process.env.LOGIN_B_APP_JWT_SECRET_KEY,
                   {
