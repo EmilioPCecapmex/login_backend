@@ -15,7 +15,7 @@ module.exports = {
       const iatDate = moment(decoded.iat * 1000)
         .tz("America/Monterrey")
         .format();
-      const expDate = moment(decoded.iat * 1000)
+      const expDate = moment(decoded.exp * 1000)
         .tz("America/Monterrey")
         .format();
 
