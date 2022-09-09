@@ -11,7 +11,7 @@ const {
   getUserDetail,
   getUsersInfo,
 } = require("../controllers/users/getUsers.js");
-const { getAppDetail, getAppsInfo } = require("../controllers/apps/getApps.js");
+const { getAppDetail, getAppsInfo, getUserApps } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
 const { deleteApp } = require("../controllers/apps/deleteApp.js");
 const { modifyUser } = require("../controllers/users/modifyUser.js");
@@ -52,6 +52,10 @@ router.put("/change-password", (req, res) => {
 
 router.get("/activate", (req, res) => {
   activateUser(req, res);
+});
+
+router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
+  getUserApps(req, res);
 });
 
 //Apps

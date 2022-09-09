@@ -44,5 +44,42 @@ module.exports = {
         });
       }
     });
+  },  
+  getUserApps: (req, res) => {
+    const IdUsuario = req.body.IdUsuario;
+    db.query(`CALL sp_ListaAppUsuario('${IdUsuario}')`, (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          error: "Error",
+        });
+      }
+      if (result.length) {
+        const msg = result[0][0].Msg;
+        const data = result[0];
+
+
+    
+        if (msg) {
+          return res.status(409).send({
+            Msg: msg,
+          });
+        }
+
+        if (data === undefined) {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }else{
+          return res.status(200).send({
+            data,
+          });
+        }
+     
+      } else {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+    });
   },
 };
