@@ -60,7 +60,7 @@ module.exports = {
 
     
         if (msg) {
-          return res.status(409).send({
+          return res.status(200).send({
             Msg: msg,
           });
         }
