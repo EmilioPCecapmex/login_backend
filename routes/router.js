@@ -16,7 +16,7 @@ const { deleteUser } = require("../controllers/users/deleteUser.js");
 const { deleteApp } = require("../controllers/apps/deleteApp.js");
 const { modifyUser } = require("../controllers/users/modifyUser.js");
 const { modifyApp } = require("../controllers/apps/modifyApp.js");
-const { changePassword } = require("../controllers/users/changePassword.js");
+const { changePassword, forgotPassword } = require("../controllers/users/changePassword.js");
 const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
@@ -46,8 +46,12 @@ router.put("/user", verifyToken.verifyJWT, (req, res) => {
   modifyUser(req, res);
 });
 
-router.put("/change-password", (req, res) => {
+router.put("/change-password",verifyToken.verifyJWT, (req, res) => {
   changePassword(req, res);
+});
+
+router.post("/forgot-password", (req, res) => {
+  forgotPassword(req, res);
 });
 
 router.get("/activate", (req, res) => {

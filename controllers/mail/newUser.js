@@ -166,7 +166,7 @@ module.exports = {
         
         <p class=MsoNormal align=center style='text-align:center'><span lang=ES
         style='mso-ansi-language:ES'>Estimado ${nombre}, tu usuario para ingresar a las
-        plataformas <i><a href="10.200.4.173:5000">SFyTGE</a></i> ha sido creado
+        plataformas <i><a href="10.200.4.105:5000">SFyTGE</a></i> ha sido creado
         exitosamente.<o:p></o:p></span></p>
         
         <p class=MsoNormal align=center style='text-align:center'><span lang=ES
@@ -258,7 +258,7 @@ module.exports = {
         <p class=MsoNormal align=center style='text-align:center'><b style='mso-bidi-font-weight:
         normal'><span lang=ES style='font-size:18.0pt;mso-bidi-font-size:11.0pt;
         color:white;mso-themecolor:background1;mso-ansi-language:ES;mso-no-proof:yes'><a
-        href="10.200.4.173:5000/api/activate?userId=${userid}">ACTIVA TU CUENTA</a><span style='background:
+        href="10.200.4.105:5000/api/activate?userId=${userid}">ACTIVA TU CUENTA</a><span style='background:
         black;mso-highlight:black'> </span><span style='mso-spacerun:yes'></span><span
         style='mso-spacerun:yes'></span></span></b><b style='mso-bidi-font-weight:
         normal'><span lang=ES style='font-size:18.0pt;mso-bidi-font-size:11.0pt;
