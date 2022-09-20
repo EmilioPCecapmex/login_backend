@@ -71,6 +71,7 @@ module.exports = {
 
                   return res.status(201).send({
                     msg: "¡Registro exitoso!",
+                    IdUsuario: userId
                   });
                 }
               );

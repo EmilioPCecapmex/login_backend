@@ -99,7 +99,7 @@ router.post("/manage-links", verifyToken.verifyJWT, (req, res, next) => {
   manageUserApps(req, res);
 });
 
-router.post("/sign-up", registerUser.validateRegister, (req, res, next) => {
+router.post("/sign-up", verifyToken.verifyJWT, registerUser.validateRegister, (req, res, next) => {
   createUser(req, res);
 });
 
