@@ -6,7 +6,9 @@ const { generateRandomPassword } = require("./createPassword");
 module.exports = {
   changePassword: (req, res) => {
     const userId = req.body.IdUsuario;
-    const genPassword = generateRandomPassword(10);
+    const genPassword = req.body.ContrasenaNueva;
+
+
     bcrypt.hash(genPassword, 10, (err, hash) => {
       if (err) {
         return res.status(401).send({
@@ -23,10 +25,12 @@ module.exports = {
                 error: "Error",
               });
             } else {
+              const message = result[0][0].message;
               const userData = result[0][0];
-              if (userData === undefined) {
+
+              if (message !== undefined) {
                 return res.status(409).send({
-                  error: "Verificar Id Usuario",
+                  error: message,
                 });
               }
               const d = {
