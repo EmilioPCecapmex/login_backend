@@ -54,13 +54,13 @@ module.exports = {
                 };
 
                 token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
-                  expiresIn: "1m",
+                  expiresIn: "45m",
                 });
 
                 const refreshToken = jwt.sign(
                   user,
                   process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY,
-                  { expiresIn: "2m" }
+                  { expiresIn: "86400" }
                 );
 
                 db.query(`CALL sp_ActualizaInicioSesion('${IdUsuario}')`);
@@ -114,7 +114,7 @@ module.exports = {
           userData.refreshToken in global.tokenList
         ) {
           const token = jwt.sign({}, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
-            expiresIn: "5m",
+            expiresIn: "45m",
           });
           const response = {
             token: token,
