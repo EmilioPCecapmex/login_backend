@@ -4,6 +4,8 @@ const db = require("../../config/db.js");
 
 const bcrypt = require("bcryptjs");
 
+global.tokenList = {};
+
 module.exports = {
   userLogin: (req, res) => {
     const userData = req.body;
@@ -43,29 +45,37 @@ module.exports = {
               if (bResult) {
                 const IdUsuario = result[0][0].Id;
                 const NombreUsuario = result[0][0].NombreUsuario;
-                const CorreoElectronico = result[0][0].CorreoElectronico;
                 let AppIds = result[1];
                 let token;
 
-                token = jwt.sign(
-                  {
-                    NombreUsuario: NombreUsuario,
-                    IdUsuario: IdUsuario,
-                  },
-                  process.env.LOGIN_B_APP_JWT_SECRET_KEY,
-                  {
-                    expiresIn: "45m",
-                  }
+                const user = {
+                  NombreUsuario: NombreUsuario,
+                  IdUsuario: IdUsuario,
+                };
+
+                token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
+                  expiresIn: "1m",
+                });
+
+                const refreshToken = jwt.sign(
+                  user,
+                  process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY,
+                  { expiresIn: "2m" }
                 );
 
                 db.query(`CALL sp_ActualizaInicioSesion('${IdUsuario}')`);
 
-                return res.status(200).send({
+                const response = {
                   msg: "¡Inicio de sesión exitoso!",
                   AppIds,
                   IdUsuario,
                   token,
-                });
+                  refreshToken,
+                };
+
+                global.tokenList[refreshToken] = response;
+
+                return res.status(200).send(response);
               }
               return res.status(401).send({
                 type: "password",
@@ -81,5 +91,41 @@ module.exports = {
         }
       }
     );
+  },
+
+  tokenRefresh: (req, res) => {
+    
+    const userData = req.body;
+
+    let jwtSecretKey = process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY;
+
+    // refresh the damn token
+
+
+    jwt.verify(userData.refreshToken, jwtSecretKey, (err, decoded) => {
+      if (err) {
+        res
+          .status(401)
+          .json({ auth: false, message: "Refresh Token Expirado" });
+      } else {
+        // if refresh token exists
+        if (
+          userData.refreshToken &&
+          userData.refreshToken in global.tokenList
+        ) {
+          const token = jwt.sign({}, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
+            expiresIn: "5m",
+          });
+          const response = {
+            token: token,
+          };
+          // update the token in the list
+          global.tokenList[userData.refreshToken].token = token;
+          res.status(200).json(response);
+        } else {
+          res.status(404).send("Invalid request");
+        }
+      }
+    });
   },
 };

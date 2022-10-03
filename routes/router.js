@@ -5,7 +5,7 @@ const verifyToken = require("../controllers/auth/verifyToken.js");
 
 const { sendEmail } = require("../controllers/mail/sendMail.js");
 const { createUser } = require("../controllers/users/createUser.js");
-const { userLogin } = require("../controllers/auth/userLogin.js");
+const { userLogin, tokenRefresh } = require("../controllers/auth/userLogin.js");
 const { activateUser } = require("../controllers/users/activateUser.js");
 const {
   getUserDetail,
@@ -21,10 +21,16 @@ const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
 
+
+
 // routes/router.js
 
 router.post("/login", (req, res, next) => {
   userLogin(req, res);
+});
+
+router.post("/refresh-token", (req, res, next) => {
+  tokenRefresh(req, res);
 });
 
 router.post("/verify", verifyToken.isLoggedIn);
