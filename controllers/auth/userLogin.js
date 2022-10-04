@@ -60,7 +60,7 @@ module.exports = {
                 const refreshToken = jwt.sign(
                   user,
                   process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY,
-                  { expiresIn: "86400" }
+                  { expiresIn: "1440m" }
                 );
 
                 db.query(`CALL sp_ActualizaInicioSesion('${IdUsuario}')`);
