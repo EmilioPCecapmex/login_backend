@@ -20,6 +20,7 @@ const { changePassword, forgotPassword } = require("../controllers/users/changeP
 const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
+const { getUsersTypes } = require("../controllers/users/getUserTypes.js");
 
 
 
@@ -112,5 +113,10 @@ router.post("/sign-up", verifyToken.verifyJWT, registerUser.validateRegister, (r
 router.post("/send-email", (req, res) => {
   sendEmail(req, res);
 });
+
+router.post("/user-types",verifyToken.verifyJWT, (req, res) => {
+  getUsersTypes(req, res);
+});
+
 
 module.exports = router;
