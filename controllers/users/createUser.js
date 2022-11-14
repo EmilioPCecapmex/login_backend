@@ -73,11 +73,17 @@ module.exports = {
                     };
                     // sendEmail(d);
                   }
-
-                  return res.status(201).send({
+                  if(result[0][0].Respuesta == 201){
+                     return res.status(201).send({
                     msg: "¡Registro exitoso!",
                     IdUsuario: userId
                   });
+                  }else{
+                     return res.status(409).send({
+                    msg: result[0][0].Mensaje,
+                    IdUsuario: userId
+                  });
+                  }
                 }
               );
             }
