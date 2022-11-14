@@ -3,7 +3,8 @@ const db = require("../../config/db.js");
 module.exports = {
   deleteUser: (req, res) => {
     const userId = req.body.IdUsuario;
-    db.query(`CALL sp_BajaUsuario('${userId}')`, (err, result) => {
+    const IdUsuarioModificador = req.body.IdUsuarioModificador;
+    db.query(`CALL sp_BajaUsuario('${userId}','${IdUsuarioModificador}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",

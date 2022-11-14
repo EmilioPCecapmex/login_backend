@@ -12,7 +12,6 @@ module.exports = {
       }
       const d = result[0][0];
 
-      console.log(d)
 
       if (result[0][0].Result) {
         return res.status(200).send({

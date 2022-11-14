@@ -27,7 +27,8 @@ module.exports = {
     });
   },
   getAppsInfo: (req, res) => {
-    db.query(`CALL sp_ListaApp()`, (err, result) => {
+    const IdUsuario = req.query.IdUsuario;
+    db.query(`CALL sp_ListaApp('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",
@@ -50,7 +51,7 @@ module.exports = {
     db.query(`CALL sp_ListaAppUsuario('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
-          error: "Error",
+          error: err,
         });
       }
       if (result.length) {

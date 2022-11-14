@@ -9,6 +9,7 @@ module.exports = {
           error: "Error",
         });
       }
+
       if (result.length) {
         const data = result[0];
         if (data === undefined) {

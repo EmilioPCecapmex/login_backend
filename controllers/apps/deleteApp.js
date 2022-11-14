@@ -3,7 +3,8 @@ const db = require("../../config/db.js");
 module.exports = {
   deleteApp: (req, res) => {
     const appId = req.body.IdApp;
-    db.query(`CALL sp_BajaApp('${appId}')`, (err, result) => {
+    const IdUsuario = req.body.IdUsuario;
+    db.query(`CALL sp_BajaApp('${appId}','${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",

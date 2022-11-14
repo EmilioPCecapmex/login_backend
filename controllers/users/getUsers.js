@@ -27,7 +27,8 @@ module.exports = {
     });
   },
   getUsersInfo: (req, res) => {
-    db.query(`CALL sp_ListaUsuarios()`, (err, result) => {
+    const IdUsuario = req.query.IdUsuario;
+    db.query(`CALL sp_ListaUsuarios('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",

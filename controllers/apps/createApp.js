@@ -6,7 +6,7 @@ module.exports = {
     db.query(
       `CALL sp_ExisteApp(${db.escape(appData.Nombre)},${db.escape(
         appData.Path
-      )})`,
+      )},${db.escape(appData.IdUsuarioModificador)})`,
       (err, result) => {
         if (err) {
           return res.status(500).send({

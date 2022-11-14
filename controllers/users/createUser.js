@@ -47,7 +47,12 @@ module.exports = {
                       ${db.escape(userData.NombreUsuario)},
                     ${db.escape(userData.CorreoElectronico)}, 
                      ${db.escape(hash)},
-                     ${db.escape(userData.IdUsuarioModificador)}
+                     ${db.escape(userData.IdUsuarioModificador)},
+                     ${db.escape(userData.Curp)},
+                     ${db.escape(userData.Rfc)},
+                     ${db.escape(userData.Telefono)},
+                     ${db.escape(userData.Celular)},
+                     ${db.escape(userData.IdTipoUsuario)}
                      )`,
 
                 (err, result) => {
@@ -66,7 +71,7 @@ module.exports = {
                       contrasena: genPassword,
                       userid: userId,
                     };
-                    sendEmail(d);
+                    // sendEmail(d);
                   }
 
                   return res.status(201).send({

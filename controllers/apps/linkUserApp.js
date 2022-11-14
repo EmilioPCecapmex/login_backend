@@ -83,7 +83,7 @@ module.exports = {
           (err, result) => {
             if (err) {
               shouldSkip = true;
-              return res.status(409).send({
+              return res.status(401).send({
                 error: "Id app invalido",
               });
             }
