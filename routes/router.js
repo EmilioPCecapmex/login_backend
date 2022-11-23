@@ -21,7 +21,7 @@ const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
 const { getUsersTypes } = require("../controllers/users/getUserTypes.js");
-const { getSolicitudes } = require("../controllers/solicitudes y comentarios/getSolicitudes.js");
+const { getSolicitudes, getDetalleSolicitud } = require("../controllers/solicitudes y comentarios/getSolicitudes.js");
 const createSolicitud = require("../controllers/solicitudes y comentarios/createSolicitud.js");
 const { modifyEstatusSolicitud } = require("../controllers/solicitudes y comentarios/modifyEstatusSolicitud.js");
 
@@ -123,9 +123,14 @@ router.post("/user-types",verifyToken.verifyJWT, (req, res) => {
 
 
 //listado de solicitudes
-router.get("/solicitudes", verifyToken.verifyJWT, (req, res) => {
+router.get("/solicitudes",verifyToken.verifyJWT, (req, res) => {
   getSolicitudes(req, res);
 });
+
+//detalle de solicitud
+router.get("/detalleSol",verifyToken.verifyJWT, (req, res) => {
+  getDetalleSolicitud(req, res);
+})
 
 //Crear solicitud
 router.post("/create-solicitud", verifyToken.verifyJWT, (req, res, next) => {
