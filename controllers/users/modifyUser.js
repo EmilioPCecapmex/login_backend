@@ -12,11 +12,12 @@ module.exports = {
     const rfc = req.body.Rfc;
     const telefono = req.body.Telefono;
     const celular = req.body.Celular;
+    const ext = req.body.Ext;
     const tipoUsuario = req.body.IdTipoUsuario;    
 
     db.query(
       `CALL sp_ModificaUsuario('${userId}','${name}','${nameAP}','${nameAM}',${estaActivo},'${userUpdateId}',
-      '${curp}','${rfc}','${telefono}',${celular},'${tipoUsuario}')`,
+      '${curp}','${rfc}','${telefono}','${ext}',${celular},'${tipoUsuario}')`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
