@@ -22,10 +22,11 @@ const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/a
 const { activateApp } = require("../controllers/apps/activateApp.js");
 const { getUsersTypes } = require("../controllers/users/getUserTypes.js");
 const { getSolicitudes, getDetalleSolicitud } = require("../controllers/solicitudes y comentarios/getSolicitudes.js");
-const createSolicitud = require("../controllers/solicitudes y comentarios/createSolicitud.js");
-const { modifyEstatusSolicitud } = require("../controllers/solicitudes y comentarios/modifyEstatusSolicitud.js");
+const {createSolicitud} = require("../controllers/solicitudes y comentarios/createSolicitud.js");
 const { createComentario } = require("../controllers/solicitudes y comentarios/createComentario.js");
-const modifySolicitud = require("../controllers/solicitudes y comentarios/modifySolicitud.js");
+const {modifySolicitud} = require("../controllers/solicitudes y comentarios/modifySolicitud.js");
+const {aprovarSolicitud} = require("../controllers/solicitudes y comentarios/aprovarSolicitud.js");
+const {getTipoSolicitud} = require("../controllers/solicitudes y comentarios/getTipoSolicitud.js");
 
 
 // routes/router.js
@@ -138,9 +139,9 @@ router.post("/create-solicitud", verifyToken.verifyJWT, (req, res, next) => {
   createSolicitud(req, res);
 });
 
-
-router.put("/modify-estatus-solicitud", verifyToken.verifyJWT, (req, res) => {
-  modifyEstatusSolicitud(req, res);
+//aprovar solicitud
+router.put("/aprovar-solicitud", verifyToken.verifyJWT, (req, res) => {
+  aprovarSolicitud(req, res);
 });
 
 //Crear comentario
@@ -148,7 +149,12 @@ router.post("/create-comentario", verifyToken.verifyJWT, (req, res, next) => {
   createComentario(req, res);
 });
 
-router.put("/modifySolicitud", verifyToken.verifyJWT, (req, res) => {
+router.put("/modify-Solicitud", verifyToken.verifyJWT, (req, res) => {
   modifySolicitud(req, res);
 });
+
+//lista tipo Solicitudes
+router.get("/tipoSolicitudes",verifyToken.verifyJWT, (req, res) => {
+  getTipoSolicitud(req, res);
+})
 module.exports = router;

@@ -1,10 +1,9 @@
 const db = require("../../config/db.js");
 
 module.exports = {
-  modifyEstatusSolicitud: (req, res) => {
+  aprovarSolicitud: (req, res) => {
     const IdUsuario = req.body.IdUsuario;
     const IdSolicitud = req.body.IdSolicitud;
-    const Estatus = req.body.Estatus;
 
     if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
         return res.status(409).send({
@@ -16,14 +15,9 @@ module.exports = {
             error: "Ingrese ID Solicitud",
         });
     }
-    if (Estatus == null || /^[\s]*$/.test(Estatus)) {
-        return res.status(409).send({
-            error: "Ingrese Nuevo Estatus",
-        });
-    }
 
     db.query(
-      `CALL sp_AprobarSolicitud('${IdUsuario}','${IdSolicitud}','${Estatus}')`,
+      `CALL sp_AprobarSolicitud('${IdUsuario}','${IdSolicitud}','${"1"}')`,
       (err, result) => {
         if (err) {
           return res.status(500).send({

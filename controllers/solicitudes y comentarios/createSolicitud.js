@@ -3,11 +3,23 @@ const db = require("../../config/db.js");
 module.exports = {
     createSolicitud: (req, res) => {
 
-        const IdUsuarioCreador = req.body.CreadoPor;
+        const IdUsuario = req.body.IdUsuario;
         const DatosAdicionales = req.body.DatosAdicionales;
         const TipoSolicitud = req.body.TipoSolicitud;
+        const IdUsuarioCreador = req.body.CreadoPor;
         const IdApp = req.body.IdApp;
 
+        console.log(IdUsuario);
+        console.log(DatosAdicionales);
+        console.log(TipoSolicitud);
+        console.log(IdUsuarioCreador);
+        console.log(IdApp);
+
+        if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
+            return res.status(409).send({
+                error: "Ingrese ID Institucion",
+            });
+        }
         if (IdUsuarioCreador == null || /^[\s]*$/.test(IdUsuarioCreador)) {
             return res.status(409).send({
                 error: "Ingrese ID Institucion",
@@ -26,7 +38,7 @@ module.exports = {
         } 
 
 
-            db.query(`CALL sp_CreaSolicitud('${IdUsuarioCreador}', '${DatosAdicionales}', '${TipoSolicitud}', '${IdUsuarioCreador}', '${IdApp}')`, (err, result) => {
+            db.query(`CALL sp_CreaSolicitud('${IdUsuario}', '${DatosAdicionales}', '${TipoSolicitud}', '${IdUsuarioCreador}', '${IdApp}')`, (err, result) => {
                 if (err) {
                     return res.status(500).send({
                         error: "Error",

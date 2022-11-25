@@ -5,7 +5,7 @@ module.exports = {
     const IdUsuario = req.body.IdUsuario;
     const IdSolicitud = req.body.IdSolicitud;
     const IdApp = req.body.IdApp;
-    const DatosAdicionales = req.DatosAdicionales.IdApp;
+    const DatosAdicionales = req.body.DatosAdicionales;
     const Estatus = req.body.Estatus;
 
     if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
