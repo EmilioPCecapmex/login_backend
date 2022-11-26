@@ -2,20 +2,20 @@ const db = require("../../config/db.js");
 
 module.exports = {
 //Listado general de solicitudes
-  getSolicitudesApp: (req, res) => {
+  getComentariosSolicitud: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    const IdApp= req.query.IdApp;
+    const IdSolicitud= req.query.IdSolicitud;
     if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
       return res.status(409).send({
           error: "Ingrese ID Usuario",
       });
   }
-  if (IdApp == null || /^[\s]*$/.test(IdApp)) {
+  if (IdSolicitud == null || /^[\s]*$/.test(IdSolicitud)) {
     return res.status(409).send({
-        error: "Ingrese ID App",
+        error: "Ingrese ID Solicitud",
     });
 }
-    db.query(`CALL sp_ListaSolicitudesApp('${IdUsuario}','${IdApp}')`, (err, result) => {
+    db.query(`CALL sp_ComentariosSolicitud('${IdUsuario}','${IdSolicitud}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",

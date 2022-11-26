@@ -25,8 +25,10 @@ const { getSolicitudes, getDetalleSolicitud } = require("../controllers/solicitu
 const {createSolicitud} = require("../controllers/solicitudes y comentarios/createSolicitud.js");
 const { createComentario } = require("../controllers/solicitudes y comentarios/createComentario.js");
 const {modifySolicitud} = require("../controllers/solicitudes y comentarios/modifySolicitud.js");
-const {aprovarSolicitud} = require("../controllers/solicitudes y comentarios/aprovarSolicitud.js");
+const {aprobarSolicitud} = require("../controllers/solicitudes y comentarios/aprobarSolicitud.js");
 const {getTipoSolicitud} = require("../controllers/solicitudes y comentarios/getTipoSolicitud.js");
+const {getSolicitudesApp} = require("../controllers/solicitudes y comentarios/getSolicitudesApp.js");
+const {getComentariosSolicitud} = require("../controllers/solicitudes y comentarios/getComentariosSolicitud");
 
 
 // routes/router.js
@@ -140,8 +142,8 @@ router.post("/create-solicitud", verifyToken.verifyJWT, (req, res, next) => {
 });
 
 //aprovar solicitud
-router.put("/aprovar-solicitud", verifyToken.verifyJWT, (req, res) => {
-  aprovarSolicitud(req, res);
+router.put("/aprobar-solicitud", verifyToken.verifyJWT, (req, res) => {
+  aprobarSolicitud(req, res);
 });
 
 //Crear comentario
@@ -157,4 +159,16 @@ router.put("/modify-Solicitud", verifyToken.verifyJWT, (req, res) => {
 router.get("/tipoSolicitudes",verifyToken.verifyJWT, (req, res) => {
   getTipoSolicitud(req, res);
 })
+
+//lista Solicitudes por APP
+router.get("/solicitudes-app",verifyToken.verifyJWT, (req, res) => {
+  getSolicitudesApp(req, res);
+})
+
+//lista Comentarios Solicitud
+router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
+  getComentariosSolicitud(req, res);
+})
+
+
 module.exports = router;
