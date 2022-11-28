@@ -6,10 +6,6 @@ module.exports = {
         const IdUsuario = req.body.CreadoPor;
         const IdSolicitud = req.body.IdSolicitud;
         const Comentario = req.body.Comentario;
-        
-            console.log(IdUsuario);
-            console.log(IdSolicitud);
-            console.log(Comentario);
         if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
             return res.status(409).send({
                 error: "Ingrese ID Usuario",

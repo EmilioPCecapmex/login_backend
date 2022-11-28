@@ -9,12 +9,6 @@ module.exports = {
         const IdUsuarioCreador = req.body.CreadoPor;
         const IdApp = req.body.IdApp;
 
-        console.log(IdUsuario);
-        console.log(DatosAdicionales);
-        console.log(TipoSolicitud);
-        console.log(IdUsuarioCreador);
-        console.log(IdApp);
-
         if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
             return res.status(409).send({
                 error: "Ingrese ID Institucion",

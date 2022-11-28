@@ -35,7 +35,6 @@ module.exports = {
 
     db.query(`CALL sp_DetalleSolicitud('${IdUsuario}','${IdSolicitud}')`, (err, result) => {
       if (err) {
-        console.log(err)
         return res.status(500).send({
           error: "Error",
         });
