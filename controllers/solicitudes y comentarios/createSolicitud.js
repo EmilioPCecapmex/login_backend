@@ -1,8 +1,10 @@
 
 const db = require("../../config/db.js");
+
+
+
 module.exports = {
     createSolicitud: (req, res) => {
-
         const IdUsuario = req.body.IdUsuario;
         const DatosAdicionales = req.body.DatosAdicionales;
         const TipoSolicitud = req.body.TipoSolicitud;
@@ -29,10 +31,9 @@ module.exports = {
             return res.status(409).send({
                 error: "Ingrese Id App",
             });
-        } 
+        }
 
-
-            db.query(`CALL sp_CreaSolicitud('${IdUsuario}', '${DatosAdicionales}', '${TipoSolicitud}', '${IdUsuarioCreador}', '${IdApp}')`, (err, result) => {
+                db.query(`CALL sp_CreaSolicitud('${IdUsuario}', '${DatosAdicionales}', '${TipoSolicitud}', '${IdUsuarioCreador}', '${IdApp}')`, (err, result) => {
                 if (err) {
                     return res.status(500).send({
                         error: "Error",
@@ -45,6 +46,7 @@ module.exports = {
                             result: data,
                         });
                     }
+
                     return res.status(200).send({
                         data,
                     });
@@ -53,7 +55,6 @@ module.exports = {
                         error: "¡Sin Información!",
                     });
                 }
-            });
-        
-    },
+            }); 
+            }
 };

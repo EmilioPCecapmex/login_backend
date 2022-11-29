@@ -58,7 +58,9 @@ module.exports = {
 
                 (err, result) => {
                   if (err) {
+
                     return res.status(500).send({
+
                       error: "Error",
                     });
                   } else {
