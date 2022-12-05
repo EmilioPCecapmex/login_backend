@@ -30,6 +30,8 @@ module.exports = {
     const IdUsuario = req.query.IdUsuario;
     db.query(`CALL sp_ListaUsuarios('${IdUsuario}')`, (err, result) => {
       if (err) {
+        console.log(err)
+
         return res.status(500).send({
           error: "Error",
         });
