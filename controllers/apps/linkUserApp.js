@@ -4,7 +4,7 @@ module.exports = {
   linkUserApp: (req, res) => {
     const appData = req.body;
     db.query(
-      `CALL sp_VinculaUsuarioApp('${appData.IdUsuario}','${appData.IdApp}')`,
+      `CALL sp_VinculaUsuarioApp('${appData.IdUsuario}','${appData.IdApp}', '${appData.IdUsuarioModificador}')`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -28,7 +28,7 @@ module.exports = {
   unlinkUserApp: (req, res) => {
     const appData = req.body;
     db.query(
-      `CALL sp_DesvinculaUsuarioApp('${appData.IdUsuario}','${appData.IdApp}')`,
+      `CALL sp_DesvinculaUsuarioApp('${appData.IdUsuario}','${appData.IdApp}', '${appData.IdUsuarioModificador}')`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -54,6 +54,7 @@ module.exports = {
     const appData = req.body;
     const IdUsuario = appData.IdUsuario;
     const Apps = appData.Apps;
+    const IdUsuarioModificador = appData.IdUsuarioModificador;
 
     const resArray = [];
 
@@ -79,7 +80,7 @@ module.exports = {
     if (isUUID(IdUsuario)) {
       Apps.forEach((element) => {
         db.query(
-          `CALL sp_VinculaUsuarioApps('${IdUsuario}','${element.IdApp}','${element.Vincular}')`,
+          `CALL sp_VinculaUsuarioApps('${IdUsuario}','${element.IdApp}','${element.Vincular}', '${IdUsuarioModificador}')`,
           (err, result) => {
             if (err) {
               shouldSkip = true;
