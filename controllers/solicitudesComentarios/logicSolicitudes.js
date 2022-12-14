@@ -4,10 +4,11 @@ const bcrypt = require("bcryptjs");
 const { sendEmail } = require("../mail/sendMail");
 
 module.exports = {
-  aprobarSolicitud: (req, res) => {
+  logicSolicitud: (req, res) => {
     const IdUsuario = req.body.IdUsuario;
     const IdSolicitud = req.body.IdSolicitud;
     const Estado = req.body.Estado;
+    const TipoSoli= req.body.TipoSoli;
 
     if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
       return res.status(409).send({
@@ -22,6 +23,11 @@ module.exports = {
     if (Estado == null || /^[\s]*$/.test(Estado)) {
       return res.status(409).send({
         error: "Ingrese Estado",
+      });
+    }
+    if (TipoSoli == null || /^[\s]*$/.test(TipoSoli)) {
+      return res.status(409).send({
+        error: "Ingrese Tipo Solicitud",
       });
     }
 
@@ -50,7 +56,7 @@ module.exports = {
             });
           } else {
             db.query(
-              `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}')`,
+              `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}')`,
               (err, result) => {
                 if (err) {
                   return res.status(500).send({
