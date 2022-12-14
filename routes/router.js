@@ -27,10 +27,9 @@ const { createComentario } = require("../controllers/solicitudesComentarios/crea
 const {modifySolicitud} = require("../controllers/solicitudesComentarios/modifySolicitud.js");
 const {getTipoSolicitud} = require("../controllers/solicitudesComentarios/getTipoSolicitud.js");
 const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSolicitudesApp.js");
-
 const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
-const {logicSolicitudes} = require("../controllers/solicitudesComentarios/logicSolicitudes.js");
-const {solicitudesTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
+const {logicSolicitud} = require("../controllers/solicitudesComentarios/logicSolicitudes.js");
+const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
 
 // routes/router.js
 
@@ -168,7 +167,7 @@ router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
 
 //logica de solicitud
 router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
-  solicitudesTransaction(req, res);
+  solicitudTransaction(req, res);
 });
 
 
