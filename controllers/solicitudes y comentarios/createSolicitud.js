@@ -34,7 +34,9 @@ module.exports = {
         }
 
                 db.query(`CALL sp_CreaSolicitud('${IdUsuario}', '${DatosAdicionales}', '${TipoSolicitud}', '${IdUsuarioCreador}', '${IdApp}')`, (err, result) => {
-                if (err) {
+                    if (err) {
+                        console.log(err)
+
                     return res.status(500).send({
                         error: "Error",
                     });
@@ -42,6 +44,7 @@ module.exports = {
                 if (result.length) {
                     const data = result;
                     if (data.error) {
+
                         return res.status(409).send({
                             result: data,
                         });

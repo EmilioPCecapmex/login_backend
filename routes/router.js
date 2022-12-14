@@ -137,7 +137,7 @@ router.get("/detalleSol",verifyToken.verifyJWT, (req, res) => {
 })
 
 //Crear solicitud
-router.post("/create-solicitud", verifyToken.verifyJWT, (req, res, next) => {
+router.post("/create-solicitud", verifyToken.verifyJWT, (req, res) => {
   createSolicitud(req, res);
 });
 
