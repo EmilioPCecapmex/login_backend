@@ -1,4 +1,4 @@
-const db = require("../../config/db.js");
+const db = require("../../config/db.js");Error
 const { generateRandomPassword } = require("../users/createPassword.js");
 const bcrypt = require("bcryptjs");
 const { sendEmail } = require("../mail/sendMail");
@@ -36,23 +36,22 @@ module.exports = {
     var correo;
 
     db.query(
-      `SELECT u.Nombre, u.NombreUsuario, u.CorreoElectronico FROM TiCentral.Usuarios AS u 
-      INNER JOIN TiCentral.Solicitudes AS s ON u.Id = s.IdUsuario
-      WHERE s.Id = '${IdSolicitud}'`,
+      `SELECT Nombre, NombreUsuario, CorreoElectronico FROM TiCentral.Solicitudes
+      WHERE Id = '${IdSolicitud}'`,
       (error, result) => {
         if (error) {
           return res.status(500).send({
-            error: "Error",
+            error: "Error emilio 1",
           });
         }
-        nombre = result[0].Nombre;
-        nusuario = result[0].NombreUsuario;
-        correo = result[0].CorreoElectronico;
+        nombre = result[0]?.Nombre;
+        nusuario = result[0]?.NombreUsuario;
+        correo = result[0]?.CorreoElectronico;
         const genPassword = generateRandomPassword(10);
         bcrypt.hash(genPassword, 10, (err, hash) => {
           if (err) {
             return res.status(401).send({
-              error: "Error",
+              error: "Error de emilio",
             });
           } else {
             db.query(
@@ -60,7 +59,7 @@ module.exports = {
               (err, result) => {
                 if (err) {
                   return res.status(500).send({
-                    error: "Error",
+                    error: "Error mio",
                   });
                 }
                 if (result.length) {
@@ -78,7 +77,7 @@ module.exports = {
                     contrasena: genPassword,
                     userid: IdUsuario,
                   };
-                  sendEmail(d);
+                 sendEmail(d);
 
                   return res.status(200).send({
                     result: data,
