@@ -76,16 +76,23 @@ module.exports = {
 
 
   getDatosAdicionalesSolicitud: (req, res) => {
-    const IdSolicitud = req.query.IdSolicitud;
+    const IdUsuario = req.query.IdUsuario;
+    const IdApp = req.query.IdApp;
    
-    if (IdSolicitud == null || /^[\s]*$/.test(IdSolicitud)) {
+    if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
       return res.status(409).send({
-        error: "Ingrese Id Solicitud",
+        error: "Ingrese Id Usuario",
+      });
+    }
+
+    if (IdApp == null || /^[\s]*$/.test(IdApp)) {
+      return res.status(409).send({
+        error: "Ingrese Id App",
       });
     }
    
 
-    db.query(`CALL sp_ObtenerDatosAdicionalesSolicitud('${IdSolicitud}')`, (err, result) => {
+    db.query(`CALL sp_ObtenerDatosAdicionalesSolicitud('${IdUsuario}','${IdApp}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",
