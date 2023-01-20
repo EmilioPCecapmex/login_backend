@@ -30,6 +30,7 @@ const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSo
 const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
 const {logicSolicitud} = require("../controllers/solicitudesComentarios/logicSolicitudes.js");
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
+const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 
 // routes/router.js
 
@@ -173,6 +174,11 @@ router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
 router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
   solicitudTransaction(req, res);
 });
+
+//Ultima solicitud del usuario
+router.get("/docSolicitudUsuario",verifyToken.verifyJWT, (req, res) => {
+  getSolicitudUsuario(req, res);
+})
 
 
 module.exports = router;
