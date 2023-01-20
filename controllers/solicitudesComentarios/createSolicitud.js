@@ -19,6 +19,7 @@ module.exports = {
         const DatosAdicionales = req.body.DatosAdicionales;
         const IdApp = req.body.IdApp;
         const IdUsuarioCreador = req.body.CreadoPor;
+        console.log(req.body);
 
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {
             return res.status(409).send({
@@ -72,7 +73,7 @@ module.exports = {
         }
         if (IdUsuarioCreador == null || /^[\s]*$/.test(IdUsuarioCreador)) {
             return res.status(409).send({
-                error: "Ingrese ID Usaurio Creador",
+                error: "Ingrese ID Usuurio Creador",
             });
         }
 
@@ -97,11 +98,13 @@ module.exports = {
 
                 db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}')`, (err, result) => {
                 if (err) {
+                    console.log(err);
                     return res.status(500).send({
                         error: "Error",
                     });
                 }
                 if (result.length) {
+                    console.log(result);
                     const data = result;
                     if (data.error) {
                         return res.status(409).send({

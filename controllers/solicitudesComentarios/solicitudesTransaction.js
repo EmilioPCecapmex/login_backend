@@ -9,6 +9,10 @@ module.exports = {
     const IdSolicitud = req.body.IdSolicitud;
     const Estado = req.body.Estado;
     const TipoSoli= req.body.TipoSoli;
+    console.log(IdUsuario);
+    console.log(IdSolicitud);
+    console.log(Estado);
+    console.log(TipoSoli);
 
     if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
       return res.status(409).send({

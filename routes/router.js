@@ -21,7 +21,7 @@ const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
 const { getUsersTypes } = require("../controllers/users/getUserTypes.js");
-const { getSolicitudes, getDetalleSolicitud } = require("../controllers/solicitudesComentarios/getSolicitudes.js");
+const { getSolicitudes, getDetalleSolicitud, getDatosAdicionalesSolicitud } = require("../controllers/solicitudesComentarios/getSolicitudes.js");
 const {createSolicitud} = require("../controllers/solicitudesComentarios/createSolicitud.js");
 const { createComentario } = require("../controllers/solicitudesComentarios/createComentario.js");
 const {modifySolicitud} = require("../controllers/solicitudesComentarios/modifySolicitud.js");
@@ -30,6 +30,7 @@ const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSo
 const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
 const {logicSolicitud} = require("../controllers/solicitudesComentarios/logicSolicitudes.js");
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
+const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 
 // routes/router.js
 
@@ -44,7 +45,7 @@ router.post("/refresh-token", (req, res, next) => {
 router.post("/verify", verifyToken.isLoggedIn);
 
 //Users
-router.post("/user-detail", verifyToken.verifyJWT, (req, res, next) => {
+router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
   getUserDetail(req, res);
 });
 
@@ -136,6 +137,10 @@ router.get("/detalleSol",verifyToken.verifyJWT, (req, res) => {
   getDetalleSolicitud(req, res);
 })
 
+//datosAdicionales Solicitud
+router.get("/datosAdicionalesSolicitud",verifyToken.verifyJWT, (req, res) => {
+  getDatosAdicionalesSolicitud(req, res);
+})
 //Crear solicitud
 router.post("/create-solicitud", verifyToken.verifyJWT, (req, res) => {
   createSolicitud(req, res);
@@ -169,6 +174,11 @@ router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
 router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
   solicitudTransaction(req, res);
 });
+
+//Ultima solicitud del usuario
+router.get("/docSolicitudUsuario",verifyToken.verifyJWT, (req, res) => {
+  getSolicitudUsuario(req, res);
+})
 
 
 module.exports = router;

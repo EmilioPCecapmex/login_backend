@@ -26,6 +26,7 @@ module.exports = {
       }
     });
   },
+  
   getUsersInfo: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
     db.query(`CALL sp_ListaUsuarios('${IdUsuario}')`, (err, result) => {
