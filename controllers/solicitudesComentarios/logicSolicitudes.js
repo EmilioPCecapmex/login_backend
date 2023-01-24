@@ -9,6 +9,19 @@ module.exports = {
     const IdSolicitud = req.body.IdSolicitud;
     const Estado = req.body.Estado;
     const TipoSoli= req.body.TipoSoli;
+    const AdminPlataforma= req.body.AdminPlataforma;
+    const PermisoFirma= req.body.PermisoFirma;
+    
+    console.log(req.body);
+    if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
+      return res.status(409).send({
+        error: "Ingrese AdminPlataforma",
+      });
+    }if (PermisoFirma == null || /^[\s]*$/.test(PermisoFirma)) {
+      return res.status(409).send({
+        error: "Ingrese PermisoFirma",
+      });
+    }
 
     if (IdUsuario == null || /^[\s]*$/.test(IdUsuario)) {
       return res.status(409).send({
@@ -56,8 +69,10 @@ module.exports = {
             });
           } else {
             db.query(
-              `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}')`,
+              `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
               (err, result) => {
+                console.log(err);
+                console.log(result);
                 if (err) {
                   return res.status(500).send({
                     error: "Error",
