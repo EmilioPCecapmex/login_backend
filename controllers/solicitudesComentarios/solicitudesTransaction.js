@@ -12,7 +12,6 @@ module.exports = {
     const AdminPlataforma= req.body.AdminPlataforma;
     const PermisoFirma= req.body.PermisoFirma;
     
-    console.log(req.body);
     if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
       return res.status(409).send({
         error: "Ingrese AdminPlataforma",

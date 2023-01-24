@@ -95,13 +95,13 @@ module.exports = {
       `CALL sp_ModificaSolicitud('${IdSolicitud}','${Nombre}','${APaterno}','${AMaterno}','${Usuario}','${Email}','${CURP}','${RFC}','${Telefono}','${Extencion}','${Celular}','${DatosAdicionales}','${Estatus}','${IdApp}','${IdUsuarioSolicitante}')`,
       (err, result) => {
         if (err) {
-          console.log(err);
+          
           return res.status(500).send({
             error: "Error",
           });
         }
         if (result.length) {
-          console.log(result);
+          
           const data = result[0][0];
           if (data === undefined) {
             return res.status(409).send({

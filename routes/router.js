@@ -28,7 +28,6 @@ const {modifySolicitud} = require("../controllers/solicitudesComentarios/modifyS
 const {getTipoSolicitud} = require("../controllers/solicitudesComentarios/getTipoSolicitud.js");
 const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSolicitudesApp.js");
 const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
-const {logicSolicitud} = require("../controllers/solicitudesComentarios/logicSolicitudes.js");
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
 const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 
