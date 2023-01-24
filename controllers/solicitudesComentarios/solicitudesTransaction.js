@@ -53,7 +53,7 @@ module.exports = {
       (error, result) => {
         if (error) {
           return res.status(500).send({
-            error: "Error emilio 1",
+            error: "Error Consulta",
           });
         }
         nombre = result[0]?.Nombre;
@@ -63,7 +63,7 @@ module.exports = {
         bcrypt.hash(genPassword, 10, (err, hash) => {
           if (err) {
             return res.status(401).send({
-              error: "Error de emilio",
+              error: "Error de envio de correo ",
             });
           } else {
             db.query(
@@ -71,7 +71,7 @@ module.exports = {
               (err, result) => {
                 if (err) {
                   return res.status(500).send({
-                    error: "Error mio",
+                    error: "Error de base de datos",
                   });
                 }
                 if (result.length) {
