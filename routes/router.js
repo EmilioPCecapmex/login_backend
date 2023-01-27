@@ -21,15 +21,16 @@ const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
 const { getUsersTypes } = require("../controllers/users/getUserTypes.js");
-const { getSolicitudes, getDetalleSolicitud } = require("../controllers/solicitudes y comentarios/getSolicitudes.js");
-const {createSolicitud} = require("../controllers/solicitudes y comentarios/createSolicitud.js");
-const { createComentario } = require("../controllers/solicitudes y comentarios/createComentario.js");
-const {modifySolicitud} = require("../controllers/solicitudes y comentarios/modifySolicitud.js");
-const {aprobarSolicitud} = require("../controllers/solicitudes y comentarios/aprobarSolicitud.js");
-const {getTipoSolicitud} = require("../controllers/solicitudes y comentarios/getTipoSolicitud.js");
-const {getSolicitudesApp} = require("../controllers/solicitudes y comentarios/getSolicitudesApp.js");
-const {getComentariosSolicitud} = require("../controllers/solicitudes y comentarios/getComentariosSolicitud");
-
+const { getSolicitudes, getDetalleSolicitud, getDatosAdicionalesSolicitud } = require("../controllers/solicitudesComentarios/getSolicitudes.js");
+const {createSolicitud} = require("../controllers/solicitudesComentarios/createSolicitud.js");
+const { createComentario } = require("../controllers/solicitudesComentarios/createComentario.js");
+const {modifySolicitud} = require("../controllers/solicitudesComentarios/modifySolicitud.js");
+const {getTipoSolicitud} = require("../controllers/solicitudesComentarios/getTipoSolicitud.js");
+const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSolicitudesApp.js");
+const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
+const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
+const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
+const { sp_SolicitudActualDocumento } = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
 
 // routes/router.js
 
@@ -44,7 +45,7 @@ router.post("/refresh-token", (req, res, next) => {
 router.post("/verify", verifyToken.isLoggedIn);
 
 //Users
-router.post("/user-detail", verifyToken.verifyJWT, (req, res, next) => {
+router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
   getUserDetail(req, res);
 });
 
@@ -136,14 +137,13 @@ router.get("/detalleSol",verifyToken.verifyJWT, (req, res) => {
   getDetalleSolicitud(req, res);
 })
 
+//datosAdicionales Solicitud
+router.get("/datosAdicionalesSolicitud",verifyToken.verifyJWT, (req, res) => {
+  getDatosAdicionalesSolicitud(req, res);
+})
 //Crear solicitud
-router.post("/create-solicitud", verifyToken.verifyJWT, (req, res, next) => {
+router.post("/create-solicitud", verifyToken.verifyJWT, (req, res) => {
   createSolicitud(req, res);
-});
-
-//aprovar solicitud
-router.put("/aprobar-solicitud", verifyToken.verifyJWT, (req, res) => {
-  aprobarSolicitud(req, res);
 });
 
 //Crear comentario
@@ -170,5 +170,18 @@ router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
   getComentariosSolicitud(req, res);
 })
 
+//logica de solicitud
+router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
+  solicitudTransaction(req, res);
+});
+
+//Ultima solicitud del usuario
+router.get("/docSolicitudUsuario",verifyToken.verifyJWT, (req, res) => {
+  getSolicitudUsuario(req, res);
+});
+
+router.get("/docSolicitudActualUsuario",verifyToken.verifyJWT, (req, res) => {
+  sp_SolicitudActualDocumento(req, res);
+});
 
 module.exports = router;
