@@ -11,7 +11,7 @@ sp_SolicitudActualDocumento: (req, res) => {
       });
   }
 
-    db.query(`CALL sp_DetalleSolicitudDocumento('${IdSolicitud}')`, (err, result) => {
+    db.query(`CALL sp_SolicitudActualDocumento('${IdSolicitud}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",
