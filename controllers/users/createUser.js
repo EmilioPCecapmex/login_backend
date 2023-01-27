@@ -74,7 +74,7 @@ module.exports = {
                       contrasena: genPassword,
                       userid: userId,
                     };
-                    // sendEmail(d);
+                    sendEmail(d);
                   }
                   if(result[0][0].Respuesta == 201){
                      return res.status(201).send({
