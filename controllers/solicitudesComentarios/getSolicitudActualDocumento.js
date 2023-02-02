@@ -2,7 +2,7 @@ const db = require("../../config/db.js");
 
 module.exports = {
 //Listado general de solicitudes
-sp_SolicitudActualDocumento: (req, res) => {
+getSolicitudActualDocumento: (req, res) => {
     const IdSolicitud = req.query.IdSolicitud;
     
     if (IdSolicitud == null || /^[\s]*$/.test(IdSolicitud)) {
