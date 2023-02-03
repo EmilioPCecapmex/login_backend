@@ -2,6 +2,7 @@ const db = require("../../config/db.js");
 const { generateRandomPassword } = require("../users/createPassword.js");
 const bcrypt = require("bcryptjs");
 const { sendEmail } = require("../mail/sendMail");
+const { response } = require("express");
 
 module.exports = {
   solicitudTransaction: (req, res) => {
@@ -69,18 +70,15 @@ module.exports = {
             db.query(
               `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
               (err, result) => {
+
                 if (err) {
                   return res.status(500).send({
                     error: "Error de base de datos",
                   });
                 }
-                if (result.length) {
-                  const data = result[0][0];
-                  if (data === undefined) {
-                    return res.status(409).send({
-                      error: "Verificar Id App",
-                    });
-                  }
+                console.log();
+                console.log(result[0][0]);
+                if(result[0][0].Respuesta==201 && result[0][0].Mensaje=='Vinculación exitosa'){
                   const d = {
                     to: correo,
                     subject: "¡Bienvenido!",
@@ -89,11 +87,27 @@ module.exports = {
                     contrasena: genPassword,
                     userid: IdUsuario,
                   };
-                 sendEmail(d);
+
+                  sendEmail(d);
+
+                  console.log("Se envio el correo");
+                }
+
+                if (result.length) {
+                  const data = result[0][0];
+                  if (data === undefined) {
+                    return res.status(409).send({
+                      error: "Verificar Id App",
+                    });
+                  }
+
+
+                  
 
                   return res.status(200).send({
                     result: data,
                   });
+
                 } else {
                   return res.status(409).send({
                     error: "¡Sin Información!",

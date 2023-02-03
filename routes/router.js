@@ -30,7 +30,7 @@ const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSo
 const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
 const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
-const { sp_SolicitudActualDocumento } = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
+const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
 
 // routes/router.js
 
@@ -181,7 +181,7 @@ router.get("/docSolicitudUsuario",verifyToken.verifyJWT, (req, res) => {
 });
 
 router.get("/docSolicitudActualUsuario",verifyToken.verifyJWT, (req, res) => {
-  sp_SolicitudActualDocumento(req, res);
+  getSolicitudActualDocumento(req, res);
 });
 
 module.exports = router;
