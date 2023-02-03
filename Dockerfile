@@ -1,13 +1,10 @@
-FROM node:16.18.1
+FROM node:10-alpine
 
-COPY ["package.json","package-lock.json","/usr/src/"]
+WORKDIR /usr/src/app
 
-WORKDIR /usr/src
-
+COPY package*.json ./
 RUN npm install
 
-COPY [".", "/usr/src/"]
+COPY . .
 
-EXPOSE 3000
-
-CMD ["npx","nodemon","index.js"]
+CMD [ "npm", "start" ]
