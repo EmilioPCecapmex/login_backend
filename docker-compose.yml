@@ -3,6 +3,11 @@ version: '3'
 services:
   example-service:
     build: .
+    environment:
+      LOGIN_B_APP_DB_HOST: "192.168.100.161"
+      LOGIN_B_APP_DB_USER: "root"
+      LOGIN_B_APP_DB_DATABASE: "TiCentral"
+      LOGIN_B_APP_DB_PASSWORD: "mypass"
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
