@@ -6,6 +6,7 @@ const { sendEmail } = require("../mail/sendMail");
 module.exports = {
   createUser: (req, res) => {
     const userData = req.body;
+    
     db.query(
       `CALL sp_ExisteUsuario(${db.escape(userData.NombreUsuario)},${db.escape(
         userData.CorreoElectronico
@@ -53,7 +54,8 @@ module.exports = {
                      ${db.escape(userData.Telefono)},
                      ${db.escape(userData.Ext)},
                      ${db.escape(userData.Celular)},
-                     ${db.escape(userData.IdTipoUsuario)}
+                     ${db.escape(userData.IdTipoUsuario)},
+                     ${db.escape(userData.PuedeFirmar)}
                      )`,
 
                 (err, result) => {
