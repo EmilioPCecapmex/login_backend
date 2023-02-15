@@ -47,6 +47,7 @@ module.exports = {
                       ${db.escape(userData.ApellidoMaterno)},
                       ${db.escape(userData.NombreUsuario)},
                     ${db.escape(userData.CorreoElectronico)}, 
+                    ${db.escape(userData.Puesto)}, 
                      ${db.escape(hash)},
                      ${db.escape(userData.IdUsuarioModificador)},
                      ${db.escape(userData.Curp)},
