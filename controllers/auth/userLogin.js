@@ -100,8 +100,7 @@ module.exports = {
     let jwtSecretKey = process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY;
 
     // refresh the damn token
-
-
+   
     jwt.verify(userData.refreshToken, jwtSecretKey, (err, decoded) => {
       if (err) {
         res
@@ -113,7 +112,13 @@ module.exports = {
           userData.refreshToken &&
           userData.refreshToken in global.tokenList
         ) {
-          const token = jwt.sign({}, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
+          console.log('decode',decoded);
+          const user = {
+            NombreUsuario: decoded.NombreUsuario,
+            IdUsuario: decoded.IdUsuario,
+          };
+          
+          const token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
             expiresIn: "45m",
           });
           const response = {
