@@ -43,14 +43,28 @@ module.exports = {
               }
 
               if (bResult) {
+///////////////////
+
+
+       
+
+
+/////////////////////
+
                 const IdUsuario = result[0][0].Id;
                 const NombreUsuario = result[0][0].NombreUsuario;
+                const datosCompletos = result[0][0];
+
                 let AppIds = result[1];
                 let token;
 
                 const user = {
                   NombreUsuario: NombreUsuario,
                   IdUsuario: IdUsuario,
+                  // idDepartamento:result[0][0]?.IdDepartamento
+                  // datosCompletos:datosCompletos
+                  // datosCompletos:datosCompletos
+                  // datosCompletos:datosCompletos
                 };
 
                 token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {

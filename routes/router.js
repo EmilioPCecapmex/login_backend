@@ -13,6 +13,7 @@ const {
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
+const { consultaCatalogos } = require("../controllers/consultas/consultaCatalogos.js");
 const { deleteApp } = require("../controllers/apps/deleteApp.js");
 const { modifyUser } = require("../controllers/users/modifyUser.js");
 const { modifyApp } = require("../controllers/apps/modifyApp.js");
@@ -33,6 +34,12 @@ const {solicitudTransaction} = require("../controllers/solicitudesComentarios/so
 
 // routes/router.js
 
+//////////// catalogos
+router.post("/consultaCatalogos", verifyToken.verifyJWT, (req, res) => {
+  consultaCatalogos(req, res);
+});
+
+//// catalogos
 router.post("/login", (req, res, next) => {
   userLogin(req, res);
 });

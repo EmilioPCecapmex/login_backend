@@ -19,7 +19,12 @@ module.exports = {
         const DatosAdicionales = req.body.DatosAdicionales;
         const IdApp = req.body.IdApp;
         const IdUsuarioCreador = req.body.CreadoPor;
+        const idUResponsable = req.body.idUResponsable;
+        const idPerfil = req.body.idPerfil;
+        const idRol = req.body.idRol;
+        const idDepartamento = req.body.idDepartamento;
 
+  
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {
             return res.status(409).send({
                 error: "Ingrese Nombre",
@@ -94,8 +99,28 @@ module.exports = {
                 error: "Ingrese Id App",
             });
         }
+        if (idDepartamento == null || /^[\s]*$/.test(idDepartamento)) {
+            return res.status(409).send({
+                error: "Ingrese Departamento",
+            });
+        }   
+        if (idRol == null || /^[\s]*$/.test(idRol)) {
+            return res.status(409).send({
+                error: "Ingrese Rol",
+            });
+        }  
+         if (idPerfil == null || /^[\s]*$/.test(idPerfil)) {
+            return res.status(409).send({
+                error: "Ingrese Perfil",
+            });
+        }
+        if (idUResponsable == null || /^[\s]*$/.test(idUResponsable)) {
+            return res.status(409).send({
+                error: "Ingrese Unidad Responsable",
+            });
+        }
 
-                db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}')`, (err, result) => {
+                db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}','${idUResponsable}','${idRol}','${idPerfil}','${idDepartamento}')`, (err, result) => {
                 if (err) {
                     return res.status(500).send({
                         error: "Error",
