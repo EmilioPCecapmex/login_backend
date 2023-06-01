@@ -5,13 +5,23 @@ module.exports = {
 
     consultaCatalogos: (req, res) => {
         const cat = req.body.cat;
+        /// "select" es para las consultas  de los select
+        /// "catalogo" para los crud de los catalogos
         const opcion = req.body.opcion;
+        // -- Tipo--
+        /// "1" alta
+        /// "2" baja
+        /// "3" cambio
+        //   "4" consulta
+        const tipo = req.body.tipo;
+
 
 
 if(opcion==="select"){
 
     if(cat==="1")
     {
+
           db.query(
               `SELECT 
               sec.Id AS value ,
@@ -194,7 +204,7 @@ if(opcion==="select"){
               `SELECT 
               pe.id value,
               pe.Descripcion label
-              FROM TiCentral.Perfil pe
+              FROM TiCentral.Perfiles pe
               WHERE pe.deleted=0
               
               `, 
@@ -258,10 +268,14 @@ if(opcion==="select"){
     
     }
     }
+
+
     if(opcion==="catalogos"){
 
         if(cat==="1")
         {
+
+          if(tipo==="4"){
               db.query(
                   `SELECT *
                    FROM TiCentral.Secretarias sec
@@ -290,6 +304,7 @@ if(opcion==="select"){
                         }
                   }
                 ); 
+          }
         
         }
     
@@ -298,6 +313,7 @@ if(opcion==="select"){
         /// catalogo de unidad responsable
         if(cat==="2")
         {
+          if(tipo==="4"){
           db.query(
               `SELECT 
               ur.id,
@@ -332,12 +348,14 @@ if(opcion==="select"){
                     }
               }
             ); 
+          }
         
         }
         
         ///// Departamentos
         if(cat==="3")
         {
+          if(tipo==="4"){
           db.query(
               `SELECT *
               FROM TiCentral.Departamentos de
@@ -367,11 +385,13 @@ if(opcion==="select"){
                 }
                   }
                 ); 
+          }
             
             }
             /// Roles
             if(cat==="4")
             {
+              if(tipo==="4"){
               db.query(
                   `SELECT *
                   FROM TiCentral.Roles ro
@@ -401,16 +421,17 @@ if(opcion==="select"){
                         }
                   }
                 ); 
+              }
             
             }
             /// Perfil
             if(cat==="5")
             {
+              if(tipo==="4"){
               db.query(
                   `SELECT *
-                  FROM TiCentral.Perfil pe
-                  WHERE pe.deleted=0
-                  
+                  FROM TiCentral.Perfiles 
+                  WHERE deleted=0                 
                   `, 
                  (err, result) => {
             
@@ -436,6 +457,7 @@ if(opcion==="select"){
                         }
                   }
                 ); 
+              }
             
             }
         }

@@ -23,6 +23,11 @@ module.exports = {
         const idPerfil = req.body.idPerfil;
         const idRol = req.body.idRol;
         const idDepartamento = req.body.idDepartamento;
+        const Puesto = req.body.Puesto;
+        const IdTipoUsuario = req.body.IdTipoUsuario;
+        const PuedeFirmar = req.body.PuedeFirmar;
+
+        
 
   
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {
@@ -120,7 +125,7 @@ module.exports = {
             });
         }
 
-                db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}','${idUResponsable}','${idRol}','${idPerfil}','${idDepartamento}')`, (err, result) => {
+                db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}','${idUResponsable}','${idPerfil}','${idRol}','${idDepartamento}','${IdTipoUsuario}','${PuedeFirmar}','${Puesto}')`, (err, result) => {
                 if (err) {
                     return res.status(500).send({
                         error: "Error",

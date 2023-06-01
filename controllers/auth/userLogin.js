@@ -62,7 +62,7 @@ module.exports = {
                   NombreUsuario: NombreUsuario,
                   IdUsuario: IdUsuario,
                   // idDepartamento:result[0][0]?.IdDepartamento
-                  // datosCompletos:datosCompletos
+                  datosCompletos:datosCompletos
                   // datosCompletos:datosCompletos
                   // datosCompletos:datosCompletos
                 };
