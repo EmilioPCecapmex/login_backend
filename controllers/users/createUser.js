@@ -55,10 +55,12 @@ module.exports = {
                      ${db.escape(userData.Telefono)},
                      ${db.escape(userData.Ext)},
                      ${db.escape(userData.Celular)},
-                     ${db.escape(userData.IdTipoUsuario)},
-                     ${db.escape(userData.PuedeFirmar)}
+                     ${db.escape(userData.IdTipoUsuario)}
+                     ${db.escape(userData.idUResponsable)}
+                     ${db.escape(userData.idPerfil)}
+                     ${db.escape(userData.idRol)}
+                     ${db.escape(userData.idDepartamento)}
                      )`,
-
                 (err, result) => {
                   if (err) {
 
