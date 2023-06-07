@@ -32,6 +32,11 @@ const {solicitudTransaction} = require("../controllers/solicitudesComentarios/so
 const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
 const { createDepartamento, getDepartamentos, modifyDepartamento } = require("../controllers/Catalogos/Departamentos.js");
+const { createRol, modifyRol, getRoles } = require("../controllers/Catalogos/Roles.js");
+const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia } = require("../controllers/Catalogos/Dependencias.js");
+const { createPerfil, getPerfiles, modifyPerfil } = require("../controllers/Catalogos/Perfiles.js");
+const { createSecretaria, getSecretarias, modifySecretaria } = require("../controllers/Catalogos/Secretarias.js");
+const { createUResponsable, getUResponsables, modifyUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
 
 // routes/router.js
 
@@ -205,19 +210,83 @@ router.put("/departamento", (req, res) => {
 
 //ROLES
 router.post("/create-rol", (req, res, next) => {
-  createDepartamento(req, res);
+  createRol(req, res);
 });
 
-//lista Comentarios Solicitud
 router.get("/roles", (req, res) => {
-  getDepartamentos(req, res);
+  getRoles(req, res);
 });
 
 router.put("/rol", (req, res) => {
-  modifyDepartamento(req, res);
+  modifyRol(req, res);
 });
 
-modifyDepartamento
+//DEPENDENCIAS
+router.post("/create-dependencia", (req, res, next) => {
+  createDependencia(req, res);
+});
+
+router.get("/dependencias", (req, res) => {
+  getDependencias(req, res);
+});
+
+router.put("/dependencia", (req, res) => {
+  modifyDependencia(req, res);
+});
+
+router.post("/create-tipodependencias", (req, res, next) => {
+  createTpoDependencia(req, res);
+});
+
+router.get("/tipodependencias", (req, res) => {
+  getTpoDependencias(req, res);
+});
+
+router.put("/tipodependencia", (req, res) => {
+  modifyTpoDependencia(req, res);
+});
+
+
+//PERFILES
+router.post("/create-perfil", (req, res, next) => {
+  createPerfil(req, res);
+});
+
+
+router.get("/perfiles", (req, res) => {
+  getPerfiles(req, res);
+});
+
+router.put("/perfil", (req, res) => {
+  modifyPerfil(req, res);
+});
+
+//SECRETARIAS
+router.post("/create-secretaria", (req, res, next) => {
+  createSecretaria(req, res);
+});
+
+router.get("/secretarias", (req, res) => {
+  getSecretarias(req, res);
+});
+
+router.put("/secretaria", (req, res) => {
+  modifySecretaria(req, res);
+});
+
+
+//URESPONSABLES
+router.post("/create-uresponsable", (req, res, next) => {
+  createUResponsable(req, res);
+});
+
+router.get("/uresponsables", (req, res) => {
+  getUResponsables(req, res);
+});
+
+router.put("/uresponsable", (req, res) => {
+  modifyUResponsable(req, res);
+});
 
 
 module.exports = router;
