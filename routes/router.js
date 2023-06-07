@@ -31,6 +31,7 @@ const { getComentariosSolicitud } = require("../controllers/solicitudesComentari
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
 const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
+const { createDepartamento, getDepartamentos, modifyDepartamento } = require("../controllers/Catalogos/Departamentos.js");
 
 // routes/router.js
 
@@ -183,5 +184,40 @@ router.get("/docSolicitudUsuario",verifyToken.verifyJWT, (req, res) => {
 router.get("/docSolicitudActualUsuario",verifyToken.verifyJWT, (req, res) => {
   getSolicitudActualDocumento(req, res);
 });
+
+
+//................................................CATALOGOS...........................................................
+
+//DEPARTAMENTOS
+router.post("/create-departamento", (req, res, next) => {
+  createDepartamento(req, res);
+});
+
+
+router.get("/departamentos", (req, res) => {
+  getDepartamentos(req, res);
+});
+
+router.put("/departamento", (req, res) => {
+  modifyDepartamento(req, res);
+});
+
+
+//ROLES
+router.post("/create-rol", (req, res, next) => {
+  createDepartamento(req, res);
+});
+
+//lista Comentarios Solicitud
+router.get("/roles", (req, res) => {
+  getDepartamentos(req, res);
+});
+
+router.put("/rol", (req, res) => {
+  modifyDepartamento(req, res);
+});
+
+modifyDepartamento
+
 
 module.exports = router;
