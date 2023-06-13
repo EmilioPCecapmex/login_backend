@@ -4,15 +4,15 @@ module.exports = {
   //CREAR
   createSecretaria: (req, res) => {
     const Nombre = req.body.Nombre;
-    const Nombre_corto = req.body.Nombre_corto;
+    const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
     const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const CreadoPor = req.body.CreadoPor;   
 
-    if ((Nombre_corto == null || /^[\s]*$/.test(Nombre_corto)) ) {
+    if ((NombreCorto == null || /^[\s]*$/.test(NombreCorto)) ) {
       return res.status(409).send({
-        error: "Ingrese Nombre_corto válido.",
+        error: "Ingrese NombreCorto válido.",
       });
     } 
 
@@ -47,7 +47,7 @@ module.exports = {
     }
    
       db.query(
-        `CALL sp_CrearSecretaria('${Nombre}','${Nombre_corto}', '${IdTitular}', '${PerteneceA}', '${Direccion}', '${CreadoPor}' )`,
+        `CALL sp_CrearSecretaria('${Nombre}','${NombreCorto}', '${IdTitular}', '${PerteneceA}', '${Direccion}', '${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -76,7 +76,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getSecretarias: (req, res) => {
-    const IdUsuario = req.body.IdUsuario;
+    const IdUsuario = req.query.IdUsuario;
     console.log(req);
     db.query(`CALL sp_ListaSecretarias('${IdUsuario}')`, (err, result) => {
       if (err) {
@@ -104,7 +104,7 @@ module.exports = {
   modifySecretaria: (req, res) => {
     const IdSecretaria = req.body.IdSecretaria;
     const Nombre = req.body.Nombre;
-    const Nombre_corto = req.body.Nombre_corto;
+    const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
     const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
@@ -116,9 +116,9 @@ module.exports = {
         });
       } 
 
-    if ((Nombre_corto == null || /^[\s]*$/.test(Nombre_corto)) ) {
+    if ((NombreCorto == null || /^[\s]*$/.test(NombreCorto)) ) {
       return res.status(409).send({
-        error: "Ingrese Nombre_corto válido.",
+        error: "Ingrese NombreCorto válido.",
       });
     } 
 
@@ -153,7 +153,7 @@ module.exports = {
     }
 
       db.query(
-        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${Nombre_corto}','${IdTitular}','${PerteneceA}','${Direccion}','${IdModificador}')`,
+        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${NombreCorto}','${IdTitular}','${PerteneceA}','${Direccion}','${IdModificador}')`,
         (err, result) => {
           if (err) {
             return res.status(500).send({

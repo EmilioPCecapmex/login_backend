@@ -59,7 +59,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getRoles: (req, res) => {
-    const IdUsuario = req.body.IdUsuario;
+    const IdUsuario = req.query.IdUsuario;
     console.log(req);
     db.query(`CALL sp_ListaRoles('${IdUsuario}')`, (err, result) => {
       if (err) {

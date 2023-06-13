@@ -10,6 +10,7 @@ module.exports = {
         const AMaterno = req.body.AMaterno;
         const NombreUsuario = req.body.NombreUsuario;
         const Email = req.body.Email;
+        const Puesto = req.body.Puesto;
         const Curp = req.body.Curp;
         const RFC = req.body.RFC;
         const Celular = req.body.Celular;
@@ -18,19 +19,15 @@ module.exports = {
         const TipoSolicitud = req.body.TipoSolicitud;
         const DatosAdicionales = req.body.DatosAdicionales;
         const IdApp = req.body.IdApp;
-        const IdUsuarioCreador = req.body.CreadoPor;
-        const idUResponsable = req.body.idUResponsable;
-        const idPerfil = req.body.idPerfil;
-        const idRol = req.body.idRol;
-        const idDepartamento = req.body.idDepartamento;
-        const Puesto = req.body.Puesto;
+        const CreadoPor = req.body.CreadoPor;
+        const IdUResponsable = req.body.IdUResponsable;
+        const IdPerfil = req.body.IdPerfil;
+        const IdRol = req.body.IdRol;
+        const IdDepartamento = req.body.IdDepartamento;
         const IdTipoUsuario = req.body.IdTipoUsuario;
         const PuedeFirmar = req.body.PuedeFirmar;
-
-        
-
-          
-
+        const Dependencia = req.body.Dependencia;
+                
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {
             return res.status(409).send({
                 error: "Ingrese Nombre",
@@ -86,56 +83,57 @@ module.exports = {
                 error: "Ingrese Extencion del Telefono",
             });
         }
-        if (IdUsuarioCreador == null || /^[\s]*$/.test(IdUsuarioCreador)) {
+        if (CreadoPor == null || /^[\s]*$/.test(CreadoPor)) {
             return res.status(409).send({
-                error: "Ingrese ID Usuurio Creador",
+                error: "Ingrese CreadoPor",
             });
         }
-
         if (TipoSolicitud == null || /^[\s]*$/.test(TipoSolicitud)) {
             return res.status(409).send({
                 error: "Ingrese tipo de solicitud",
             });
         } 
-
-
         if (DatosAdicionales == null ) {
             return res.status(409).send({
                 error: "Ingrese Id Datos adicionales ",
             });
         }
-        
         if (IdApp == null || /^[\s]*$/.test(IdApp)) {
             return res.status(409).send({
                 error: "Ingrese Id App",
             });
         }
-        if (idDepartamento == null || /^[\s]*$/.test(idDepartamento)) {
+        if (IdDepartamento == null || /^[\s]*$/.test(IdDepartamento)) {
             return res.status(409).send({
                 error: "Ingrese Departamento",
             });
         }   
-        if (idRol == null || /^[\s]*$/.test(idRol)) {
+        if (IdRol == null || /^[\s]*$/.test(IdRol)) {
             return res.status(409).send({
                 error: "Ingrese Rol",
             });
         }  
-         if (idPerfil == null || /^[\s]*$/.test(idPerfil)) {
+         if (IdPerfil == null || /^[\s]*$/.test(IdPerfil)) {
             return res.status(409).send({
                 error: "Ingrese Perfil",
             });
         }
-        if (idUResponsable == null || /^[\s]*$/.test(idUResponsable)) {
+        if (IdUResponsable == null || /^[\s]*$/.test(IdUResponsable)) {
             return res.status(409).send({
                 error: "Ingrese Unidad Responsable",
             });
         }
-
-                db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}','${idUResponsable}','${idPerfil}','${idRol}','${idDepartamento}','${IdTipoUsuario}','${PuedeFirmar}','${Puesto}')`, (err, result) => {
+        if (Dependencia == null || /^[\s]*$/.test(Dependencia)) {
+            return res.status(409).send({
+                error: "Ingrese Dependencia",
+            });
+        }
+        
+        db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${CreadoPor}','${IdUResponsable}','${IdPerfil}','${IdRol}','${IdDepartamento}','${IdTipoUsuario}','${PuedeFirmar}','${Dependencia}')`, (err, result) => {
                 if (err) {
                     
                     return res.status(500).send({
-                        error: "Error",
+                        error: err,
                     });
                 }
                 if (result.length) {

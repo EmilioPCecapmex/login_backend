@@ -19,6 +19,7 @@ module.exports = {
 
 if(opcion==="select"){
 
+    //secretarias
     if(cat==="1")
     {
 
@@ -54,14 +55,14 @@ if(opcion==="select"){
     
     }
 
-
+    //APPS
     if(cat==="2")
     {
       db.query(
           `SELECT 
           ap.Id value,
           ap.Nombre label
-          FROM TiCentral.Apps ap
+          FROM TiCentral.Apps ap WHERE ap.EstaActivo AND ap.Deleted = 0
           `, 
          (err, result) => {
   

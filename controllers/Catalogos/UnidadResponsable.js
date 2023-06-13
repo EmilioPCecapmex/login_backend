@@ -57,7 +57,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getUResponsables: (req, res) => {
-    const IdUsuario = req.body.IdUsuario;
+    const IdUsuario = req.query.IdUsuario;
     console.log(req);
     db.query(`CALL sp_ListaUResponsables('${IdUsuario}')`, (err, result) => {
       if (err) {
