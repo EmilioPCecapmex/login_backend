@@ -32,12 +32,12 @@ const { getComentariosSolicitud } = require("../controllers/solicitudesComentari
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
 const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
-const { createDepartamento, getDepartamentos, modifyDepartamento } = require("../controllers/Catalogos/Departamentos.js");
-const { createRol, modifyRol, getRoles } = require("../controllers/Catalogos/Roles.js");
-const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia } = require("../controllers/Catalogos/Dependencias.js");
-const { createPerfil, getPerfiles, modifyPerfil } = require("../controllers/Catalogos/Perfiles.js");
-const { createSecretaria, getSecretarias, modifySecretaria } = require("../controllers/Catalogos/Secretarias.js");
-const { createUResponsable, getUResponsables, modifyUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
+const { createDepartamento, getDepartamentos, modifyDepartamento, deleteDepartamento, getDetailDepartamentos } = require("../controllers/Catalogos/Departamentos.js");
+const { createRol, modifyRol, getRoles, deleteRol } = require("../controllers/Catalogos/Roles.js");
+const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia, deleteTipoDependencia, deleteDependencia } = require("../controllers/Catalogos/Dependencias.js");
+const { createPerfil, getPerfiles, modifyPerfil, deletePerfil } = require("../controllers/Catalogos/Perfiles.js");
+const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } = require("../controllers/Catalogos/Secretarias.js");
+const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
 
 // routes/router.js
 
@@ -214,6 +214,14 @@ router.put("/departamento", (req, res) => {
   modifyDepartamento(req, res);
 });
 
+router.get("/detalle-departamento", (req, res) => {
+  getDetailDepartamentos(req, res);
+});
+
+router.put("/delete-departamento", (req, res) => {
+  deleteDepartamento(req, res);
+});
+
 
 //ROLES
 router.post("/create-rol", (req, res, next) => {
@@ -226,6 +234,10 @@ router.get("/roles", (req, res) => {
 
 router.put("/rol", (req, res) => {
   modifyRol(req, res);
+});
+
+router.put("/delete-rol", (req, res) => {
+  deleteRol(req, res);
 });
 
 //DEPENDENCIAS
@@ -241,6 +253,10 @@ router.put("/dependencia", (req, res) => {
   modifyDependencia(req, res);
 });
 
+router.put("/delete-dependencia", (req, res) => {
+  deleteDependencia(req, res);
+});
+
 router.post("/create-tipodependencias", (req, res, next) => {
   createTpoDependencia(req, res);
 });
@@ -252,6 +268,11 @@ router.get("/tipodependencias", (req, res) => {
 router.put("/tipodependencia", (req, res) => {
   modifyTpoDependencia(req, res);
 });
+
+router.put("/delete-tipodependencia", (req, res) => {
+  deleteTipoDependencia(req, res);
+});
+
 
 
 //PERFILES
@@ -268,6 +289,10 @@ router.put("/perfil", (req, res) => {
   modifyPerfil(req, res);
 });
 
+router.put("/delete-perfil", (req, res) => {
+  deletePerfil(req, res);
+});
+
 //SECRETARIAS
 router.post("/create-secretaria", (req, res, next) => {
   createSecretaria(req, res);
@@ -279,6 +304,10 @@ router.get("/secretarias", (req, res) => {
 
 router.put("/secretaria", (req, res) => {
   modifySecretaria(req, res);
+});
+
+router.put("/delete-secretaria", (req, res) => {
+  deleteSecretaria(req, res);
 });
 
 
@@ -293,6 +322,10 @@ router.get("/uresponsables", (req, res) => {
 
 router.put("/uresponsable", (req, res) => {
   modifyUResponsable(req, res);
+});
+
+router.put("/delete-uresponsable", (req, res) => {
+  deleteUResponsable(req, res);
 });
 
 
