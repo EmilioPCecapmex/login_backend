@@ -80,11 +80,11 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyPerfil: (req, res) => {
-    const IdPerfil = req.body.IdPerfil;
+    const IdPerfil = req.body.Id;
     const Descripcion = req.body.Descripcion;
     const Referencia = req.body.Referencia; 
     const IdModificador = req.body.IdModificador;  
-
+    console.log(req.body);
     if ((IdPerfil == null || /^[\s]*$/.test(IdPerfil)) ) {
         return res.status(409).send({
           error: "Ingrese IdPerfil valido.",

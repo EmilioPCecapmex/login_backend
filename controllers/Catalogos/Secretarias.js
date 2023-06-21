@@ -77,7 +77,7 @@ module.exports = {
   //LISTADO COMPLETO
   getSecretarias: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    console.log(req);
+    
     db.query(`CALL sp_ListaSecretarias('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -102,13 +102,14 @@ module.exports = {
 
   //MODIFICA POR ID
   modifySecretaria: (req, res) => {
-    const IdSecretaria = req.body.IdSecretaria;
+    const IdSecretaria = req.body.Id;
     const Nombre = req.body.Nombre;
     const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
     const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const IdModificador = req.body.IdModificador;   
+    console.log(req.body);
 
     if ((IdSecretaria == null || /^[\s]*$/.test(IdSecretaria)) ) {
         return res.status(409).send({

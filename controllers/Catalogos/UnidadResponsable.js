@@ -58,7 +58,7 @@ module.exports = {
   //LISTADO COMPLETO
   getUResponsables: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    console.log(req);
+    
     db.query(`CALL sp_ListaUResponsables('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -83,12 +83,11 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyUResponsable: (req, res) => {
-    const IdUResponsable = req.body.IdUResponsable;
-   
+    const IdUResponsable = req.body.Id;
     const Clave = req.body.Clave;
     const Descripcion = req.body.Descripcion;
     const IdModificador = req.body.IdModificador;   
-
+    console.log(req.body);
     if ((IdUResponsable == null || /^[\s]*$/.test(IdUResponsable)) ) {
         return res.status(409).send({
           error: "Ingrese IdUResponsable válido.",
@@ -112,7 +111,7 @@ module.exports = {
           error: "Ingrese IdModificador válido.",
         });
     }
-
+    console.log(req.body);
       db.query(
         `CALL sp_ModificaUResponsable('${IdUResponsable}','${Clave}','${Descripcion}','${IdModificador}')`,
         (err, result) => {

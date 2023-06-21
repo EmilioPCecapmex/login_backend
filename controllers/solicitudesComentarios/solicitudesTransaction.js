@@ -76,8 +76,7 @@ module.exports = {
                     error: "Error de base de datos",
                   });
                 }
-                console.log();
-                console.log(result[0][0]);
+                
                 if(result[0][0].Respuesta==201 && result[0][0].Mensaje=='Vinculación exitosa'){
                   const d = {
                     to: correo,

@@ -61,7 +61,7 @@ module.exports = {
   //LISTADO COMPLETO
   getDepartamentos: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    console.log(req);
+    console.log(req.query);
     db.query(`CALL sp_ListaDepartamentos('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -86,11 +86,12 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyDepartamento: (req, res) => {
-    const IdDepartamento = req.body.IdDepartamento;
+    const IdDepartamento = req.body.Id;
     const Descripcion = req.body.Descripcion;
     const NombreCorto = req.body.NombreCorto;
     const IdResponsable = req.body.IdResponsable;
     const IdModificador = req.body.IdModificador;
+    console.log(req.body);
 
     if (IdDepartamento == null ||/^[\s]*$/.test(IdDepartamento)) {
       return res.status(409).send({

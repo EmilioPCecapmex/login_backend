@@ -269,6 +269,7 @@ module.exports = {
   //LISTADO COMPLETO
   getTpoDependencias: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
+    console.log(req.body);
     db.query(`CALL sp_ListaTpoDependencias('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -293,7 +294,7 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyTpoDependencia: (req, res) => {
-    const IdTpoDependencia = req.body.IdTpoDependencia;
+    const IdTpoDependencia = req.body.Id;
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;  
     const IdModificador = req.body.IdModificador;  
