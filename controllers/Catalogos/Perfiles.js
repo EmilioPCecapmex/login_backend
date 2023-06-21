@@ -134,5 +134,38 @@ module.exports = {
     
   },
 
+   //Detalle
+
+  //Borrado
+  deletePerfil: (req, res) => {
+    const IdPerfil = req.body.IdPerfil;
+    const IdUsuario = req.body.IdUsuario;
+    db.query(
+      `CALL sp_EliminarPerfil('${IdPerfil}', '${IdUsuario}')`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: "Error",
+          });
+        }
+        if (result.length) {
+          const data = result[0][0];
+          if (data.error) {
+            return res.status(409).send({
+              result: data,
+           });
+          }
+         return res.status(200).send({
+            result: data,
+         });
+       } else {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }
+      }
+    );
+  }, 
+
   
 };

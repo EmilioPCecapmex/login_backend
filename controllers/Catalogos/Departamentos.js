@@ -148,72 +148,79 @@ module.exports = {
       );
     }
   },
+/////Detalle//////
 
-  
-};
+
+////////////////////
+  // BORRADO LOGICO
+
+  deleteDepartamento: (req, res) => {
+    const IdDepartamento = req.body.IdDepartamento;
+    const IdUsuario = req.body.IdUsuario;
+    console.log(req.body);
+    db.query(
+      `CALL sp_EliminarDepartamento('${IdDepartamento}', '${IdUsuario}')`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: "Error",
+          });
+        }
+        if (result.length) {
+          const data = result[0][0];
+          if (data.error) {
+            return res.status(409).send({
+              result: data,
+           });
+          }
+         return res.status(200).send({
+            result: data,
+         });
+       } else {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }
+      }
+    );
+  },
+
 
 // // DETALLE POR ID
-// getDetailClaveDeInscripcion: (req, res) => {
-//     const IdDescripcion = req.body.IdDescripcion;
-//     if (IdDescripcion == null ||/^[\s]*$/.test(IdDescripcion)) {
-//         return res.status(409).send({
-//           error: "Ingrese IdDescripcion.",
-//         });
-//       } 
+ getDetailDepartamentos: (req, res) => {
+     const IdDepartamento = req.body.IdDepartamento;
+     const IdUsuario = req.body.IdUsuario;
+     if (IdDepartamento == null ||/^[\s]*$/.test(IdDepartamento) && IdUsuario == null ||/^[\s]*$/.test(IdUsuario)) {
+         return res.status(409).send({
+           error: "Ingrese IdDescripcion, o departamento",
+         });
+       } 
 
-//     db.query(
-//       `CALL sp_DetalleClaveDeInscripcion('${IdDescripcion}')`,
-//       (err, result) => {
-//         if (err) {
-//           return res.status(500).send({
-//             error: "Error",
-//           });
-//         }
-//         if (result.length) {
-//           const data = result[0][0];
-//           if (data.error) {
-//             return res.status(409).send({
-//               result: data,
-//             });
-//           }
-//           return res.status(200).send({
-//             data,
-//           });
-//         } else {
-//           return res.status(409).send({
-//             error: "¡Sin Información!",
-//           });
-//         }
-//       }
-//     );
-//   },
-// //BORRADO LOGICO
-//   deleteClaveDeInscripcion: (req, res) => {
-//     const IdDescripcion = req.query.IdDescripcion;
-//     const IdUsuarioModificador = req.query.IdUsuario;
-//     db.query(
-//       `CALL sp_BajaLogicaClaveDeInscripcion('${IdDescripcion}', '${IdUsuarioModificador}')`,
-//       (err, result) => {
-//         if (err) {
-//           return res.status(500).send({
-//             error: "Error",
-//           });
-//         }
-//         if (result.length) {
-//           const data = result[0][0];
-//           if (data.error) {
-//             return res.status(409).send({
-//               result: data,
-//             });
-//           }
-//           return res.status(200).send({
-//             result: data,
-//           });
-//         } else {
-//           return res.status(409).send({
-//             error: "¡Sin Información!",
-//           });
-//         }
-//       }
-//     );
-//   },
+     db.query(
+       `CALL sp_DetalleDepartamento('${IdDepartamento}', '${IdUsuario}')`,
+       (err, result) => {
+         if (err) {
+           return res.status(500).send({
+             error: "Error",
+           });
+         }
+         if (result.length) {
+           const data = result[0][0];
+           if (data.error) {
+             return res.status(409).send({
+               result: data,
+             });
+           }
+           return res.status(200).send({
+             data,
+          });
+         } else {
+           return res.status(409).send({
+             error: "¡Sin Información!",
+           });
+         }
+       }
+     );
+   },
+
+};

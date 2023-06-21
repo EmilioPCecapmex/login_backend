@@ -181,6 +181,40 @@ module.exports = {
     
   },
 
+   //Detalle
+
+  //Borrado
+  deleteDependencia: (req, res) => {
+    const IdDependencia = req.body.IdDependencia;
+    const IdUsuario = req.body.IdUsuario;
+    db.query(
+      `CALL sp_EliminarDependencia('${IdDependencia}', '${IdUsuario}')`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: "Error",
+          });
+        }
+        if (result.length) {
+          const data = result[0][0];
+          if (data.error) {
+            return res.status(409).send({
+              result: data,
+           });
+          }
+         return res.status(200).send({
+            result: data,
+         });
+       } else {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }
+      }
+    );
+  }, 
+
+//Tipo dependencias
   createTpoDependencia: (req, res) => {
    
     const Nombre = req.body.Nombre;
@@ -314,4 +348,38 @@ module.exports = {
       );
     
   },
+
+   //Detalle
+
+  //Borrado
+  deleteTipoDependencia: (req, res) => {
+    const IdTipoD = req.body.IdTipoD;
+    const IdUsuario = req.body.IdUsuario;
+    db.query(
+      `CALL sp_EliminarTipoDependencia('${IdTipoD}', '${IdUsuario}')`,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: "Error",
+          });
+        }
+        if (result.length) {
+          const data = result[0][0];
+          if (data.error) {
+            return res.status(409).send({
+              result: data,
+           });
+          }
+         return res.status(200).send({
+            result: data,
+         });
+       } else {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }
+      }
+    );
+  }
+
 };
