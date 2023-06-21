@@ -145,7 +145,7 @@ module.exports = {
 
   //Borrado
   deleteUResponsable: (req, res) => {
-    const IdUnidadR = req.body.IdUnidadR;
+    const IdUnidadR = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
       `CALL sp_EliminarUnidadesResponsables('${IdUnidadR}', '${IdUsuario}')`,

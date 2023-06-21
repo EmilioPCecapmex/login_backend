@@ -138,7 +138,7 @@ module.exports = {
 
   //Borrado
   deletePerfil: (req, res) => {
-    const IdPerfil = req.body.IdPerfil;
+    const IdPerfil = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
       `CALL sp_EliminarPerfil('${IdPerfil}', '${IdUsuario}')`,

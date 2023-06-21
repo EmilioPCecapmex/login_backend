@@ -154,7 +154,7 @@ module.exports = {
   // BORRADO LOGICO
 
   deleteDepartamento: (req, res) => {
-    const IdDepartamento = req.body.IdDepartamento;
+    const IdDepartamento = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     console.log(req.body);
     db.query(
