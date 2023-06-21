@@ -278,8 +278,20 @@ if(opcion==="select"){
 
           if(tipo==="4"){
               db.query(
-                  `SELECT *
+                  `SELECT 
+                  CreadoPor,
+                  Deleted,
+                  Direccion,
+                  FechaDeCreacion,
+                  Id,
+                  IdTitular,
+                  ModificadoPor,
+                  Nombre,
+                  Nombre_corto AS NombreCorto,
+                  PerteneceA,
+                  UltimaModificacion
                    FROM TiCentral.Secretarias sec
+                   
                    `, 
                  (err, result) => {
           
@@ -317,7 +329,7 @@ if(opcion==="select"){
           if(tipo==="4"){
           db.query(
               `SELECT 
-              ur.id,
+              ur.Id,
               ur.UltimaActualizacion,
               ur.FechaCreacion,
               ur.Clave,
@@ -461,8 +473,106 @@ if(opcion==="select"){
               }
             
             }
+            //Dependencias
+            if(cat==="6")
+            {
+              if(tipo==="4"){
+              db.query(
+                  `SELECT *
+                  FROM TiCentral.Dependencias 
+                  WHERE deleted=0                 
+                  `, 
+                 (err, result) => {
+            
+                      if (err) {
+                          return res.status(500).send({
+                            error: "Error",
+                          });
+                        }
+                        if (result.length) {
+                          const data = result;
+                          if (data === undefined) {
+                            return res.status(409).send({
+                              error: "¡Sin Información!",
+                            });
+                          }
+                          return res.status(200).send({
+                            data,
+                          });
+                        } else {
+                          return res.status(409).send({
+                            error: "¡Sin Información!",
+                          });
+                        }
+                  }
+                ); 
+              }
+            
+            }
+            if(cat==="7")
+            {
+              if(tipo==="4"){
+              db.query(
+                  `SELECT *
+                  FROM TiCentral.TipoDependencias
+                  WHERE deleted=0                 
+                  `, 
+                 (err, result) => {
+            
+                      if (err) {
+                          return res.status(500).send({
+                            error: "Error",
+                          });
+                        }
+                        if (result.length) {
+                          const data = result;
+                          if (data === undefined) {
+                            return res.status(409).send({
+                              error: "¡Sin Información!",
+                            });
+                          }
+                          return res.status(200).send({
+                            data,
+                          });
+                        } else {
+                          return res.status(409).send({
+                            error: "¡Sin Información!",
+                          });
+                        }
+                  }
+                ); 
+              }
+            
+            }
+            
         }
           },
+
+
+            //LISTADO COMPLETO
+  getUsuariosAsignables: (req, res) => {
+    const IdUsuario = req.query.IdUsuario;
+   
+    db.query(`CALL sp_ListaUsuariosAsignables('${IdUsuario}')`, (err, result) => {
+
+      if (err) {
+        return res.status(500).send({
+          error: err.sqlMessage,
+        });
+      }
+
+      if (result.length) {
+        const data = result[0];
+        return res.status(200).send({
+          data,
+        });
+      } else {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+    });
+  },
         };
         
         

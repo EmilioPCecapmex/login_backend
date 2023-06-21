@@ -60,7 +60,7 @@ module.exports = {
   //LISTADO COMPLETO
   getRoles: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    console.log(req);
+    
     db.query(`CALL sp_ListaRoles('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -85,11 +85,12 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyRol: (req, res) => {
-    const IdRol = req.body.IdRol;
+    const IdRol = req.body.Id;
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;
     const ControlInterno = req.body.ControlInterno;
     const IdModificador = req.body.IdModificador;
+    console.log(req.body);
 
     if (IdRol == null ||/^[\s]*$/.test(IdRol)) {
       return res.status(409).send({

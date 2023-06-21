@@ -13,7 +13,7 @@ const {
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
-const { consultaCatalogos } = require("../controllers/consultas/consultaCatalogos.js");
+const { consultaCatalogos, getUsuariosAsignables } = require("../controllers/consultas/consultaCatalogos.js");
 const { deleteApp } = require("../controllers/apps/deleteApp.js");
 const { modifyUser } = require("../controllers/users/modifyUser.js");
 const { modifyApp } = require("../controllers/apps/modifyApp.js");
@@ -293,6 +293,11 @@ router.get("/uresponsables", (req, res) => {
 
 router.put("/uresponsable", (req, res) => {
   modifyUResponsable(req, res);
+});
+
+
+router.get("/usuarios-asignables", (req, res) => {
+  getUsuariosAsignables(req, res);
 });
 
 
