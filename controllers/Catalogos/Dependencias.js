@@ -103,7 +103,7 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyDependencia: (req, res) => {
-    const IdDependencia = req.body.IdDependencia;
+    const IdDependencia = req.body.Id;
     const Nombre = req.body.Nombre;
     const Direccion = req.body.Direccion;
     const Telefono = req.body.Telefono;
@@ -218,7 +218,7 @@ module.exports = {
   createTpoDependencia: (req, res) => {
    
     const Nombre = req.body.Nombre;
-    const Descipcion = req.body.Descipcion;
+    const Descripcion = req.body.Descripcion;
     const CreadoPor = req.body.CreadoPor;  
 
     if ((Nombre == null || /^[\s]*$/.test(Nombre)) ) {
@@ -226,9 +226,9 @@ module.exports = {
         error: "Ingrese Nombre valido.",
       });
     } 
-    if ((Descipcion == null || /^[\s]*$/.test(Descipcion)) ) {
+    if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
         return res.status(409).send({
-          error: "Ingrese Descipcion válida.",
+          error: "Ingrese Descripcion válida.",
         });
       } 
       
@@ -239,7 +239,7 @@ module.exports = {
       }
    
       db.query(
-        `CALL sp_CrearTpoDependencia('${Nombre}','${Descipcion}','${CreadoPor}' )`,
+        `CALL sp_CrearTpoDependencia('${Nombre}','${Descripcion}','${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -298,7 +298,7 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;  
     const IdModificador = req.body.IdModificador;  
-
+console.log('tpo',req.body);
     if ((IdTpoDependencia == null || /^[\s]*$/.test(IdTpoDependencia)) ) {
         return res.status(409).send({
           error: "Ingrese IdTpoDependencia valido.",

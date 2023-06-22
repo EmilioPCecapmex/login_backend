@@ -47,4 +47,40 @@ module.exports = {
       }
     });
   },
+
+  getUserAppDetail: (req, res) => {
+    const userId = req.body.IdUsuario;
+    const appId = req.body.IdApp;
+    if ((userId == null || /^[\s]*$/.test(userId)) ) {
+      return res.status(409).send({
+        error: "Ingrese userId valido.",
+      });
+    }  if ((appId == null || /^[\s]*$/.test(appId)) ) {
+      return res.status(409).send({
+        error: "Ingrese appId valido.",
+      });
+    } 
+    db.query(`CALL sp_DetalleUsuarioAplicacion('${userId}','${appId}')`, (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          error: "Error",
+        });
+      }
+      if (result.length) {
+        const data = result[0][0];
+        if (data === undefined) {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }
+        return res.status(200).send({
+          data,
+        });
+      } else {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+    });
+  },
 };

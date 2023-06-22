@@ -10,6 +10,7 @@ const { activateUser } = require("../controllers/users/activateUser.js");
 const {
   getUserDetail,
   getUsersInfo,
+  getUserAppDetail,
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
@@ -60,6 +61,10 @@ router.post("/verify", verifyToken.isLoggedIn);
 //Users
 router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
   getUserDetail(req, res);
+});
+
+router.post("/userapp-detail", (req, res) => {
+  getUserAppDetail(req, res);
 });
 
 router.get("/users", verifyToken.verifyJWT, (req, res) => {
@@ -257,7 +262,7 @@ router.put("/delete-dependencia", (req, res) => {
   deleteDependencia(req, res);
 });
 
-router.post("/create-tipodependencias", (req, res, next) => {
+router.post("/create-tipodependencia", (req, res, next) => {
   createTpoDependencia(req, res);
 });
 
