@@ -152,7 +152,7 @@ module.exports = {
 
   //Borrado
   deleteRol: (req, res) => {
-    const IdRol = req.body.IdRol;
+    const IdRol = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
       `CALL sp_EliminarRoles('${IdRol}', '${IdUsuario}')`,

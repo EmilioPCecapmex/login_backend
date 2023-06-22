@@ -185,7 +185,7 @@ module.exports = {
 
   //Borrado
   deleteSecretaria: (req, res) => {
-    const IdSecretaria = req.body.IdSecretaria;
+    const IdSecretaria = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
       `CALL sp_EliminarSecretaria('${IdSecretaria}', '${IdUsuario}')`,

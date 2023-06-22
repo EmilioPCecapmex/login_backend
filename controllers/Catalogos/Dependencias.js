@@ -353,7 +353,7 @@ console.log('tpo',req.body);
 
   //Borrado
   deleteTipoDependencia: (req, res) => {
-    const IdTipoD = req.body.IdTipoD;
+    const IdTipoD = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
       `CALL sp_EliminarTipoDependencia('${IdTipoD}', '${IdUsuario}')`,
