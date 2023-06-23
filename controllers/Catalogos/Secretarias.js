@@ -109,7 +109,7 @@ module.exports = {
     const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const IdModificador = req.body.IdModificador;   
-    console.log(req.body);
+    
 
     if ((IdSecretaria == null || /^[\s]*$/.test(IdSecretaria)) ) {
         return res.status(409).send({

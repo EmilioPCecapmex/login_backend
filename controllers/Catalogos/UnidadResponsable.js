@@ -87,7 +87,7 @@ module.exports = {
     const Clave = req.body.Clave;
     const Descripcion = req.body.Descripcion;
     const IdModificador = req.body.IdModificador;   
-    console.log(req.body);
+  
     if ((IdUResponsable == null || /^[\s]*$/.test(IdUResponsable)) ) {
         return res.status(409).send({
           error: "Ingrese IdUResponsable válido.",
@@ -111,7 +111,7 @@ module.exports = {
           error: "Ingrese IdModificador válido.",
         });
     }
-    console.log(req.body);
+    
       db.query(
         `CALL sp_ModificaUResponsable('${IdUResponsable}','${Clave}','${Descripcion}','${IdModificador}')`,
         (err, result) => {

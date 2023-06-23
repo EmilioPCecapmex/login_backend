@@ -90,7 +90,7 @@ module.exports = {
     const Descripcion = req.body.Descripcion;
     const ControlInterno = req.body.ControlInterno;
     const IdModificador = req.body.IdModificador;
-    console.log(req.body);
+    
 
     if (IdRol == null ||/^[\s]*$/.test(IdRol)) {
       return res.status(409).send({

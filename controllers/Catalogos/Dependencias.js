@@ -269,7 +269,7 @@ module.exports = {
   //LISTADO COMPLETO
   getTpoDependencias: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    console.log(req.body);
+   
     db.query(`CALL sp_ListaTpoDependencias('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -298,7 +298,7 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;  
     const IdModificador = req.body.IdModificador;  
-console.log('tpo',req.body);
+
     if ((IdTpoDependencia == null || /^[\s]*$/.test(IdTpoDependencia)) ) {
         return res.status(409).send({
           error: "Ingrese IdTpoDependencia valido.",
