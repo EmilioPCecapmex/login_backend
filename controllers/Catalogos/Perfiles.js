@@ -55,8 +55,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getPerfiles: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    db.query(`CALL sp_ListaPerfiles('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaPerfiles()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,

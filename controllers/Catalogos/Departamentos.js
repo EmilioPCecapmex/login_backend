@@ -60,9 +60,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getDepartamentos: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    
-    db.query(`CALL sp_ListaDepartamentos('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaDepartamentos()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,

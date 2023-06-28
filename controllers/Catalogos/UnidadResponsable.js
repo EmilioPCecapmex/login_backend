@@ -57,9 +57,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getUResponsables: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    
-    db.query(`CALL sp_ListaUResponsables('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaUResponsables()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,

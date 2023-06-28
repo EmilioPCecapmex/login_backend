@@ -59,9 +59,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getRoles: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    
-    db.query(`CALL sp_ListaRoles('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaRoles()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,

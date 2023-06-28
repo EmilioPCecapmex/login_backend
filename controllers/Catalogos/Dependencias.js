@@ -78,8 +78,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getDependencias: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    db.query(`CALL sp_ListaDependencias('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaDependencias()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -268,9 +267,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getTpoDependencias: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
    
-    db.query(`CALL sp_ListaTpoDependencias('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaTpoDependencias()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,

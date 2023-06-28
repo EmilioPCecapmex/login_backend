@@ -63,7 +63,7 @@ router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
   getUserDetail(req, res);
 });
 
-router.post("/userapp-detail", (req, res) => {
+router.post("/userapp-detail", verifyToken.verifyJWT, (req, res) => {
   getUserAppDetail(req, res);
 });
 
@@ -79,7 +79,7 @@ router.put("/user", verifyToken.verifyJWT, (req, res) => {
   modifyUser(req, res);
 });
 
-router.put("/change-password",verifyToken.verifyJWT, (req, res) => {
+router.put("/change-password", verifyToken.verifyJWT, (req, res) => {
   changePassword(req, res);
 });
 

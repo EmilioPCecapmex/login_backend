@@ -76,9 +76,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getSecretarias: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
     
-    db.query(`CALL sp_ListaSecretarias('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaSecretarias()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
