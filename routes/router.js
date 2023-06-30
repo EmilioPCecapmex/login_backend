@@ -338,5 +338,19 @@ router.get("/usuarios-asignables", (req, res) => {
   getUsuariosAsignables(req, res);
 });
 
+router.get("/prueba-sendEmail",()=>{
+  const d = {
+    to: "pedropardog009@gmail.com",
+    subject: "¡Bienvenido!",
+    nombre: 'pedro ricardo pardo gaytan',
+    usuario: 'prpardo',
+    contrasena: 'genPassword',
+    userid: 'IdUsuario',
+  };
+
+  console.log(d);
+  sendEmail(d);
+})
+
 
 module.exports = router;

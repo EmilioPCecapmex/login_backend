@@ -160,9 +160,17 @@ module.exports = {
       `CALL sp_EliminarDepartamento('${IdDepartamento}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
-            error: "Error",
+          if(err.sqlMessage){
+            return res.status(500).send({
+            error: err.sqlMessage,
           });
+          }
+          else{
+            return res.status(500).send({
+              error: 'error',
+            });
+          }
+          
         }
         if (result.length) {
           const data = result[0][0];
