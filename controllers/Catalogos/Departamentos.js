@@ -60,6 +60,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getDepartamentos: (req, res) => {
+    
     db.query(`CALL sp_ListaDepartamentos()`, (err, result) => {
       if (err) {
         return res.status(500).send({
@@ -123,9 +124,17 @@ module.exports = {
         `CALL sp_ModificaDepartamento('${IdDepartamento}','${Descripcion}','${NombreCorto}','${IdResponsable}','${IdModificador}')`,
         (err, result) => {
           if (err) {
-            return res.status(500).send({
+            if(err.sqlMessage){
+              return res.status(500).send({
               error: err.sqlMessage,
             });
+            }else{
+              return res.status(500).send({
+                error: 'error',
+              });
+            }
+
+            
           }
           if (result.length) {
             const data = result[0][0];
@@ -164,13 +173,11 @@ module.exports = {
             return res.status(500).send({
             error: err.sqlMessage,
           });
-          }
-          else{
+          }else{
             return res.status(500).send({
               error: 'error',
             });
           }
-          
         }
         if (result.length) {
           const data = result[0][0];
@@ -205,11 +212,17 @@ module.exports = {
      db.query(
        `CALL sp_DetalleDepartamento('${IdDepartamento}', '${IdUsuario}')`,
        (err, result) => {
-         if (err) {
-           return res.status(500).send({
-             error: "Error",
-           });
-         }
+        if (err) {
+          if(err.sqlMessage){
+            return res.status(500).send({
+            error: err.sqlMessage,
+          });
+          }else{
+            return res.status(500).send({
+              error: 'error',
+            });
+          }
+        }
          if (result.length) {
            const data = result[0][0];
            if (data.error) {
