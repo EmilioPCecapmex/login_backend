@@ -11,11 +11,12 @@ module.exports = {
   </head>
   <body
     style="
-      height: 100%;
+      height: 120%;
       max-width: 600px;
-      display: flex;
+      align-items: center;
       flex-direction: column;
       justify-content: center;
+      
     "
   >
     <div
@@ -23,12 +24,12 @@ module.exports = {
         max-height: 100vh;
         max-width: 600px;
         background-color: #f1f1f1;
-        display: flex;
+        displa:flex;
         flex-direction: column;
         align-items: center;
       "
     >
-      <img src="palacio.png" alt="palacio" width="50%" />
+      <a href="./palacio.png" alt="palacio" sizes="(min-width: 600px) 200px, 50vw"> </a>
       <h1 style="font-family: sans-serif; text-align: center;">Secretaría de Finanzas y Tesorería General del Estado</h1>
       <h2 style="font-family: sans-serif">Acceso a Usuarios</h2>
       <h3 style="text-align: center; font-family: sans-serif">
@@ -38,29 +39,46 @@ module.exports = {
         style="
           border: 1px solid black;
           padding: 10px;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          justify-items: center;
+          justify-content: center;
           align-items: center;
         "
       >
-        <h4 style="grid-column: 1/3; font-family: sans-serif">
+      <div style ="
+      display 
+      justify-items: center;
+      align-items: center;
+      ">
+      <h4 font-family: sans-serif">
           DATOS DE ACCESO
         </h4>
-        <h4 style="font-family: sans-serif"><strong> Usuario:</strong></h4>
+      </div>
+
+      <div>
+      <h4 style="font-family: sans-serif"><strong> Usuario:</strong></h4>
+      </div>
+
+      <div>
         <h4 style="font-weight: lighter; font-family: sans-serif">
           ${usuario}
         </h4>
-        <h4 style="font-family: sans-serif"><strong>Contraseña:</strong></h4>
+      </div>
+
+      <div>
+      <h4 style="font-family: sans-serif"><strong>Contraseña:</strong></h4>
         <h4 style="font-weight: lighter; font-family: sans-serif">
           ${contrasena}
         </h4>
       </div>
+        
+
+        
+        
+      </div>
       <div
         style="
+         display:flex;
           background-color: #f7fafa;
           width: 100%;
-          display: flex;
           flex-direction: column;
           align-items: center;
         "
@@ -80,11 +98,32 @@ module.exports = {
           2.No compartas tus datos de acceso con otras personas. <br />
           3.Cambia tu contraseña regularmente.
         </h4>
-        <h4 style="font-family: sans-serif">
+        
+      </div>
+
+
+
+      <div style="
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    "
+    >
+    <h4 style="font-family: sans-serif">
           Accede a la plataforma mediante el siguiente enlace:
         </h4>
+      <a href=${'http://10.210.0.28/'} style="
+        align-items: center;
+        text-align: center;
+        display:flex;
+        justify-content:center;
+        width:50%;
+        heigth:50px;
+      "> 
         <button
-        onclick="window.location.href='http://10.200.4.106';"
+        
           style="
             background-color: rgb(196, 255, 190);
             color: rgb(99, 99, 99);
@@ -93,15 +132,17 @@ module.exports = {
             padding: 1%;
             cursor: pointer;
             font-family: sans-serif;
+            width:100%;
+            heigth:50px;
           "
         >
           ACCEDER
         </button>
+        </a>
       </div>
     </div>
   </body>
 </html>
-
         `;
   },
 };
