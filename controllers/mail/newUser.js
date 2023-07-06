@@ -114,7 +114,7 @@ module.exports = {
     <h4 style="font-family: sans-serif">
           Accede a la plataforma mediante el siguiente enlace:
         </h4>
-      <a href=${'http://10.210.0.28/'} style="
+      <a href=${process.env.LOGIN_B_APP_FRONT} style="
         align-items: center;
         text-align: center;
         display:flex;

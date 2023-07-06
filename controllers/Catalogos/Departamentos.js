@@ -60,9 +60,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getDepartamentos: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
     
-    db.query(`CALL sp_ListaDepartamentos('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaDepartamentos()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -125,9 +124,17 @@ module.exports = {
         `CALL sp_ModificaDepartamento('${IdDepartamento}','${Descripcion}','${NombreCorto}','${IdResponsable}','${IdModificador}')`,
         (err, result) => {
           if (err) {
-            return res.status(500).send({
+            if(err.sqlMessage){
+              return res.status(500).send({
               error: err.sqlMessage,
             });
+            }else{
+              return res.status(500).send({
+                error: 'error',
+              });
+            }
+
+            
           }
           if (result.length) {
             const data = result[0][0];
@@ -162,9 +169,15 @@ module.exports = {
       `CALL sp_EliminarDepartamento('${IdDepartamento}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
-            error: "Error",
+          if(err.sqlMessage){
+            return res.status(500).send({
+            error: err.sqlMessage,
           });
+          }else{
+            return res.status(500).send({
+              error: 'error',
+            });
+          }
         }
         if (result.length) {
           const data = result[0][0];
@@ -199,11 +212,17 @@ module.exports = {
      db.query(
        `CALL sp_DetalleDepartamento('${IdDepartamento}', '${IdUsuario}')`,
        (err, result) => {
-         if (err) {
-           return res.status(500).send({
-             error: "Error",
-           });
-         }
+        if (err) {
+          if(err.sqlMessage){
+            return res.status(500).send({
+            error: err.sqlMessage,
+          });
+          }else{
+            return res.status(500).send({
+              error: 'error',
+            });
+          }
+        }
          if (result.length) {
            const data = result[0][0];
            if (data.error) {

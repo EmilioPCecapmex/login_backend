@@ -553,7 +553,7 @@ if(opcion==="select"){
   getUsuariosAsignables: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
    
-    db.query(`CALL sp_ListaUsuariosAsignables('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaUsuariosAsignables()`, (err, result) => {
 
       if (err) {
         return res.status(500).send({

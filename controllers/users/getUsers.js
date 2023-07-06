@@ -62,13 +62,15 @@ module.exports = {
     } 
     db.query(`CALL sp_DetalleUsuarioAplicacion('${userId}','${appId}')`, (err, result) => {
       if (err) {
+        console.log(err);
         return res.status(500).send({
-          error: "Error",
+          error: err.sqlMessage,
         });
       }
       if (result.length) {
         const data = result[0][0];
-        if (data === undefined) {
+        
+        if (data === undefined ||data.Error ) {
           return res.status(409).send({
             error: "¡Sin Información!",
           });
