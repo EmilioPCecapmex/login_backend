@@ -175,12 +175,14 @@ function getRoles (userId,appId)  {
 
  }
 
+
 async function getMenus (userId,appId)  {
 
   const queryAsync = util.promisify(db.query).bind(db);
 
   let  data =[];
   let menus=[];
+  let menussub2=[];
   let query= `  
   SELECT distinct m.* FROM
   TiCentral.Usuarios us
@@ -204,7 +206,34 @@ async function getMenus (userId,appId)  {
     for(var i = 0; i <result.length;i++){
     
      const children =   await  getMenusnivel1(userId,appId,result[i].Id);
-   
+
+     console.log("buscanndo a nivel 2")
+     for(var j = 0; j <children.length;j++){
+    
+     const children2 =   await  getMenusnivel2(userId,appId,result[i].Id);
+     obj ={
+      Id                 : children[j].Id,
+      FechaDeCreacion    : children[j].FechaDeCreacion,
+      UltimaModificacion : children[j].UltimaModificacion,
+      CreadoPor          : children[j].CreadoPor,
+      ModificadoPor      : children[j].ModificadoPor,
+      Deleted            : children[j].Deleted,
+      Menu               : children[j].Menu,
+      Descripcion        : children[j].Descripcion,
+      MenuPadre          : children[j].MenuPadre,
+      Icon               : children[j].Icon,
+      Path               : children[j].Path,
+      Nivel              : children[j].Nivel,
+      Orden              : children[j].Orden,
+      ControlInterno     : children[j].ControlInterno,
+      IdApp              : children[j].IdApp,
+      item               : children2
+                            
+     }
+     menussub2.push(obj)
+
+     }
+
      obj ={
       Id                 : result[i].Id,
       FechaDeCreacion    : result[i].FechaDeCreacion,
@@ -221,10 +250,9 @@ async function getMenus (userId,appId)  {
       Orden              : result[i].Orden,
       ControlInterno     : result[i].ControlInterno,
       IdApp              : result[i].IdApp,
-      item               : children
+      item               : menussub2
                             
      }
-         console.log(obj);
          menus.push(obj) ;
     }
 
@@ -257,6 +285,26 @@ async function getMenus (userId,appId)  {
 
  }
 
+ async function getMenusnivel2(userId,appId,menuPadre)  {
+  const queryAsync = util.promisify(db.query).bind(db);
+  let query= `  
+  SELECT distinct m.* FROM
+  TiCentral.Usuarios us
+  INNER JOIN TiCentral.UsuarioRol ur ON ur.idUsuario = us.id
+  INNER JOIN TiCentral.Roles rol ON rol.id = ur.idRol
+  INNER JOIN TiCentral.RolMenus rm ON rm.idRol = rol.id
+  INNER JOIN TiCentral.Menus m ON m.id = rm.idMenu
+  WHERE
+  m.nivel=2
+  and us.id=? 
+  and rol.IdApp =?
+  AND m.MenuPadre =?
+  order by m.Orden
+  `;
+  const result = await queryAsync(query,[userId,appId,menuPadre]);
+  return result;
+
+ }
 
  function getPermisos (userId,appId)  {
   let data =[];
