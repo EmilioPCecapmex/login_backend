@@ -210,7 +210,7 @@ async function getMenus (userId,appId)  {
      console.log("buscanndo a nivel 2")
      for(var j = 0; j <children.length;j++){
     
-     const children2 =   await  getMenusnivel2(userId,appId,result[i].Id);
+     const children2 =   await  getMenusnivel2(userId,appId,children[j].Id);
      obj ={
       Id                 : children[j].Id,
       FechaDeCreacion    : children[j].FechaDeCreacion,
@@ -231,7 +231,7 @@ async function getMenus (userId,appId)  {
                             
      }
      menussub2.push(obj)
-
+    
      }
 
      obj ={
@@ -254,10 +254,11 @@ async function getMenus (userId,appId)  {
                             
      }
          menus.push(obj) ;
+         menussub2=[];
     }
 
     data.push(menus);
-
+  
   }
 
    return data;
