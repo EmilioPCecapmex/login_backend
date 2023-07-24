@@ -10,6 +10,7 @@ const { activateUser } = require("../controllers/users/activateUser.js");
 const {
   getUserDetail,
   getUsersInfo,
+  getUserAppDetail,
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
@@ -62,6 +63,10 @@ router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
   getUserDetail(req, res);
 });
 
+router.post("/userapp-detail", verifyToken.verifyJWT, (req, res) => {
+  getUserAppDetail(req, res);
+});
+
 router.get("/users", verifyToken.verifyJWT, (req, res) => {
   getUsersInfo(req, res);
 });
@@ -74,7 +79,7 @@ router.put("/user", verifyToken.verifyJWT, (req, res) => {
   modifyUser(req, res);
 });
 
-router.put("/change-password",verifyToken.verifyJWT, (req, res) => {
+router.put("/change-password", verifyToken.verifyJWT, (req, res) => {
   changePassword(req, res);
 });
 
@@ -257,7 +262,7 @@ router.put("/delete-dependencia", (req, res) => {
   deleteDependencia(req, res);
 });
 
-router.post("/create-tipodependencias", (req, res, next) => {
+router.post("/create-tipodependencia", (req, res, next) => {
   createTpoDependencia(req, res);
 });
 
@@ -332,6 +337,20 @@ router.put("/delete-uresponsable", (req, res) => {
 router.get("/usuarios-asignables", (req, res) => {
   getUsuariosAsignables(req, res);
 });
+
+router.get("/prueba-sendEmail",()=>{
+  const d = {
+    to: "pedropardog009@gmail.com",
+    subject: "¡Bienvenido!",
+    nombre: 'pedro ricardo pardo gaytan',
+    usuario: 'prpardo',
+    contrasena: 'genPassword',
+    userid: 'IdUsuario',
+  };
+
+  console.log(d);
+  sendEmail(d);
+})
 
 
 module.exports = router;

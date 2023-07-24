@@ -78,8 +78,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getDependencias: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    db.query(`CALL sp_ListaDependencias('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaDependencias()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -103,7 +102,7 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyDependencia: (req, res) => {
-    const IdDependencia = req.body.IdDependencia;
+    const IdDependencia = req.body.Id;
     const Nombre = req.body.Nombre;
     const Direccion = req.body.Direccion;
     const Telefono = req.body.Telefono;
@@ -185,15 +184,24 @@ module.exports = {
 
   //Borrado
   deleteDependencia: (req, res) => {
-    const IdDependencia = req.body.IdDependencia;
+    const IdDependencia = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
       `CALL sp_EliminarDependencia('${IdDependencia}', '${IdUsuario}')`,
       (err, result) => {
+        console.log('err',err);
+        console.log('result',result);
         if (err) {
-          return res.status(500).send({
-            error: "Error",
-          });
+          if(err.sqlMessage){
+            return res.status(500).send({
+              error: err.sqlMessage,
+            });
+          }else{
+            return res.status(500).send({
+              error: "Error",
+            });
+          }
+          
         }
         if (result.length) {
           const data = result[0][0];
@@ -218,7 +226,7 @@ module.exports = {
   createTpoDependencia: (req, res) => {
    
     const Nombre = req.body.Nombre;
-    const Descipcion = req.body.Descipcion;
+    const Descripcion = req.body.Descripcion;
     const CreadoPor = req.body.CreadoPor;  
 
     if ((Nombre == null || /^[\s]*$/.test(Nombre)) ) {
@@ -226,9 +234,9 @@ module.exports = {
         error: "Ingrese Nombre valido.",
       });
     } 
-    if ((Descipcion == null || /^[\s]*$/.test(Descipcion)) ) {
+    if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
         return res.status(409).send({
-          error: "Ingrese Descipcion válida.",
+          error: "Ingrese Descripcion válida.",
         });
       } 
       
@@ -239,7 +247,7 @@ module.exports = {
       }
    
       db.query(
-        `CALL sp_CrearTpoDependencia('${Nombre}','${Descipcion}','${CreadoPor}' )`,
+        `CALL sp_CrearTpoDependencia('${Nombre}','${Descripcion}','${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -268,9 +276,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getTpoDependencias: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    console.log(req.body);
-    db.query(`CALL sp_ListaTpoDependencias('${IdUsuario}')`, (err, result) => {
+   
+    db.query(`CALL sp_ListaTpoDependencias()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -359,9 +366,16 @@ module.exports = {
       `CALL sp_EliminarTipoDependencia('${IdTipoD}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
-            error: "Error",
-          });
+          if(err.sqlMessage){
+            return res.status(500).send({
+              error: err.sqlMessage,
+            });
+          }else{
+            return res.status(500).send({
+              error: "Error",
+            });
+          }
+          
         }
         if (result.length) {
           const data = result[0][0];

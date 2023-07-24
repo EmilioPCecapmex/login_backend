@@ -55,8 +55,7 @@ module.exports = {
 
   //LISTADO COMPLETO
   getPerfiles: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    db.query(`CALL sp_ListaPerfiles('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaPerfiles()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -84,7 +83,7 @@ module.exports = {
     const Descripcion = req.body.Descripcion;
     const Referencia = req.body.Referencia; 
     const IdModificador = req.body.IdModificador;  
-    console.log(req.body);
+
     if ((IdPerfil == null || /^[\s]*$/.test(IdPerfil)) ) {
         return res.status(409).send({
           error: "Ingrese IdPerfil valido.",
@@ -144,9 +143,16 @@ module.exports = {
       `CALL sp_EliminarPerfil('${IdPerfil}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
-            error: "Error",
-          });
+          if(err.sqlMessage){
+            return res.status(500).send({
+              error: err.sqlMessage,
+            });
+          }else{
+            return res.status(500).send({
+              error: "Error",
+            });
+          }
+          
         }
         if (result.length) {
           const data = result[0][0];

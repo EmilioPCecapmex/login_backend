@@ -290,8 +290,8 @@ if(opcion==="select"){
                   Nombre_corto AS NombreCorto,
                   PerteneceA,
                   UltimaModificacion
-                   FROM TiCentral.Secretarias sec
-                   
+                   FROM TiCentral.Secretarias sec WHERE sec.Deleted = 0 order by Nombre ASC
+               
                    `, 
                  (err, result) => {
           
@@ -336,6 +336,7 @@ if(opcion==="select"){
               ur.Descripcion
                FROM TiCentral.UResponsable ur
                where ur.deleted=0
+               order by Descripcion ASC
               `, 
              (err, result) => {
         
@@ -373,6 +374,7 @@ if(opcion==="select"){
               `SELECT *
               FROM TiCentral.Departamentos de
               WHERE de.deleted=0
+              order by Descripcion ASC
               `, 
              (err, result) => {
         
@@ -409,6 +411,7 @@ if(opcion==="select"){
                   `SELECT *
                   FROM TiCentral.Roles ro
                   WHERE ro.deleted=0
+                  order by Nombre ASC
                   `, 
                  (err, result) => {
             
@@ -444,7 +447,8 @@ if(opcion==="select"){
               db.query(
                   `SELECT *
                   FROM TiCentral.Perfiles 
-                  WHERE deleted=0                 
+                  WHERE deleted=0
+                  order by Descripcion ASC
                   `, 
                  (err, result) => {
             
@@ -480,7 +484,8 @@ if(opcion==="select"){
               db.query(
                   `SELECT *
                   FROM TiCentral.Dependencias 
-                  WHERE deleted=0                 
+                  WHERE deleted=0
+                  order by Nombre ASC               
                   `, 
                  (err, result) => {
             
@@ -515,7 +520,8 @@ if(opcion==="select"){
               db.query(
                   `SELECT *
                   FROM TiCentral.TipoDependencias
-                  WHERE deleted=0                 
+                  WHERE deleted=0  
+                  order by Nombre ASC               
                   `, 
                  (err, result) => {
             
@@ -553,7 +559,7 @@ if(opcion==="select"){
   getUsuariosAsignables: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
    
-    db.query(`CALL sp_ListaUsuariosAsignables('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaUsuariosAsignables()`, (err, result) => {
 
       if (err) {
         return res.status(500).send({
