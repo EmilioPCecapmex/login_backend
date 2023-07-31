@@ -35,10 +35,12 @@ const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/g
 const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
 const { createDepartamento, getDepartamentos, modifyDepartamento, deleteDepartamento, getDetailDepartamentos } = require("../controllers/Catalogos/Departamentos.js");
 const { createRol, modifyRol, getRoles, deleteRol } = require("../controllers/Catalogos/Roles.js");
-const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia, deleteTipoDependencia, deleteDependencia } = require("../controllers/Catalogos/Dependencias.js");
+const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia, deleteTipoDependencia, deleteDependencia, getEntidadPadre } = require("../controllers/Catalogos/Dependencias.js");
 const { createPerfil, getPerfiles, modifyPerfil, deletePerfil } = require("../controllers/Catalogos/Perfiles.js");
 const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } = require("../controllers/Catalogos/Secretarias.js");
 const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
+const { getMenus, getMenusPerfil, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
+const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermisosMenuRol } = require("../controllers/Catalogos/Permisos.js");
 
 // routes/router.js
 
@@ -63,7 +65,7 @@ router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
   getUserDetail(req, res);
 });
 
-router.post("/userapp-detail", verifyToken.verifyJWT, (req, res) => {
+router.post("/userapp-detail",  (req, res) => {
   getUserAppDetail(req, res);
 });
 
@@ -337,6 +339,47 @@ router.put("/delete-uresponsable", (req, res) => {
 router.get("/usuarios-asignables", (req, res) => {
   getUsuariosAsignables(req, res);
 });
+
+router.get("/entidad-padre",(req,res)=>{
+  getEntidadPadre(req,res)
+})
+
+router.get("/menus",(req,res)=>{
+  getMenus(req,res)
+})
+
+router.get("/menus-rol",(req,res)=>{
+  getMenusRol(req,res)
+})
+
+router.get("/permisos-menu",(req,res)=>{
+  getPermisosMenu(req,res)
+})
+
+router.get("/permisos-menu-rol",(req,res)=>{
+  getPermisosMenuRol(req,res)
+})
+
+router.delete("/menu-rol",(req,res)=>{
+  deleteMenuRol(req,res)
+})
+
+router.post("/menu-rol",(req,res)=>{
+  createMenuRol(req,res)
+})
+
+router.post("/permiso-menu-rol",(req,res)=>{
+  createPermisosMenuRol(req,res)
+})
+router.delete("/permiso-menu-rol",(req,res)=>{
+  deletedPermisosMenuRol(req,res)
+})
+
+
+
+
+
+
 
 router.get("/prueba-sendEmail",()=>{
   const d = {

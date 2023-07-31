@@ -146,7 +146,8 @@ function getRoles (userId,appId)  {
   let data =[];
   let query= `   SELECT
   rol.Nombre,
-  rol.Descripcion
+  rol.Descripcion,
+  rol.ControlInterno
   FROM
   TiCentral.Usuarios us
   LEFT JOIN TiCentral.UsuarioRol ur ON us.id = ur.idUsuario

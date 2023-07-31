@@ -356,7 +356,47 @@ module.exports = {
     
   },
 
-   //Detalle
+   getEntidadPadre:(req,res)=>{
+    db.query('SELECT "Secretaria" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias UNION ALL SELECT "Dependencia" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias ORDER BY descripcion ASC',
+    (err, result) => {
+      // console.log("err",err);
+      // console.log("result",result);
+      if (err) {
+        if(err.sqlMessage){
+          return res.status(500).send({
+            error: err.sqlMessage,
+          });
+        }else{
+          return res.status(500).send({
+            error: "Error",
+          });
+        }
+        
+      }
+
+      if (result.length) {
+        
+        const data = result;
+        console.log("result",result);
+        console.log("data",data);
+        if (data.error) {
+          return res.status(409).send({
+            data: data,
+         });
+        }
+       return res.status(200).send({
+          data: data,
+       });
+     } else {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+    }
+    
+    )
+    
+   },
 
   //Borrado
   deleteTipoDependencia: (req, res) => {

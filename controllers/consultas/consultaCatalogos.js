@@ -288,7 +288,6 @@ if(opcion==="select"){
                   ModificadoPor,
                   Nombre,
                   Nombre_corto AS NombreCorto,
-                  PerteneceA,
                   UltimaModificacion
                    FROM TiCentral.Secretarias sec WHERE sec.Deleted = 0 order by Nombre ASC
                
@@ -562,9 +561,11 @@ if(opcion==="select"){
     db.query(`CALL sp_ListaUsuariosAsignables()`, (err, result) => {
 
       if (err) {
-        return res.status(500).send({
-          error: err.sqlMessage,
-        });
+        return res.status(500).send(
+          {
+           error: err.sqlMessage,
+          }
+        );
       }
 
       if (result.length) {

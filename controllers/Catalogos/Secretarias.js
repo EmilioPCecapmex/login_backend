@@ -6,7 +6,6 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
-    const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const CreadoPor = req.body.CreadoPor;   
 
@@ -28,12 +27,6 @@ module.exports = {
         });
     }
 
-    if ((PerteneceA == null || /^[\s]*$/.test(PerteneceA)) ) {
-        return res.status(409).send({
-          error: "Ingrese PerteneceA válido.",
-        });
-    }
-
     if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
         return res.status(409).send({
           error: "Ingrese Direccion válido.",
@@ -47,7 +40,7 @@ module.exports = {
     }
    
       db.query(
-        `CALL sp_CrearSecretaria('${Nombre}','${NombreCorto}', '${IdTitular}', '${PerteneceA}', '${Direccion}', '${CreadoPor}' )`,
+        `CALL sp_CrearSecretaria('${Nombre}','${NombreCorto}', '${IdTitular}','${Direccion}', '${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -105,7 +98,6 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
-    const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const IdModificador = req.body.IdModificador;   
     
@@ -134,12 +126,6 @@ module.exports = {
         });
     }
 
-    if ((PerteneceA == null || /^[\s]*$/.test(PerteneceA)) ) {
-        return res.status(409).send({
-          error: "Ingrese PerteneceA válido.",
-        });
-    }
-
     if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
         return res.status(409).send({
           error: "Ingrese Direccion válido.",
@@ -153,7 +139,7 @@ module.exports = {
     }
 
       db.query(
-        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${NombreCorto}','${IdTitular}','${PerteneceA}','${Direccion}','${IdModificador}')`,
+        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${NombreCorto}','${IdTitular}','${Direccion}','${IdModificador}')`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
