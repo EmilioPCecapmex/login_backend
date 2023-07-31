@@ -57,7 +57,7 @@ module.exports = {
     getPermisosMenu: (req, res) => {
         const IdMenu=req.query.IdMenu
         const IdApp=req.query.IdApp
-        let query = `SELECT per.Id,per.Permiso,per.Descripcion,per.IdMenu,per.IdApp  FROM  permisos per WHERE per.IdMenu=? AND  per.IdApp=? AND  per.Deleted=0 ORDER BY per.Descripcion ASC`;
+        let query = `SELECT per.Id,per.Permiso,per.Descripcion,per.IdMenu,per.IdApp  FROM  TiCentral.Permisos per WHERE per.IdMenu=? AND  per.IdApp=? AND  per.Deleted=0 ORDER BY per.Descripcion ASC`;
         
         
         db.query(query,[IdMenu,IdApp],(err, result) => {
@@ -87,8 +87,8 @@ module.exports = {
         const IdMenu=req.query.IdMenu
         const IdRol=req.query.IdRol
         let query = ` SELECT menper.Id AS IdRelacion,per.Id,per.Permiso,per.Descripcion,per.IdMenu,per.IdApp 
-        FROM ticentral.menupermisos menper 
-        INNER JOIN ticentral.permisos per ON  per.Id=menper.idPermiso 
+        FROM TiCentral.MenuPermisos menper 
+        INNER JOIN TiCentral.Permisos per ON  per.Id=menper.idPermiso 
         WHERE menper.idMenu=? AND menper.idRol=? AND menper.Deleted=0 ORDER BY per.Descripcion ASC`;
         db.query(query,[IdMenu,IdRol],(err, result) => {
 
@@ -118,7 +118,7 @@ module.exports = {
         const CreadoPor=req.body.CreadoPor
         const IdPermiso=req.body.IdPermiso
         console.log("req",req.body);
-        let query = `INSERT INTO menupermisos (CreadoPor, ModificadoPor,idMenu, idPermiso, idRol) VALUES (?,?,?,?,?)`;
+        let query = `INSERT INTO MenuPermisos (CreadoPor, ModificadoPor,idMenu, idPermiso, idRol) VALUES (?,?,?,?,?)`;
         db.query(query,[CreadoPor,CreadoPor,IdMenu,IdPermiso,IdRol],(err, result) => {
 
             console.log("err",err);
@@ -144,7 +144,7 @@ module.exports = {
     deletedPermisosMenuRol: (req, res) => {
         const Id=req.body.Id
         console.log("req",req.body);
-        let query = `UPDATE ticentral.menupermisos men SET men.Deleted= 1 WHERE men.Id=?`;
+        let query = `UPDATE TiCentral.MenuPermisos men SET men.Deleted= 1 WHERE men.Id=?`;
         db.query(query,[Id],(err, result) => {
 
             console.log("err",err);

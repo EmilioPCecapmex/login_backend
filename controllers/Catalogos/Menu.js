@@ -111,7 +111,7 @@ module.exports = {
     deleteMenuRol: (req, res) => {
         const Id=req.body.Id
         console.log("req",req.body);
-        let query = ` UPDATE ticentral.rolmenus rl SET rl.Deleted = 1 WHERE rl.Id = ?`;
+        let query = ` UPDATE TiCentral.RolMenus rl SET rl.Deleted = 1 WHERE rl.Id = ?`;
         db.query(query,[Id],(err, result) => {
 
             console.log("err",err);
@@ -133,7 +133,7 @@ module.exports = {
         const IdMenu=req.body.IdMenu
         const CreadoPor=req.body.CreadoPor
         console.log("req",req.body);
-        let query = `INSERT INTO  rolmenus(IdRol,IdMenu,CreadoPor,ModificadoPor)VALUES(?,?,?,?)`;
+        let query = `INSERT INTO  RolMenus(IdRol,IdMenu,CreadoPor,ModificadoPor)VALUES(?,?,?,?)`;
         db.query(query,[IdRol,IdMenu,CreadoPor,CreadoPor],(err, result) => {
 
             console.log("err",err);
