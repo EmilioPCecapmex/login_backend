@@ -283,7 +283,7 @@ router.put("/delete-tipodependencia", (req, res) => {
 
 
 //PERFILES
-router.post("/create-perfil", (req, res, next) => {
+router.post("/perfil", (req, res, next) => {
   createPerfil(req, res);
 });
 
@@ -296,7 +296,7 @@ router.put("/perfil", (req, res) => {
   modifyPerfil(req, res);
 });
 
-router.put("/delete-perfil", (req, res) => {
+router.delete("/perfil", (req, res) => {
   deletePerfil(req, res);
 });
 

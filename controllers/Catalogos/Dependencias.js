@@ -357,7 +357,7 @@ module.exports = {
   },
 
    getEntidadPadre:(req,res)=>{
-    db.query('SELECT "Secretaria" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias UNION ALL SELECT "Dependencia" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias ORDER BY descripcion ASC',
+    db.query('(SELECT "Secretarias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias) UNION ALL (SELECT "Dependencias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Dependencias) ORDER BY tipo DESC, descripcion ASC;',
     (err, result) => {
       // console.log("err",err);
       // console.log("result",result);

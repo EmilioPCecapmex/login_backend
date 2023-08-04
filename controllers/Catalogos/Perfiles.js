@@ -6,7 +6,8 @@ module.exports = {
    
     const Descripcion = req.body.Descripcion;
     const Referencia = req.body.Referencia;  
-    const CreadoPor = req.body.CreadoPor;  
+    const CreadoPor = req.body.IdUsuario; 
+    const IdApp=req.body.IdApp;
 
 
       if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
@@ -24,9 +25,14 @@ module.exports = {
           error: "Ingrese CreadoPor válido.",
         });
       }
+      if ((IdApp == null || /^[\s]*$/.test(IdApp)) ) {
+        return res.status(409).send({
+          error: "Ingrese IdApp válido.",
+        });
+      }
    
       db.query(
-        `CALL sp_CrearPerfil('${Descripcion}','${Referencia}', '${CreadoPor}')`,
+        `CALL sp_CrearPerfil('${Descripcion}','${Referencia}', '${CreadoPor}', '${IdApp}')`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -55,7 +61,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getPerfiles: (req, res) => {
-    db.query(`CALL sp_ListaPerfiles()`, (err, result) => {
+    const IdApp = req.query.IdApp
+    db.query(`SELECT per.Id,per.Descripcion,per.Referencia FROM TiCentral.Perfiles per WHERE per.IdApp=? and per.Deleted=0;`,[IdApp], (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -63,7 +70,7 @@ module.exports = {
       }
 
       if (result.length) {
-        const data = result[0];
+        const data = result;
         return res.status(200).send({
           data,
         });
@@ -82,7 +89,7 @@ module.exports = {
     const IdPerfil = req.body.Id;
     const Descripcion = req.body.Descripcion;
     const Referencia = req.body.Referencia; 
-    const IdModificador = req.body.IdModificador;  
+    const IdModificador = req.body.IdUsuario;  
 
     if ((IdPerfil == null || /^[\s]*$/.test(IdPerfil)) ) {
         return res.status(409).send({
@@ -108,9 +115,11 @@ module.exports = {
       db.query(
         `CALL sp_ModificaPerfil('${IdPerfil}','${Descripcion}','${Referencia}','${IdModificador}')`,
         (err, result) => {
+          console.log("err",err);
+          console.log("result",result);
           if (err) {
             return res.status(500).send({
-              error: err.sqlMessage,
+              error: "Error al modificar registro, registro ya existente",
             });
           }
           if (result.length) {
@@ -139,9 +148,12 @@ module.exports = {
   deletePerfil: (req, res) => {
     const IdPerfil = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
+    console.log(req.body);
     db.query(
       `CALL sp_EliminarPerfil('${IdPerfil}', '${IdUsuario}')`,
       (err, result) => {
+        console.log("err",err);
+        console.log("result",result);
         if (err) {
           if(err.sqlMessage){
             return res.status(500).send({
