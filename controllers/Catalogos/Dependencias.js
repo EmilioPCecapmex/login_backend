@@ -277,7 +277,12 @@ module.exports = {
   //LISTADO COMPLETO
   getTpoDependencias: (req, res) => {
    
-    db.query(`CALL sp_ListaTpoDependencias()`, (err, result) => {
+    db.query(`SELECT
+    tpo.Id,
+    tpo.Nombre,
+    tpo.Descripcion,
+    tpo.Deleted
+  FROM  TiCentral.TipoDependencias tpo where tpo.Deleted=0`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -357,7 +362,7 @@ module.exports = {
   },
 
    getEntidadPadre:(req,res)=>{
-    db.query('(SELECT "Secretarias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias) UNION ALL (SELECT "Dependencias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Dependencias) ORDER BY tipo DESC, descripcion ASC;',
+    db.query('(SELECT "Secretarias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Secretarias sec where sec.Deleted=0) UNION ALL (SELECT "Dependencias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Dependencias dep where dep.Deleted=0) ORDER BY tipo DESC, descripcion ASC;',
     (err, result) => {
       // console.log("err",err);
       // console.log("result",result);
