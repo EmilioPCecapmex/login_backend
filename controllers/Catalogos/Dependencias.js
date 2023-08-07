@@ -290,7 +290,7 @@ module.exports = {
       }
 
       if (result.length) {
-        const data = result[0];
+        const data = result;
         return res.status(200).send({
           data,
         });
