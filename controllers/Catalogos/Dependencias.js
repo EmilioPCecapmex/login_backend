@@ -7,6 +7,7 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Direccion = req.body.Direccion;
     const Telefono = req.body.Telefono;
+    const ControlInterno = req.body.ControlInterno;
     const IdTipoDependencia = req.body.IdTipoDependencia;
     const IdTitular = req.body.IdTitular;
     const PerteneceA = req.body.PerteneceA;
@@ -49,7 +50,7 @@ module.exports = {
     }
 
     db.query(
-      `CALL sp_CrearDependencia('${Nombre}','${Direccion}', '${Telefono}', '${IdTipoDependencia}','${IdTitular}','${PerteneceA}','${CreadoPor}' )`,
+      `CALL sp_CrearDependencia('${Nombre}','${Direccion}', '${Telefono}', '${ControlInterno}', '${IdTipoDependencia}','${IdTitular}','${PerteneceA}','${CreadoPor}' )`,
       (err, result) => {
         if (err) {
           return res.status(500).send({
@@ -106,6 +107,7 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Direccion = req.body.Direccion;
     const Telefono = req.body.Telefono;
+    const ControlInterno = req.body.ControlInterno;
     const IdTipoDependencia = req.body.IdTipoDependencia;
     const IdTitular = req.body.IdTitular;
     const PerteneceA = req.body.PerteneceA;
@@ -153,7 +155,7 @@ module.exports = {
       });
     }
     db.query(
-      `CALL sp_ModificaDependencia('${IdDependencia}','${Nombre}','${Direccion}', '${Telefono}', '${IdTipoDependencia}','${IdTitular}','${PerteneceA}','${IdModificador}')`,
+      `CALL sp_ModificaDependencia('${IdDependencia}','${Nombre}','${Direccion}', '${Telefono}', '${ControlInterno}', '${IdTipoDependencia}','${IdTitular}','${PerteneceA}','${IdModificador}')`,
       (err, result) => {
         if (err) {
           return res.status(500).send({

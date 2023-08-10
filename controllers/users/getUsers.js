@@ -80,19 +80,13 @@ module.exports = {
             error: "¡Sin Información!",
           });
         }
-
-        
         return res.status(200).send({
-          
             data:data,
             perfiles:perfiles,
             roles:roles,
             menus:menus,
             permisos:permisos
-          
         });
-
-
       } else {
         return res.status(409).send({
           error: "¡Sin Información!",
