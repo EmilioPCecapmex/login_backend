@@ -231,7 +231,7 @@ router.put("/delete-departamento", (req, res) => {
 
 
 //ROLES
-router.post("/create-rol", (req, res, next) => {
+router.post("/rol", (req, res, next) => {
   createRol(req, res);
 });
 
@@ -243,7 +243,7 @@ router.put("/rol", (req, res) => {
   modifyRol(req, res);
 });
 
-router.put("/delete-rol", (req, res) => {
+router.delete("/rol", (req, res) => {
   deleteRol(req, res);
 });
 

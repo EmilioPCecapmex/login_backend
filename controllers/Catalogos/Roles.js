@@ -6,7 +6,8 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;
     const ControlInterno = req.body.ControlInterno;
-    const CreadoPor = req.body.CreadoPor;   
+    const CreadoPor = req.body.IdUsuario;
+    const IdApp = req.body.IdApp;  
 
     if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
       return res.status(409).send({
@@ -28,9 +29,14 @@ module.exports = {
           error: "Ingrese CreadoPor válido.",
         });
       }
+      if ((IdApp == null || /^[\s]*$/.test(IdApp)) ) {
+        return res.status(409).send({
+          error: "Ingrese IdApp válido.",
+        });
+      }
     else {
       db.query(
-        `CALL sp_CrearRol('${Nombre}','${Descripcion}', '${ControlInterno}', '${CreadoPor}' )`,
+        `CALL sp_CrearRol('${Nombre}','${Descripcion}', '${ControlInterno}', '${CreadoPor}', '${IdApp}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -89,7 +95,7 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;
     const ControlInterno = req.body.ControlInterno;
-    const IdModificador = req.body.IdModificador;
+    const IdModificador = req.body.IdUsuario;
     
 
     if (IdRol == null ||/^[\s]*$/.test(IdRol)) {
@@ -117,7 +123,7 @@ module.exports = {
       }
     if (IdModificador == null ||/^[\s]*$/.test(IdModificador)) {
         return res.status(409).send({
-          error: "Ingrese IdModificador",
+          error: "Ingrese IdUsuario",
         });
       } else {
       db.query(
