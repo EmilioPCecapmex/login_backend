@@ -14,15 +14,14 @@ module.exports = {
     var userid = mailData.userid;
 
     var transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: "smtp.gmail.com",
       port: 587,
       secure: false,
       auth: {
         user: process.env.LOGIN_B_APP_EMAIL_USER, // enter your email address
         pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD, // enter your visible/encripted password
       },
-      tls : { rejectUnauthorized: false }
-
+      tls: { rejectUnauthorized: false },
     });
 
     var mailOptions = {
@@ -35,7 +34,14 @@ module.exports = {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
+<<<<<<< Updated upstream
         throw error;
+=======
+        return res.status(201).send({
+          msg: error,
+          info: info.response,
+        });
+>>>>>>> Stashed changes
       } else {
         return res.status(201).send({
           msg: "¡Email enviado!",
