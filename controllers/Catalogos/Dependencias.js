@@ -191,8 +191,6 @@ module.exports = {
     db.query(
       `CALL sp_EliminarDependencia('${IdDependencia}', '${IdUsuario}')`,
       (err, result) => {
-        console.log('err', err);
-        console.log('result', result);
         if (err) {
           if (err.sqlMessage) {
             return res.status(500).send({
@@ -369,8 +367,6 @@ module.exports = {
     (SELECT "Dependencias" AS tipo, id AS value, Nombre AS descripcion FROM TiCentral.Dependencias dep where dep.Deleted=0) ORDER BY tipo DESC, descripcion ASC`
     db.query(query,
       (err, result) => {
-        // console.log("err",err);
-        // console.log("result",result);
         if (err) {
           if (err.sqlMessage) {
             return res.status(500).send({
@@ -387,8 +383,6 @@ module.exports = {
         if (result.length) {
 
           const data = result;
-          console.log("result", result);
-          console.log("data", data);
           if (data.error) {
             return res.status(409).send({
               data: data,

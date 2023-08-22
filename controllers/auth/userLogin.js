@@ -126,7 +126,6 @@ module.exports = {
           userData.refreshToken &&
           userData.refreshToken in global.tokenList
         ) {
-          console.log('decode',decoded);
           const user = {
             NombreUsuario: decoded.NombreUsuario,
             IdUsuario: decoded.IdUsuario,

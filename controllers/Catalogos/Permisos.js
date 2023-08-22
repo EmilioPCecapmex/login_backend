@@ -11,8 +11,6 @@ module.exports = {
 
         db.query(query, [IdMenu, IdApp], (err, result) => {
 
-            console.log(err);
-            console.log(result);
             if (err) {
                 return res.status(500).send({
                     error: err.sqlMessage,
@@ -40,9 +38,6 @@ module.exports = {
         INNER JOIN TiCentral.Permisos per ON  per.Id=menper.idPermiso 
         WHERE menper.idMenu=? AND menper.idRol=? AND menper.Deleted=0 ORDER BY per.Descripcion ASC`;
         db.query(query, [IdMenu, IdRol], (err, result) => {
-
-            console.log(err);
-            console.log(result);
             if (err) {
                 return res.status(500).send({
                     error: err.sqlMessage,
@@ -66,12 +61,8 @@ module.exports = {
         const IdRol = req.body.IdRol
         const CreadoPor = req.body.CreadoPor
         const IdPermiso = req.body.IdPermiso
-        console.log("req", req.body);
         let query = `INSERT INTO MenuPermisos (CreadoPor, ModificadoPor,idMenu, idPermiso, idRol) VALUES (?,?,?,?,?)`;
         db.query(query, [CreadoPor, CreadoPor, IdMenu, IdPermiso, IdRol], (err, result) => {
-
-            console.log("err", err);
-            console.log("result", result?.affectedRows);
             if (err) {
                 return res.status(500).send({
                     msg: "No se otorgo el acceso al menu",
@@ -92,12 +83,8 @@ module.exports = {
 
     deletedPermisosMenuRol: (req, res) => {
         const Id = req.body.Id
-        console.log("req", req.body);
         let query = `DELETE FROM TiCentral.MenuPermisos WHERE Id = ?`;
         db.query(query, [Id], (err, result) => {
-
-            console.log("err", err);
-            console.log("result", result?.affectedRows);
             if (err) {
                 return res.status(500).send({
                     msg: "No se otorgo el acceso al menu",

@@ -4,7 +4,6 @@ const { emailTemplate } = require("../mail/newUser");
 
 module.exports = {
   sendEmail: (req) => {
-    console.log(req);
     const mailData = req;
 
     var to = mailData.to;
@@ -35,8 +34,6 @@ module.exports = {
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
-      console.log('error',error);
-      console.log('info',info);
       if (error) {
         
         return res.status(201).send({

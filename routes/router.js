@@ -162,7 +162,7 @@ router.get("/datosAdicionalesSolicitud",verifyToken.verifyJWT, (req, res) => {
   getDatosAdicionalesSolicitud(req, res);
 })
 //Crear solicitud
-router.post("/create-solicitud", verifyToken.verifyJWT, (req, res) => {
+router.post("/create-solicitud",  (req, res) => {
   createSolicitud(req, res);
 });
 
@@ -391,7 +391,7 @@ router.get("/prueba-sendEmail",()=>{
     userid: 'IdUsuario',
   };
 
-  console.log(d);
+  //console.log(d);
   sendEmail(d);
 })
 

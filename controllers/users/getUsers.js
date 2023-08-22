@@ -68,7 +68,6 @@ module.exports = {
 
     db.query(`CALL sp_DetalleUsuarioAplicacion('${userId}','${appId}')`, (err, result) => {
       if (err) {
-        console.log(err);
         return res.status(500).send({
           error: err.sqlMessage,
         });
@@ -115,14 +114,12 @@ function getPerfil (userId,appId)  {
 
    db.query(query,[userId,appId] ,(err, result) => {
      if (err) {
-      // console.log(err);
        return res.status(500).send({
          error: err.sqlMessage,
        });
      }
 
      if (result.length) {
-     //  console.log(result);
        perfiles.push(result);
      } else {
       perfiles =[];
@@ -151,14 +148,12 @@ function getRoles (userId,appId)  {
 
    db.query(query,[userId,appId] ,(err, result) => {
      if (err) {
-     //  console.log(err);
        return res.status(500).send({
          error: err.sqlMessage,
        });
      }
 
      if (result.length) {
-      // console.log(result);
        data.push(result);
      } else {
       data =[];
@@ -202,7 +197,6 @@ async function getMenus (userId,appId)  {
     
      const children =   await  getMenusnivel1(userId,appId,result[i].Id);
 
-     console.log("buscanndo a nivel 2")
      for(var j = 0; j <children.length;j++){
     
      const children2 =   await  getMenusnivel2(userId,appId,children[j].Id);
@@ -323,14 +317,12 @@ async function getMenus (userId,appId)  {
 
    db.query(query,[userId,appId] ,(err, result) => {
      if (err) {
-    //   console.log(err);
        return res.status(500).send({
          error: err.sqlMessage,
        });
      }
 
      if (result.length) {
-    //   console.log(result);
        data.push(result);
      } else {
       data =[];

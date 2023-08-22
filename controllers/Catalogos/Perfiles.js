@@ -115,8 +115,6 @@ module.exports = {
       db.query(
         `CALL sp_ModificaPerfil('${IdPerfil}','${Descripcion}','${Referencia}','${IdModificador}')`,
         (err, result) => {
-          console.log("err",err);
-          console.log("result",result);
           if (err) {
             return res.status(500).send({
               error: "Error al modificar registro, registro ya existente",
@@ -148,12 +146,9 @@ module.exports = {
   deletePerfil: (req, res) => {
     const IdPerfil = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
-    console.log(req.body);
     db.query(
       `CALL sp_EliminarPerfil('${IdPerfil}', '${IdUsuario}')`,
       (err, result) => {
-        console.log("err",err);
-        console.log("result",result);
         if (err) {
           if(err.sqlMessage){
             return res.status(500).send({

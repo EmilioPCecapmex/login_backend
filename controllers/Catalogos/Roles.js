@@ -67,7 +67,6 @@ module.exports = {
   getRoles: (req, res) => {
     const IdApp = req.query.IdApp;
     db.query(`CALL sp_ListaRoles('${IdApp}')`, (err, result) => {
-      console.log("result",result);
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -163,8 +162,6 @@ module.exports = {
     db.query(
       `CALL sp_EliminarRoles('${IdRol}', '${IdUsuario}')`,
       (err, result) => {
-        console.log('err',err);
-        console.log('resut',result);
         if (err) {
           if(err.sqlMessage){
             return res.status(500).send({
