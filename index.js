@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // set up port
-const PORT = process.env.LOGIN_B_APP_PORT || 5000;
+const PORT = process.env.LOGIN_B_APP_PORT || 5001;
 app.use(express.json());
 app.use(cors());
 // add routes
