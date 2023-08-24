@@ -73,7 +73,7 @@ module.exports = {
 
                 if (err) {
                   return res.status(500).send({
-                    error: "Error de base de datos",
+                    error: err,
                   });
                 }
                 

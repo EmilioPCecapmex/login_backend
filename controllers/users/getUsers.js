@@ -102,6 +102,7 @@ module.exports = {
 function getPerfil (userId,appId)  {
   let perfiles =[];
   let query= `  SELECT
+  p.Id,
   p.Descripcion,
   p.Referencia
   FROM
@@ -136,6 +137,7 @@ function getPerfil (userId,appId)  {
 function getRoles (userId,appId)  {
   let data =[];
   let query= `   SELECT
+  rol.Id,
   rol.Nombre,
   rol.Descripcion,
   rol.ControlInterno
