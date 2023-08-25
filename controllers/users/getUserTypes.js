@@ -2,8 +2,8 @@ const db = require("../../config/db.js");
 
 module.exports = {
   getUsersTypes: (req, res) => {
-    const IdUsuario = req.body.IdUsuario;
-    db.query(`CALL sp_ListaTipoUsuario('${IdUsuario}')`, (err, result) => {
+    const IdApp = req.body.IdApp;
+    db.query(`CALL sp_ListaTipoUsuario('${IdApp}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",
