@@ -12,7 +12,7 @@ module.exports = {
 
       if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
         return res.status(409).send({
-          error: "Ingrese Descripcion válido.",
+          error: "Ingrese Descripción válida.",
         });
       }
       if ((Referencia == null || /^[\s]*$/.test(Referencia)) ) {
@@ -93,13 +93,13 @@ module.exports = {
 
     if ((IdPerfil == null || /^[\s]*$/.test(IdPerfil)) ) {
         return res.status(409).send({
-          error: "Ingrese IdPerfil valido.",
+          error: "Ingrese IdPerfil válido.",
         });
       } 
 
       if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
         return res.status(409).send({
-          error: "Ingrese Descripcion válido.",
+          error: "Ingrese Descripción válida.",
         });
       }
       if ((Referencia == null || /^[\s]*$/.test(Referencia)) ) {

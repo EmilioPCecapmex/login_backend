@@ -29,7 +29,7 @@ module.exports = {
 
     if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
         return res.status(409).send({
-          error: "Ingrese Direccion válido.",
+          error: "Ingrese Dirección válido.",
         });
     }
 
@@ -128,7 +128,7 @@ module.exports = {
 
     if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
         return res.status(409).send({
-          error: "Ingrese Direccion válido.",
+          error: "Ingrese Dirección válido.",
         });
     }
 

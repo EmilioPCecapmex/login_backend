@@ -15,12 +15,12 @@ module.exports = {
 
     if ((Nombre == null || /^[\s]*$/.test(Nombre))) {
       return res.status(409).send({
-        error: "Ingrese Nombre valido.",
+        error: "Ingrese Nombre válido.",
       });
     }
     if ((Direccion == null || /^[\s]*$/.test(Direccion))) {
       return res.status(409).send({
-        error: "Ingrese Direccion válida.",
+        error: "Ingrese Dirección válida.",
       });
     }
     if ((Telefono == null || /^[\s]*$/.test(Telefono))) {
@@ -115,18 +115,18 @@ module.exports = {
 
     if ((IdDependencia == null || /^[\s]*$/.test(IdDependencia))) {
       return res.status(409).send({
-        error: "Ingrese IdDependencia valido.",
+        error: "Ingrese IdDependencia válido.",
       });
     }
 
     if ((Nombre == null || /^[\s]*$/.test(Nombre))) {
       return res.status(409).send({
-        error: "Ingrese Nombre valido.",
+        error: "Ingrese Nombre válido.",
       });
     }
     if ((Direccion == null || /^[\s]*$/.test(Direccion))) {
       return res.status(409).send({
-        error: "Ingrese Direccion válida.",
+        error: "Ingrese Dirección válida.",
       });
     }
     if ((Telefono == null || /^[\s]*$/.test(Telefono))) {
@@ -231,12 +231,12 @@ module.exports = {
 
     if ((Nombre == null || /^[\s]*$/.test(Nombre))) {
       return res.status(409).send({
-        error: "Ingrese Nombre valido.",
+        error: "Ingrese Nombre válido.",
       });
     }
     if ((Descripcion == null || /^[\s]*$/.test(Descripcion))) {
       return res.status(409).send({
-        error: "Ingrese Descripcion válida.",
+        error: "Ingrese Descripción válida.",
       });
     }
 
@@ -313,18 +313,18 @@ module.exports = {
 
     if ((IdTpoDependencia == null || /^[\s]*$/.test(IdTpoDependencia))) {
       return res.status(409).send({
-        error: "Ingrese IdTpoDependencia valido.",
+        error: "Ingrese IdTpoDependencia válido.",
       });
     }
 
     if ((Nombre == null || /^[\s]*$/.test(Nombre))) {
       return res.status(409).send({
-        error: "Ingrese Nombre valido.",
+        error: "Ingrese Nombre válido.",
       });
     }
     if ((Descripcion == null || /^[\s]*$/.test(Descripcion))) {
       return res.status(409).send({
-        error: "Ingrese Descripcion válida.",
+        error: "Ingrese Descripción válida.",
       });
     }
 
