@@ -25,7 +25,7 @@ module.exports = {
         const IdTipoUsuario = req.body.IdTipoUsuario;
         const PuedeFirmar = req.body.PuedeFirmar;
         const Entidad = req.body.Entidad;
-        console.log(req.body);
+       
         
                 
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {

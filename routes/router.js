@@ -398,7 +398,7 @@ router.get("/prueba-sendEmail",()=>{
     userid: 'IdUsuario',
   };
 
-  //console.log(d);
+
   sendEmail(d);
 })
 
