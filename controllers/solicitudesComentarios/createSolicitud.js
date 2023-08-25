@@ -20,7 +20,7 @@ module.exports = {
         const IdApp = req.body.IdApp;
         const CreadoPor = req.body.CreadoPor;
         const IdUResponsable = req.body.IdUResponsable;
-        const Perfiles = req.body.Perfiles;
+         const Perfiles = null;
         const Roles = req.body.Roles;
         const IdTipoUsuario = req.body.IdTipoUsuario;
         const PuedeFirmar = req.body.PuedeFirmar;
@@ -104,11 +104,11 @@ module.exports = {
                 error: "Ingrese Roles",
             });
         }  
-         if (Perfiles == null || /^[\s]*$/.test(Perfiles)) {
-            return res.status(409).send({
-                error: "Ingrese Perfiles",
-            });
-        }
+        //  if (Perfiles == null || /^[\s]*$/.test(Perfiles)) {
+        //     return res.status(409).send({
+        //         error: "Ingrese Perfiles",
+        //     });
+        // }
         if ( /^[\s]*$/.test(IdUResponsable)) {
             return res.status(409).send({
                 error: "Ingrese Unidad Responsable",

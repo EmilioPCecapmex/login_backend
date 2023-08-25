@@ -41,6 +41,7 @@ const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } =
 const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
 const { getMenus, getMenusPerfil, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
 const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermisosMenuRol } = require("../controllers/Catalogos/Permisos.js");
+const { validEmailExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
 
 // routes/router.js
 
@@ -375,7 +376,13 @@ router.delete("/permiso-menu-rol",(req,res)=>{
   deletedPermisosMenuRol(req,res)
 })
 
+router.post("/validarEmail",(req,res)=>{
+  validEmailExist(req,res)
+})
 
+router.post("/validarUserName",(req,res)=>{
+  validEmailExist(req,res)
+})
 
 
 
