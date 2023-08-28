@@ -19,11 +19,11 @@ module.exports = {
         if (ExisteNombre || ExistePath) {
           if (ExisteNombre > 0) {
             return res.status(409).send({
-              msg: "Nombre actualmente en uso.",
+              msg: "Nombre actualmente en uso. Verifique la base de datos",
             });
           } else if (ExistePath > 0) {
             return res.status(409).send({
-              msg: "Path actualmente en uso.",
+              msg: "Ruta actualmente en uso. Verifique la base de datos",
             });
           }
         } else {

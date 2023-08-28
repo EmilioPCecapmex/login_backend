@@ -47,6 +47,7 @@ module.exports = {
                       ${db.escape(userData.ApellidoMaterno)},
                       ${db.escape(userData.NombreUsuario)},
                     ${db.escape(userData.CorreoElectronico)}, 
+                    ${db.escape(userData.Puesto)}, 
                      ${db.escape(hash)},
                      ${db.escape(userData.IdUsuarioModificador)},
                      ${db.escape(userData.Curp)},
@@ -54,10 +55,12 @@ module.exports = {
                      ${db.escape(userData.Telefono)},
                      ${db.escape(userData.Ext)},
                      ${db.escape(userData.Celular)},
-                     ${db.escape(userData.IdTipoUsuario)},
-                     ${db.escape(userData.PuedeFirmar)}
+                     ${db.escape(userData.IdTipoUsuario)}
+                     ${db.escape(userData.idUResponsable)}
+                     ${db.escape(userData.idPerfil)}
+                     ${db.escape(userData.idRol)}
+                     ${db.escape(userData.idDepartamento)}
                      )`,
-
                 (err, result) => {
                   if (err) {
 

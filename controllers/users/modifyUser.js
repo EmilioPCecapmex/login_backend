@@ -6,6 +6,7 @@ module.exports = {
     const name = req.body.Nombre;
     const nameAP = req.body.ApellidoPaterno;
     const nameAM = req.body.ApellidoMaterno;
+    const puesto = req.body.Puesto;
     const estaActivo = req.body.EstaActivo;
     const userUpdateId = req.body.IdUsuarioModificador;
     const curp = req.body.Curp;
@@ -17,7 +18,7 @@ module.exports = {
     const puedefirmar= req.body.puedefirmar
 
     db.query(
-      `CALL sp_ModificaUsuario('${userId}','${name}','${nameAP}','${nameAM}',${estaActivo},'${userUpdateId}',
+      `CALL sp_ModificaUsuario('${userId}','${name}','${nameAP}','${nameAM}','${puesto}',${estaActivo},'${userUpdateId}',
       '${curp}','${rfc}','${telefono}','${ext}',${celular},'${tipoUsuario}','${puedefirmar}')`,
       (err, result) => {
         if (err) {

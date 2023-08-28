@@ -10,17 +10,24 @@ module.exports = {
         const AMaterno = req.body.AMaterno;
         const NombreUsuario = req.body.NombreUsuario;
         const Email = req.body.Email;
+        const Puesto = req.body.Puesto;
         const Curp = req.body.Curp;
         const RFC = req.body.RFC;
         const Celular = req.body.Celular;
         const Telefono = req.body.Telefono;
         const Extencion = req.body.Extencion;
         const TipoSolicitud = req.body.TipoSolicitud;
-        const DatosAdicionales = req.body.DatosAdicionales;
         const IdApp = req.body.IdApp;
-        const IdUsuarioCreador = req.body.CreadoPor;
+        const CreadoPor = req.body.CreadoPor;
+        const IdUResponsable = req.body.IdUResponsable;
+         const Perfiles = null;
+        const Roles = req.body.Roles;
+        const IdTipoUsuario = req.body.IdTipoUsuario;
+        const PuedeFirmar = req.body.PuedeFirmar;
+        const Entidad = req.body.Entidad;
+       
         
-
+                
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {
             return res.status(409).send({
                 error: "Ingrese Nombre",
@@ -44,6 +51,11 @@ module.exports = {
         if (Email == null || /^[\s]*$/.test(Email)) {
             return res.status(409).send({
                 error: "Ingrese Email",
+            });
+        }
+        if (Puesto == null || /^[\s]*$/.test(Puesto)) {
+            return res.status(409).send({
+                error: "Ingrese Puesto",
             });
         }
         if (Curp == null || /^[\s]*$/.test(Curp)) {
@@ -71,36 +83,49 @@ module.exports = {
                 error: "Ingrese Extencion del Telefono",
             });
         }
-        if (IdUsuarioCreador == null || /^[\s]*$/.test(IdUsuarioCreador)) {
+        if (CreadoPor == null || /^[\s]*$/.test(CreadoPor)) {
             return res.status(409).send({
-                error: "Ingrese ID Usuurio Creador",
+                error: "Ingrese CreadoPor",
             });
         }
-
         if (TipoSolicitud == null || /^[\s]*$/.test(TipoSolicitud)) {
             return res.status(409).send({
                 error: "Ingrese tipo de solicitud",
             });
         } 
-
-
-        if (DatosAdicionales == null ) {
-            return res.status(409).send({
-                error: "Ingrese Id Datos adicionales ",
-            });
-        }
-        
+      
         if (IdApp == null || /^[\s]*$/.test(IdApp)) {
             return res.status(409).send({
                 error: "Ingrese Id App",
             });
+        }   
+        if (Roles == null || /^[\s]*$/.test(Roles)) {
+            return res.status(409).send({
+                error: "Ingrese Roles",
+            });
+        }  
+        //  if (Perfiles == null || /^[\s]*$/.test(Perfiles)) {
+        //     return res.status(409).send({
+        //         error: "Ingrese Perfiles",
+        //     });
+        // }
+        if ( /^[\s]*$/.test(IdUResponsable)) {
+            return res.status(409).send({
+                error: "Ingrese Unidad Responsable",
+            });
         }
-
-                db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${IdUsuarioCreador}')`, (err, result) => {
-                if (err) {
+        if (Entidad == null || /^[\s]*$/.test(Entidad)) {
+            return res.status(409).send({
+                error: "Ingrese Entidad",
+            });
+        }
+        
+        db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${IdApp}','${CreadoPor}','${IdUResponsable}','${Perfiles}','${Roles}','${IdTipoUsuario}','${PuedeFirmar}','${Entidad}')`, (err, result) => {
+           
+            if (err) {
                     
                     return res.status(500).send({
-                        error: "Error",
+                        error: err,
                     });
                 }
                 if (result.length) {

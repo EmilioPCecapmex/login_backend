@@ -9,6 +9,7 @@ module.exports = {
     const AMaterno = req.body.AMaterno;
     const Usuario = req.body.Usuario;
     const Email = req.body.Email;
+    const Puesto = req.body.Puesto;
     const CURP = req.body.CURP;
     const RFC = req.body.RFC;
     const Telefono = req.body.Telefono;
@@ -47,6 +48,11 @@ module.exports = {
     if (Email == null || /^[\s]*$/.test(Email)) {
       return res.status(409).send({
         error: "Ingrese Email",
+      });
+    }
+    if (Puesto == null || /^[\s]*$/.test(Puesto)) {
+      return res.status(409).send({
+        error: "Ingrese Puesto",
       });
     }
     if (CURP == null || /^[\s]*$/.test(CURP)) {
@@ -92,7 +98,7 @@ module.exports = {
 
 
     db.query(
-      `CALL sp_ModificaSolicitud('${IdSolicitud}','${Nombre}','${APaterno}','${AMaterno}','${Usuario}','${Email}','${CURP}','${RFC}','${Telefono}','${Extencion}','${Celular}','${DatosAdicionales}','${Estatus}','${IdApp}','${IdUsuarioSolicitante}')`,
+      `CALL sp_ModificaSolicitud('${IdSolicitud}','${Nombre}','${APaterno}','${AMaterno}','${Usuario}','${Email}','${Puesto}','${CURP}','${RFC}','${Telefono}','${Extencion}','${Celular}','${DatosAdicionales}','${Estatus}','${IdApp}','${IdUsuarioSolicitante}')`,
       (err, result) => {
         if (err) {
           

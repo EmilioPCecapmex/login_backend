@@ -4,33 +4,38 @@ module.exports = {
   modifyApp: (req, res) => {
     const appId = req.body.IdApp;
     const name = req.body.Nombre;
+    const des = req.body.Descripcion;
     const path = req.body.Path;
     const userUpdateId = req.body.IdUsuarioModificador;
-    db.query(
-      `CALL sp_ModificaApp('${appId}','${name}','${path}','${userUpdateId}')`,
-      (err, result) => {
-        if (err) {
-          return res.status(500).send({
-            error: "Error",
-          });
-        }
-        if (result.length) {
-          const data = result[0][0];
-          if (data === undefined) {
-            return res.status(409).send({
-              error: "Verificar Id App",
-            });
-          }
+    const estaActivo = req.body.EstaActivo;
+    const query = 'UPDATE `Apps` '+
+    'SET `Nombre` = ?, `Descripcion` = ? , `Path` = ? , `EstaActivo` = ? , `ModificadoPor` = ? ' +
+    'WHERE `id` = ?';
+    const values = [name, des, path,estaActivo,userUpdateId,appId];
 
-          return res.status(200).send({
-            result: data,
-          });
-        } else {
-          return res.status(409).send({
-            error: "¡Sin Información!",
-          });
-        }
+    db.query(query, values, (err, result) => {
+          if (err) {
+              return res.status(500).send({
+                error: "Error",
+              });
+            }
+            if (result.affectedRows!=0) {
+              const data = result.affectedRows;
+              if (data === undefined) {
+                return res.status(409).send({
+                  error: "¡Sin Información!",
+                });
+              }
+              return res.status(200).send({
+                data,
+              });
+            } else {
+              return res.status(409).send({
+                error: "¡Sin Información!",
+              });
+            }
       }
-    );
+    ); 
+    
   },
 };

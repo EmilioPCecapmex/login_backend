@@ -73,11 +73,10 @@ module.exports = {
 
                 if (err) {
                   return res.status(500).send({
-                    error: "Error de base de datos",
+                    error: err,
                   });
                 }
-                console.log();
-                console.log(result[0][0]);
+                
                 if(result[0][0].Respuesta==201 && result[0][0].Mensaje=='Vinculación exitosa'){
                   const d = {
                     to: correo,

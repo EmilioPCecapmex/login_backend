@@ -43,14 +43,28 @@ module.exports = {
               }
 
               if (bResult) {
+///////////////////
+
+
+       
+
+
+/////////////////////
+
                 const IdUsuario = result[0][0].Id;
                 const NombreUsuario = result[0][0].NombreUsuario;
+                const datosCompletos = result[0][0];
+
                 let AppIds = result[1];
                 let token;
 
                 const user = {
                   NombreUsuario: NombreUsuario,
                   IdUsuario: IdUsuario,
+                  // idDepartamento:result[0][0]?.IdDepartamento
+                  datosCompletos:datosCompletos
+                  // datosCompletos:datosCompletos
+                  // datosCompletos:datosCompletos
                 };
 
                 token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
@@ -100,8 +114,7 @@ module.exports = {
     let jwtSecretKey = process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY;
 
     // refresh the damn token
-
-
+   
     jwt.verify(userData.refreshToken, jwtSecretKey, (err, decoded) => {
       if (err) {
         res
@@ -113,7 +126,12 @@ module.exports = {
           userData.refreshToken &&
           userData.refreshToken in global.tokenList
         ) {
-          const token = jwt.sign({}, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
+          const user = {
+            NombreUsuario: decoded.NombreUsuario,
+            IdUsuario: decoded.IdUsuario,
+          };
+          
+          const token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
             expiresIn: "45m",
           });
           const response = {
