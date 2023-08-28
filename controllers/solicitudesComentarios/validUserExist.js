@@ -65,7 +65,7 @@ module.exports = {
       });
     }
     let query=` SELECT 
-	Count(*)
+	Count(*) AS Existe
     FROM TiCentral.Usuarios u WHERE u.NombreUsuario=?;`
     db.query(
         query,[UserName] ,
@@ -78,12 +78,7 @@ module.exports = {
         }
         if (result.length) {
           
-          const data = result[0][0];
-          if (data === undefined) {
-            return res.status(409).send({
-              error: "Verificar Id App",
-            });
-          }
+          const data = result[0];
 
           return res.status(200).send({
             result: data,
