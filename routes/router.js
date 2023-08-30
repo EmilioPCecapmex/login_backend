@@ -36,6 +36,7 @@ const {getSolicitudActualDocumento} = require("../controllers/solicitudesComenta
 const { createDepartamento, getDepartamentos, modifyDepartamento, deleteDepartamento, getDetailDepartamentos } = require("../controllers/Catalogos/Departamentos.js");
 const { createRol, modifyRol, getRoles, deleteRol } = require("../controllers/Catalogos/Roles.js");
 const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia, deleteTipoDependencia, deleteDependencia, getEntidadPadre } = require("../controllers/Catalogos/Dependencias.js");
+// const { createPerfil, getPerfiles, modifyPerfil, deletePerfil } = require("../controllers/Catalogos/Perfiles.js");
 const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } = require("../controllers/Catalogos/Secretarias.js");
 const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
 const { getMenus, getMenusPerfil, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
@@ -45,7 +46,7 @@ const { validEmailExist, validUserNameExist } = require("../controllers/solicitu
 // routes/router.js
 
 //////////// catalogos
-router.post("/consultaCatalogos", verifyToken.verifyJWT, (req, res) => {
+router.post("/consulta-catalogos", verifyToken.verifyJWT, (req, res) => {
   consultaCatalogos(req, res);
 });
 
@@ -61,9 +62,9 @@ router.post("/refresh-token", (req, res, next) => {
 router.post("/verify", verifyToken.isLoggedIn);
 
 //Users
-router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
-  getUserDetail(req, res);
-});
+// router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
+//   getUserDetail(req, res);
+// });
 
 router.post("/userapp-detail",  (req, res) => {
   getUserAppDetail(req, res);
@@ -89,9 +90,9 @@ router.post("/forgot-password", (req, res) => {
   forgotPassword(req, res);
 });
 
-router.get("/activate", (req, res) => {
-  activateUser(req, res);
-});
+// router.get("/activate", (req, res) => {
+//   activateUser(req, res);
+// });
 
 router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
   getUserApps(req, res);
@@ -282,6 +283,23 @@ router.put("/delete-tipodependencia", (req, res) => {
 
 
 
+//PERFILES
+router.post("/perfil", (req, res, next) => {
+  createPerfil(req, res);
+});
+
+
+router.get("/perfiles", (req, res) => {
+  getPerfiles(req, res);
+});
+
+router.put("/perfil", (req, res) => {
+  modifyPerfil(req, res);
+});
+
+router.delete("/perfil", (req, res) => {
+  deletePerfil(req, res);
+});
 
 //SECRETARIAS
 router.post("/create-secretaria", (req, res, next) => {
