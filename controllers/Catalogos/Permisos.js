@@ -51,7 +51,6 @@ module.exports = {
         const IdRol = req.body.IdRol
         const CreadoPor = req.body.CreadoPor
         const IdPermiso = req.body.IdPermiso
-        let query = `INSERT INTO MenuPermisos (CreadoPor, ModificadoPor,idMenu, idPermiso, idRol) VALUES (?,?,?,?,?)`;
         db.query(`CALL sp_CrearPermisosMenuRol('${IdMenu}','${IdPermiso}','${IdRol}','${CreadoPor}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({

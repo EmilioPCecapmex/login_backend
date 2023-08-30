@@ -44,7 +44,8 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 
 //Se agrega Controlador de endpoints donde se obtiene el Padre de una Dependencia y todo lo que hay para llegar a ella 
 //a partir de la Dependencia ligada a un Usuario
-const { getUsuarioEntidad, detalleEntidad, validUserNameExist } = require("../controllers/users/detalleUsuarioSecretaria.js");
+const { getUsuarioEntidad, detalleEntidad } = require("../controllers/users/detalleUsuarioSecretaria.js");
+const { validEmailExist, validUserNameExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
 
 // routes/router.js
 
@@ -390,8 +391,11 @@ router.delete("/permiso-menu-rol",(req,res)=>{
   deletedPermisosMenuRol(req,res)
 })
 
+router.post("/validar-email",(req,res)=>{
+  validEmailExist(req,res)
+})
 
-router.post("/validarUserName",(req,res)=>{
+router.post("/validar-user-name",(req,res)=>{
   validUserNameExist(req,res)
 })
 
