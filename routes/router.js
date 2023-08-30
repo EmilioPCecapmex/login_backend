@@ -44,15 +44,20 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 
 //Se agrega Controlador de endpoints donde se obtiene el Padre de una Dependencia y todo lo que hay para llegar a ella 
 //a partir de la Dependencia ligada a un Usuario
-const { getUsuarioEntidad } = require("../controllers/users/detalleUsuarioSecretaria.js");
+const { getUsuarioEntidad, detalleEntidad } = require("../controllers/users/detalleUsuarioSecretaria.js");
 
 // routes/router.js
 
-//router.get("/testendpoint", userioDetalleSecretaria.helloWorld);
+//Entidades
 
 router.post("/lista-usuario-entidades", (req, res) => {
   getUsuarioEntidad(req, res);
 });
+
+router.post("/detalle-entidad", (req, res) => {
+  detalleEntidad(req, res);
+});
+
 
 //////////// catalogos
 router.post("/consultaCatalogos", verifyToken.verifyJWT, (req, res) => {
