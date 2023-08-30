@@ -33,7 +33,7 @@ module.exports = {
           db.query(
             `CALL sp_CrearApp (
                   ${db.escape(appData.Nombre)},
-                  '',
+                  ${db.escape(appData.Descripcion)},,
                   ${db.escape(appData.Path)},
                   ${db.escape(appData.IdUsuarioModificador)}
                  )`,

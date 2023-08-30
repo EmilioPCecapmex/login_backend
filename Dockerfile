@@ -1,13 +1,12 @@
-FROM node:16.18.1
+# Layer 1
+FROM node:16.18.1-alpine
+WORKDIR /usr/src/app
 
-COPY ["package.json","package-lock.json","/usr/src/"]
-
-WORKDIR /usr/src
+COPY package*.json ./
 
 RUN npm install
+# layer1
 
-COPY [".", "/usr/src/"]
+COPY . .                                      
 
-EXPOSE 3000
-
-CMD ["npx","nodemon","index.js"]
+CMD [ "npm", "run", "start:prod" ]
