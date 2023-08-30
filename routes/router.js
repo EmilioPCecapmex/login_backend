@@ -36,7 +36,6 @@ const {getSolicitudActualDocumento} = require("../controllers/solicitudesComenta
 const { createDepartamento, getDepartamentos, modifyDepartamento, deleteDepartamento, getDetailDepartamentos } = require("../controllers/Catalogos/Departamentos.js");
 const { createRol, modifyRol, getRoles, deleteRol } = require("../controllers/Catalogos/Roles.js");
 const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia, deleteTipoDependencia, deleteDependencia, getEntidadPadre } = require("../controllers/Catalogos/Dependencias.js");
-const { createPerfil, getPerfiles, modifyPerfil, deletePerfil } = require("../controllers/Catalogos/Perfiles.js");
 const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } = require("../controllers/Catalogos/Secretarias.js");
 const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
 const { getMenus, getMenusPerfil, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
@@ -283,23 +282,6 @@ router.put("/delete-tipodependencia", (req, res) => {
 
 
 
-//PERFILES
-router.post("/perfil", (req, res, next) => {
-  createPerfil(req, res);
-});
-
-
-router.get("/perfiles", (req, res) => {
-  getPerfiles(req, res);
-});
-
-router.put("/perfil", (req, res) => {
-  modifyPerfil(req, res);
-});
-
-router.delete("/perfil", (req, res) => {
-  deletePerfil(req, res);
-});
 
 //SECRETARIAS
 router.post("/create-secretaria", (req, res, next) => {

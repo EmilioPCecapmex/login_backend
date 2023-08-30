@@ -36,7 +36,7 @@ module.exports = {
       }
     else {
       db.query(
-        `CALL sp_CrearRol('${Nombre}','${Descripcion}', '${ControlInterno}', '${CreadoPor}', '${IdApp}' )`,
+        `CALL sp_CrearRol('${Nombre}','${Descripcion}', '${ControlInterno}',  '${IdApp}','${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -44,14 +44,12 @@ module.exports = {
             });
           }
           if (result.length) {
-            const data = result[0][0];
-            if (data.error) {
-              return res.status(409).send({
-                result: data,
-              });
-            }
+            const data = result[0];
+
+            console.log(data[0].Message)
+            const respo = data[0].Message;
             return res.status(200).send({
-              data,
+              data :respo,
             });
           } else {
             return res.status(409).send({

@@ -20,7 +20,6 @@ module.exports = {
         const IdApp = req.body.IdApp;
         const CreadoPor = req.body.CreadoPor;
         const IdUResponsable = req.body.IdUResponsable;
-         const Perfiles = null;
         const Roles = req.body.Roles;
         const IdTipoUsuario = req.body.IdTipoUsuario;
         const PuedeFirmar = req.body.PuedeFirmar;
@@ -104,11 +103,6 @@ module.exports = {
                 error: "Ingrese Roles",
             });
         }  
-        //  if (Perfiles == null || /^[\s]*$/.test(Perfiles)) {
-        //     return res.status(409).send({
-        //         error: "Ingrese Perfiles",
-        //     });
-        // }
         if ( /^[\s]*$/.test(IdUResponsable)) {
             return res.status(409).send({
                 error: "Ingrese Unidad Responsable",
@@ -120,7 +114,7 @@ module.exports = {
             });
         }
         
-        db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${IdApp}','${CreadoPor}','${IdUResponsable}','${Perfiles}','${Roles}','${IdTipoUsuario}','${PuedeFirmar}','${Entidad}')`, (err, result) => {
+        db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${IdApp}','${CreadoPor}','${IdUResponsable}','${Roles}','${IdTipoUsuario}','${PuedeFirmar}','${Entidad}')`, (err, result) => {
            
             if (err) {
                     

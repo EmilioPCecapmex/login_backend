@@ -8,7 +8,8 @@ module.exports = {
         appData.Path
       )},${db.escape(appData.IdUsuarioModificador)})`,
       (err, result) => {
-        if (err) {
+       
+        if (err != null ) {
           return res.status(500).send({
             error: "Error",
           });
@@ -28,14 +29,17 @@ module.exports = {
           }
         } else {
           // username is available
+          
           db.query(
-            `CALL sp_CreaApp (
+            `CALL sp_CrearApp (
                   ${db.escape(appData.Nombre)},
+                  '',
                   ${db.escape(appData.Path)},
-                 ${db.escape(appData.IdUsuarioModificador)}
+                  ${db.escape(appData.IdUsuarioModificador)}
                  )`,
 
             (err, result) => {
+               console.log(err);
               if (err) {
                 return res.status(500).send({
                   error: "Error",

@@ -61,7 +61,6 @@ module.exports = {
       });
     } 
 
-   let perfiles=getPerfil(userId,appId);
    let roles =getRoles(userId,appId);
    let menus = await getMenus(userId,appId);
    let permisos = getPermisos(userId,appId);
@@ -81,7 +80,6 @@ module.exports = {
         }
         return res.status(200).send({
             data:data,
-            perfiles:perfiles,
             roles:roles,
             menus:menus,
             permisos:permisos
@@ -99,38 +97,6 @@ module.exports = {
 
 
 
-function getPerfil (userId,appId)  {
-  let perfiles =[];
-  let query= `  SELECT
-  p.Id,
-  p.Descripcion,
-  p.Referencia
-  FROM
-  TiCentral.UsuarioPerfil up 
-  LEFT join TiCentral.Perfiles p ON up.idPerfil = p.Id
-  LEFT JOIN TiCentral.Usuarios u ON u.Id = up.idusuario
-  WHERE 1=1
-  and u.id=?
-  AND p.IdApp=? `;
-
-   db.query(query,[userId,appId] ,(err, result) => {
-     if (err) {
-       return res.status(500).send({
-         error: err.sqlMessage,
-       });
-     }
-
-     if (result.length) {
-       perfiles.push(result);
-     } else {
-      perfiles =[];
-     }
-   });
-
-
-   return perfiles;
-
- }
 
 
  
