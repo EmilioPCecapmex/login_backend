@@ -41,9 +41,18 @@ const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } =
 const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
 const { getMenus, getMenusPerfil, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
 const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermisosMenuRol } = require("../controllers/Catalogos/Permisos.js");
-const { validEmailExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
+
+//Se agrega Controlador de endpoints donde se obtiene el Padre de una Dependencia y todo lo que hay para llegar a ella 
+//a partir de la Dependencia ligada a un Usuario
+const { getUsuarioEntidad } = require("../controllers/users/detalleUsuarioSecretaria.js");
 
 // routes/router.js
+
+//router.get("/testendpoint", userioDetalleSecretaria.helloWorld);
+
+router.post("/lista-usuario-entidades", (req, res) => {
+  getUsuarioEntidad(req, res);
+});
 
 //////////// catalogos
 router.post("/consultaCatalogos", verifyToken.verifyJWT, (req, res) => {
@@ -151,7 +160,7 @@ router.post("/user-types",verifyToken.verifyJWT, (req, res) => {
 //listado de solicitudes
 router.get("/solicitudes",verifyToken.verifyJWT, (req, res) => {
   getSolicitudes(req, res);
-});
+}); 
 
 //detalle de solicitud
 router.get("/detalleSol",verifyToken.verifyJWT, (req, res) => {
@@ -163,7 +172,7 @@ router.get("/datosAdicionalesSolicitud",verifyToken.verifyJWT, (req, res) => {
   getDatosAdicionalesSolicitud(req, res);
 })
 //Crear solicitud
-router.post("/create-solicitud",  (req, res) => {
+router.post("/create-solicitud", verifyToken.verifyJWT, (req, res) => {
   createSolicitud(req, res);
 });
 
@@ -376,13 +385,7 @@ router.delete("/permiso-menu-rol",(req,res)=>{
   deletedPermisosMenuRol(req,res)
 })
 
-router.post("/validarEmail",(req,res)=>{
-  validEmailExist(req,res)
-})
 
-router.post("/validarUserName",(req,res)=>{
-  validEmailExist(req,res)
-})
 
 
 
@@ -398,7 +401,7 @@ router.get("/prueba-sendEmail",()=>{
     userid: 'IdUsuario',
   };
 
-
+  console.log(d);
   sendEmail(d);
 })
 
