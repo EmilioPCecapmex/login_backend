@@ -6,25 +6,20 @@ module.exports = {
     getPermisosMenu: (req, res) => {
         const IdMenu = req.query.IdMenu
         const IdApp = req.query.IdApp
-        let query = `SELECT per.Id,per.Permiso,per.Descripcion,per.IdMenu,per.IdApp  FROM  TiCentral.Permisos per WHERE per.IdMenu=? AND  per.IdApp=? AND  per.Deleted=0 ORDER BY per.Descripcion ASC`;
-
-
-        db.query(query, [IdMenu, IdApp], (err, result) => {
-
+        db.query(`CALL sp_ListaPermisosMenu('${IdMenu}','${IdApp}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    error: err.sqlMessage,
+                error: "Error: "+err.sqlMessage,
                 });
             }
-
             if (result.length) {
-                const data = result;
+                const data = result[0];
                 return res.status(200).send({
-                    data,
+                data,
                 });
             } else {
                 return res.status(409).send({
-                    error: "¡Sin Información!",
+                error: "¡Sin Información!",
                 });
             }
         });
@@ -33,25 +28,20 @@ module.exports = {
     getPermisosMenuRol: (req, res) => {
         const IdMenu = req.query.IdMenu
         const IdRol = req.query.IdRol
-        let query = ` SELECT menper.Id AS IdRelacion,per.Id,per.Permiso,per.Descripcion,per.IdMenu,per.IdApp 
-        FROM TiCentral.MenuPermisos menper 
-        INNER JOIN TiCentral.Permisos per ON  per.Id=menper.idPermiso 
-        WHERE menper.idMenu=? AND menper.idRol=? AND menper.Deleted=0 ORDER BY per.Descripcion ASC`;
-        db.query(query, [IdMenu, IdRol], (err, result) => {
+        db.query(`CALL sp_ListaPermisosMenuRol('${IdMenu}','${IdRol}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    error: err.sqlMessage,
+                error: "Error: "+err.sqlMessage,
                 });
             }
-
             if (result.length) {
-                const data = result;
+                const data = result[0];
                 return res.status(200).send({
-                    data,
+                data,
                 });
             } else {
                 return res.status(409).send({
-                    error: "¡Sin Información!",
+                error: "¡Sin Información!",
                 });
             }
         });
@@ -62,20 +52,20 @@ module.exports = {
         const CreadoPor = req.body.CreadoPor
         const IdPermiso = req.body.IdPermiso
         let query = `INSERT INTO MenuPermisos (CreadoPor, ModificadoPor,idMenu, idPermiso, idRol) VALUES (?,?,?,?,?)`;
-        db.query(query, [CreadoPor, CreadoPor, IdMenu, IdPermiso, IdRol], (err, result) => {
+        db.query(`CALL sp_CrearPermisosMenuRol('${IdMenu}','${IdPermiso}','${IdRol}','${CreadoPor}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    msg: "No se otorgo el acceso al menu",
+                    msg: "No se otorgo el permiso. "+err.sqlMessage,
                 });
             }
 
             if (result.affectedRows === 1) {
                 return res.status(200).send({
-                    msg: "Se otorgo el acceso al menu.",
+                    msg: "Se otorgo el permiso.",
                 });
             } else {
                 return res.status(500).send({
-                    msg: "No se otorgo el acceso al menu.",
+                    msg: "No se otorgo el permiso. "+result[0][0]?.Message,
                 });
             }
         });
@@ -84,20 +74,20 @@ module.exports = {
     deletedPermisosMenuRol: (req, res) => {
         const Id = req.body.Id
         let query = `DELETE FROM TiCentral.MenuPermisos WHERE Id = ?`;
-        db.query(query, [Id], (err, result) => {
+        db.query(`CALL sp_EliminarPermisoMenuRol('${Id}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    msg: "No se otorgo el acceso al menu",
+                    msg: "No se eliminó el permiso. "+err.sqlMessage,
                 });
             }
 
             if (result.affectedRows === 1) {
                 return res.status(200).send({
-                    msg: "Se otorgo el acceso al menu.",
+                    msg: "Se eliminó el permiso.",
                 });
             } else {
                 return res.status(500).send({
-                    msg: "No se otorgo el acceso al menu.",
+                    msg: "No se eliminó el permiso.",
                 });
             }
         });

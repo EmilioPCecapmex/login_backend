@@ -5,23 +5,20 @@ module.exports = {
     //LISTADO COMPLETO
     getMenus: (req, res) => {
         const IdApp=req.query.IdApp
-        let query = `  SELECT men.Id, men.Menu, men.Descripcion FROM TiCentral.Menus men WHERE men.IdApp=? AND men.Deleted=0 ORDER BY men.Descripcion ASC`;
-        db.query(query,[IdApp],(err, result) => {
-
+        db.query(`CALL sp_ListaMenu('${IdApp}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    error: err.sqlMessage,
+                error: "Error: "+err.sqlMessage,
                 });
             }
-
             if (result.length) {
-                const data = result;
+                const data = result[0];
                 return res.status(200).send({
-                    data,
+                data,
                 });
             } else {
                 return res.status(409).send({
-                    error: "¡Sin Información!",
+                error: "¡Sin Información!",
                 });
             }
         });
@@ -29,25 +26,20 @@ module.exports = {
 
     getMenusRol: (req, res) => {
         const IdRol=req.query.IdRol
-        let query = ` SELECT rolmen.Id AS IdRelacion, men.Id, men.Menu, men.Descripcion  FROM TiCentral.RolMenus rolmen
-        INNER JOIN TiCentral.Menus men ON men.Id = rolmen.idMenu
-         WHERE rolmen.idRol=? AND rolmen.Deleted=0 ORDER BY men.Descripcion`;
-        db.query(query,[IdRol],(err, result) => {
-
+        db.query(`CALL sp_ListaMenuRol('${IdRol}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    error: err.sqlMessage,
+                error: "Error: "+err.sqlMessage,
                 });
             }
-
             if (result.length) {
-                const data = result;
+                const data = result[0];
                 return res.status(200).send({
-                    data,
+                data,
                 });
             } else {
                 return res.status(409).send({
-                    error: "¡Sin Información!",
+                error: "¡Sin Información!",
                 });
             }
         });
@@ -55,17 +47,21 @@ module.exports = {
 
     deleteMenuRol: (req, res) => {
         const Id=req.body.Id
-        let query = ` UPDATE TiCentral.RolMenus rl SET rl.Deleted = 1 WHERE rl.Id = ?`;
-        db.query(query,[Id],(err, result) => {
-
+        db.query(`CALL sp_EliminarRolMenu('${Id}')`,(err, result) => {
             if (err) {
                 return res.status(500).send({
                     error:"No se elimino el acceso al menu",
                 });
             }else{
-                return res.status(200).send({
-                    msg:"Se elimino el acceso al menu.",
-                });
+                if(result.affectedRows>0){
+                    return res.status(200).send({
+                        msg:"Se elimino el acceso al menu. "
+                    });
+                } else {
+                    return res.status(500).send({
+                        error:"No se elimino el acceso al menu",
+                    });
+                }
             }
         });
     },
@@ -74,22 +70,21 @@ module.exports = {
         const IdRol=req.body.IdRol
         const IdMenu=req.body.IdMenu
         const CreadoPor=req.body.CreadoPor
-        let query = `INSERT INTO  RolMenus(IdRol,IdMenu,CreadoPor,ModificadoPor)VALUES(?,?,?,?)`;
-        db.query(query,[IdRol,IdMenu,CreadoPor,CreadoPor],(err, result) => {
+        db.query(`CALL sp_CrearRolMenu('${IdRol}','${IdMenu}','${CreadoPor}')`,(err, result) => {
 
             if (err) {
                 return res.status(500).send({
-                    msg:"No se otorgo el acceso al menu",
+                    msg:"No se creo el acceso al menu. "+err.sqlMessage ,
                 });
             }
             
-            if(result.affectedRows===1){
+            if(result.affectedRows>0){
                 return res.status(200).send({
-                    msg:"Se otorgo el acceso al menu.",
+                    msg:"Se creo el acceso al menu. ",
                 });
             }else{
-                return res.status(500).send({
-                    msg:"No se otorgo el acceso al menu.",
+                return res.status(406).send({
+                    msg:"No se creo el acceso al menu. "+result[0][0]?.Message,
                 });
             }
         });
