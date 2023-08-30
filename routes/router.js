@@ -54,7 +54,7 @@ router.post("/lista-usuario-entidades", (req, res) => {
   getUsuarioEntidad(req, res);
 });
 
-router.post("/detalle-entidad", (req, res) => {
+router.get("/detalle-entidad", (req, res) => {
   detalleEntidad(req, res);
 });
 
