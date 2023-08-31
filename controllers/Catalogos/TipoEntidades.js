@@ -94,7 +94,37 @@ module.exports = {
                 });
             }
         });
+    },
+
+    eliminarTipoEntidad: (req, res) => {
+        const { ch_IdTipoE, ch_IdUsuario } = req.body;
+    
+        if (!ch_IdTipoE || !ch_IdUsuario) {
+            return res.status(400).send({
+                error: "Los parámetros ch_IdTipoD y ch_IdUsuario son requeridos.",
+            });
+        }
+    
+        db.query(`CALL sp_EliminarTipoEntidad(?, ?)`, [ch_IdTipoE, ch_IdUsuario], (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    error: err.sqlMessage,
+                });
+            }
+    
+            if (result.length) {
+                const data = result[0];
+                return res.status(200).send({
+                    data,
+                });
+            } else {
+                return res.status(409).send({
+                    error: "¡Sin Información!",
+                });
+            }
+        });
     }
+    
     
 
 

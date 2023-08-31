@@ -45,7 +45,7 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 //Se agrega Controlador de endpoints donde se obtiene el Padre de una Dependencia y todo lo que hay para llegar a ella 
 //a partir de la Dependencia ligada a un Usuario
 const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades } = require("../controllers/users/detalleUsuarioSecretaria.js");
-const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
+const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 
 // routes/router.js
 
@@ -79,6 +79,10 @@ router.get("/lista-tipo-entidades", (req, res) => {
 
 router.put("/editar-tipo-entidad", (req, res) => {
   editarTipoEntidad(req, res);
+});
+
+router.delete("/eliminar-tipo-entidad", (req, res) => {
+  eliminarTipoEntidad(req, res);
 });
 
 
