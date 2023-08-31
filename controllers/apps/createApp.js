@@ -2,12 +2,11 @@ const db = require("../../config/db.js");
 
 module.exports = {
   createApp: (req, res) => {
-    const appData = req.body;
-    db.query(
-      `CALL sp_ExisteApp(${db.escape(appData.Nombre)},${db.escape(
-        appData.Path
-      )},${db.escape(appData.IdUsuarioModificador)})`,
-      (err, result) => {
+    const {Nombre,Path,Descripcion,IdUsuarioModificador} = req.body;
+    console.log(req.body);
+
+    let query=`CALL sp_ExisteApp(?,?,?)`;
+    db.query(query,[Nombre,Path,IdUsuarioModificador],(err, result) => {
        
         if (err != null ) {
           return res.status(500).send({
@@ -29,16 +28,8 @@ module.exports = {
           }
         } else {
           // username is available
-          
-          db.query(
-            `CALL sp_CrearApp (
-                  ${db.escape(appData.Nombre)},
-                  ${db.escape(appData.Descripcion)},,
-                  ${db.escape(appData.Path)},
-                  ${db.escape(appData.IdUsuarioModificador)}
-                 )`,
-
-            (err, result) => {
+          let query2=`CALL sp_CrearApp (?,?,?,?)`
+          db.query(query2,[Nombre,Descripcion,Path,IdUsuarioModificador],(err, result) => {
                console.log(err);
               if (err) {
                 return res.status(500).send({
