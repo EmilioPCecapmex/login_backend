@@ -46,7 +46,7 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 //a partir de la Dependencia ligada a un Usuario
 const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades } = require("../controllers/users/detalleUsuarioSecretaria.js");
 const { validEmailExist, validUserNameExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
-const { getTipoEntidades } = require("../controllers/Catalogos/TipoEntidades.js");
+
 const { getTipoEntidades, crearTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 
 // routes/router.js
