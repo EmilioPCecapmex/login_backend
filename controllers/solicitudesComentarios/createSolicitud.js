@@ -19,7 +19,6 @@ module.exports = {
         const TipoSolicitud = req.body.TipoSolicitud;
         const IdApp = req.body.IdApp;
         const CreadoPor = req.body.CreadoPor;
-        const IdUResponsable = req.body.IdUResponsable;
         const Roles = req.body.Roles;
         const IdTipoUsuario = req.body.IdTipoUsuario;
         const PuedeFirmar = req.body.PuedeFirmar;
@@ -103,18 +102,14 @@ module.exports = {
                 error: "Ingrese Roles",
             });
         }  
-        if ( /^[\s]*$/.test(IdUResponsable)) {
-            return res.status(409).send({
-                error: "Ingrese Unidad Responsable",
-            });
-        }
+        
         if (Entidad == null || /^[\s]*$/.test(Entidad)) {
             return res.status(409).send({
                 error: "Ingrese Entidad",
             });
         }
         
-        db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${IdApp}','${CreadoPor}','${IdUResponsable}','${Roles}','${IdTipoUsuario}','${PuedeFirmar}','${Entidad}')`, (err, result) => {
+        db.query(`CALL sp_CrearSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${IdApp}','${CreadoPor}','${Roles}','${IdTipoUsuario}','${PuedeFirmar}','${Entidad}')`, (err, result) => {
            
             if (err) {
                     
