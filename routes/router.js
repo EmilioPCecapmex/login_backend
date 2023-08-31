@@ -12,7 +12,7 @@ const {
   getUsersInfo,
   getUserAppDetail,
 } = require("../controllers/users/getUsers.js");
-const { getAppDetail, getAppsInfo, getUserApps } = require("../controllers/apps/getApps.js");
+const { getAppDetail, getAppsInfo, getUserApps, getUsersApp } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
 const { consultaCatalogos, getUsuariosAsignables } = require("../controllers/consultas/consultaCatalogos.js");
 const { deleteApp } = require("../controllers/apps/deleteApp.js");
@@ -143,12 +143,21 @@ router.post("/forgot-password", (req, res) => {
 
 // router.get("/activate", (req, res) => {
 //   activateUser(req, res);
-// });
+// });users-apps
 
-router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
+router.get("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
   getUserApps(req, res);
 });
 
+
+router.get("/users-app",(req, res, next) => {
+  getUsersApp(req, res);
+});
+
+
+router.get("/users-app",(req, res, next) => {
+  getUsersApp(req, res);
+});
 //Apps
 router.post("/app-detail", verifyToken.verifyJWT, (req, res, next) => {
   getAppDetail(req, res);
@@ -238,9 +247,9 @@ router.get("/solicitudes-app",verifyToken.verifyJWT, (req, res) => {
 })
 
 //lista Comentarios Solicitud
-router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
-  getComentariosSolicitud(req, res);
-})
+// router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
+//   getComentariosSolicitud(req, res);
+// })
 
 //logica de solicitud
 router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
@@ -260,26 +269,26 @@ router.get("/docSolicitudActualUsuario",verifyToken.verifyJWT, (req, res) => {
 //................................................CATALOGOS...........................................................
 
 //DEPARTAMENTOS
-router.post("/create-departamento", (req, res, next) => {
-  createDepartamento(req, res);
-});
+// router.post("/create-departamento", (req, res, next) => {
+//   createDepartamento(req, res);
+// });
 
 
-router.get("/departamentos", (req, res) => {
-  getDepartamentos(req, res);
-});
+// router.get("/departamentos", (req, res) => {
+//   getDepartamentos(req, res);
+// });
 
-router.put("/departamento", (req, res) => {
-  modifyDepartamento(req, res);
-});
+// router.put("/departamento", (req, res) => {
+//   modifyDepartamento(req, res);
+// });
 
-router.get("/detalle-departamento", (req, res) => {
-  getDetailDepartamentos(req, res);
-});
+// router.get("/detalle-departamento", (req, res) => {
+//   getDetailDepartamentos(req, res);
+// });
 
-router.put("/delete-departamento", (req, res) => {
-  deleteDepartamento(req, res);
-});
+// router.put("/delete-departamento", (req, res) => {
+//   deleteDepartamento(req, res);
+// });
 
 
 //ROLES
@@ -299,38 +308,38 @@ router.delete("/rol", (req, res) => {
   deleteRol(req, res);
 });
 
-//DEPENDENCIAS
-router.post("/create-dependencia", (req, res, next) => {
-  createDependencia(req, res);
-});
+// //DEPENDENCIAS
+// router.post("/create-dependencia", (req, res, next) => {
+//   createDependencia(req, res);
+// });
 
-router.get("/dependencias", (req, res) => {
-  getDependencias(req, res);
-});
+// router.get("/dependencias", (req, res) => {
+//   getDependencias(req, res);
+// });
 
-router.put("/dependencia", (req, res) => {
-  modifyDependencia(req, res);
-});
+// router.put("/dependencia", (req, res) => {
+//   modifyDependencia(req, res);
+// });
 
-router.put("/delete-dependencia", (req, res) => {
-  deleteDependencia(req, res);
-});
+// router.put("/delete-dependencia", (req, res) => {
+//   deleteDependencia(req, res);
+// });
 
-router.post("/create-tipodependencia", (req, res, next) => {
-  createTpoDependencia(req, res);
-});
+// router.post("/create-tipodependencia", (req, res, next) => {
+//   createTpoDependencia(req, res);
+// });
 
-router.get("/tipodependencias", (req, res) => {
-  getTpoDependencias(req, res);
-});
+// router.get("/tipodependencias", (req, res) => {
+//   getTpoDependencias(req, res);
+// });
 
-router.put("/tipodependencia", (req, res) => {
-  modifyTpoDependencia(req, res);
-});
+// router.put("/tipodependencia", (req, res) => {
+//   modifyTpoDependencia(req, res);
+// });
 
-router.put("/delete-tipodependencia", (req, res) => {
-  deleteTipoDependencia(req, res);
-});
+// router.put("/delete-tipodependencia", (req, res) => {
+//   deleteTipoDependencia(req, res);
+// });
 
 
 
