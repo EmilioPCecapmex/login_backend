@@ -112,7 +112,37 @@ module.exports = {
                 });
             }
         });
+    },
+
+    eliminarEntidad: (req, res) => {
+        const { Id, IdUsuario } = req.body;
+    
+        if (!Id || !IdUsuario) {
+            return res.status(400).send({
+                error: "Los parámetros Id y IdUsuario son requeridos."
+            });
+        }
+    
+        db.query('CALL sp_EliminarEntidad(?, ?)', [Id, IdUsuario], (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    error: err.sqlMessage
+                });
+            }
+    
+            if (result.length) {
+                const respuesta = result[0][0];
+                return res.status(200).send({
+                    respuesta
+                });
+            } else {
+                return res.status(409).send({
+                    error: "Error al eliminar la entidad."
+                });
+            }
+        });
     }
+    
     
     
     
