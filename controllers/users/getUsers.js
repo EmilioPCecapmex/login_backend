@@ -319,8 +319,8 @@ async function getMenus (userId,appId)  {
  function getPermisos (userId,appId)  {
   let data =[];
   let query= `  SELECT
-  men.ControlInterno,
-  men.Menu
+  per.ControlInterno,
+  men.ControlInterno menu
   FROM
   TiCentral.Usuarios us
   INNER JOIN TiCentral.UsuarioRol ur ON us.Id = ur.IdUsuario
