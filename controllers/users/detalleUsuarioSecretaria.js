@@ -6,7 +6,7 @@ module.exports = {
 
         if (!idUsuario || !idApp) {
             return res.status(400).send({
-                error: "Los parámetros idUsuario e idApp son requeridos.",
+                error: "Los parámetros idUsuario e idApp son requeridos. ",
             });
         }
 
@@ -141,7 +141,39 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    
+    modificarEntidad: (req, res) => {
+        const {
+            Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, 
+            PerteneceA, ControlInterno, ClaveSiregob, IdUsuario
+        } = req.body;
+    
+        // Valida que todos los parámetros requeridos estén presentes
+        if (!(Nombre && Direccion && Telefono && IdTipoEntidad && IdTitular && IdUsuario)) {
+            return res.status(400).send({
+                error: "Por favor proporciona todos los campos necesarios.",
+            });
+        }
+    
+        // Llamado al Stored Procedure
+        db.query(
+            `CALL sp_CrearEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+            [Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, PerteneceA, ControlInterno, ClaveSiregob, IdUsuario],
+            (err, result) => {
+                if (err) {
+                    return res.status(500).send({
+                        error: err.sqlMessage,
+                    });
+                }
+    
+                // En este punto, la entidad ha sido modificada
+                return res.status(201).send({
+                    message: "Entidad creada exitosamente.",
+                });
+            }
+        );
+    },
     
     
     
