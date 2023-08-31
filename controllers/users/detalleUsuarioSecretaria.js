@@ -115,15 +115,15 @@ module.exports = {
     },
 
     eliminarEntidad: (req, res) => {
-        const { ch_IdEntidad, ch_IdUsuario } = req.body;
+        const { Id, IdUsuario } = req.body;
     
-        if (!ch_IdEntidad || !ch_IdUsuario) {
+        if (!Id || !IdUsuario) {
             return res.status(400).send({
-                error: "Los parámetros ch_IdEntidad y ch_IdUsuario son requeridos."
+                error: "Los parámetros Id y IdUsuario son requeridos."
             });
         }
     
-        db.query('CALL sp_EliminarEntidad(?, ?)', [ch_IdEntidad, ch_IdUsuario], (err, result) => {
+        db.query('CALL sp_EliminarEntidad(?, ?)', [Id, IdUsuario], (err, result) => {
             if (err) {
                 return res.status(500).send({
                     error: err.sqlMessage
