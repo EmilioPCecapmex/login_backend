@@ -58,7 +58,62 @@ module.exports = {
                 });
             }
         });
+    },
+
+    crearEntidad: (req, res) => {
+        const {
+            Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, 
+            PerteneceA, ControlInterno, ClaveSiregob, IdUsuario
+        } = req.body;
+    
+        // Valida que todos los parámetros requeridos estén presentes
+        if (!(Nombre && Direccion && Telefono && IdTipoEntidad && IdTitular && IdUsuario)) {
+            return res.status(400).send({
+                error: "Por favor proporciona todos los campos necesarios.",
+            });
+        }
+    
+        // Llamado al Stored Procedure
+        db.query(
+            `CALL sp_CrearEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+            [Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, PerteneceA, ControlInterno, ClaveSiregob, IdUsuario],
+            (err, result) => {
+                if (err) {
+                    return res.status(500).send({
+                        error: err.sqlMessage,
+                    });
+                }
+    
+                // En este punto, la entidad ha sido creada
+                return res.status(201).send({
+                    message: "Entidad creada exitosamente.",
+                });
+            }
+        );
+    },
+
+    getEntidades: (req, res) => {
+        // Llamado al Stored Procedure
+        db.query(`CALL sp_ListaEntidades()`, (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    error: err.sqlMessage,
+                });
+            }
+
+            if (result.length) {
+                const data = result[0];
+                return res.status(200).send({
+                    data,
+                });
+            } else {
+                return res.status(409).send({
+                    error: "¡Sin Información!",
+                });
+            }
+        });
     }
+    
     
     
 }
