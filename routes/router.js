@@ -86,10 +86,10 @@ router.post("/refresh-token", (req, res, next) => {
 
 router.post("/verify", verifyToken.isLoggedIn);
 
-//Users
-// router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
-//   getUserDetail(req, res);
-// });
+// Users
+router.post("/user-detail", verifyToken.verifyJWT, (req, res) => {
+  getUserDetail(req, res);
+});
 
 router.post("/userapp-detail",  (req, res) => {
   getUserAppDetail(req, res);
