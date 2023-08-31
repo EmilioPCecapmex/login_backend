@@ -45,6 +45,7 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 //Se agrega Controlador de endpoints donde se obtiene el Padre de una Dependencia y todo lo que hay para llegar a ella 
 //a partir de la Dependencia ligada a un Usuario
 const { validEmailExist, validUserNameExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
+const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades, eliminarEntidad } = require("../controllers/users/detalleUsuarioSecretaria.js");
 const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 
 // routes/router.js
