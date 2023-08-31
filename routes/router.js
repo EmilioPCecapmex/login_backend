@@ -46,8 +46,7 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 //a partir de la Dependencia ligada a un Usuario
 const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades } = require("../controllers/users/detalleUsuarioSecretaria.js");
 const { validEmailExist, validUserNameExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
-
-const { getTipoEntidades, crearTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
+const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 
 // routes/router.js
 
@@ -78,6 +77,11 @@ router.post("/create-tipo-entidad", (req, res) => {
 router.get("/lista-tipo-entidades", (req, res) => {
   getTipoEntidades(req, res);
 });
+
+router.put("/editar-tipo-entidad", (req, res) => {
+  editarTipoEntidad(req, res);
+});
+
 
 //////////// catalogos
 router.post("/consulta-catalogos", verifyToken.verifyJWT, (req, res) => {
