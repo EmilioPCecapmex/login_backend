@@ -112,7 +112,37 @@ module.exports = {
                 });
             }
         });
+    },
+
+    eliminarEntidad: (req, res) => {
+        const { ch_IdEntidad, ch_IdUsuario } = req.body;
+    
+        if (!ch_IdEntidad || !ch_IdUsuario) {
+            return res.status(400).send({
+                error: "Los parámetros ch_IdEntidad y ch_IdUsuario son requeridos."
+            });
+        }
+    
+        db.query('CALL sp_EliminarEntidad(?, ?)', [ch_IdEntidad, ch_IdUsuario], (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    error: err.sqlMessage
+                });
+            }
+    
+            if (result.length) {
+                const respuesta = result[0][0];
+                return res.status(200).send({
+                    respuesta
+                });
+            } else {
+                return res.status(409).send({
+                    error: "Error al eliminar la entidad."
+                });
+            }
+        });
     }
+    
     
     
     
