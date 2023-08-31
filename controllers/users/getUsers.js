@@ -61,6 +61,8 @@ module.exports = {
       });
     } 
 
+  //  let perfiles=getPerfil(userId,appId);
+   let entidades=getUsuarioEntidad(userId,appId);
    let roles =getRoles(userId,appId);
    let menus = await getMenus(userId,appId);
    let permisos = getPermisos(userId,appId);
@@ -80,6 +82,8 @@ module.exports = {
         }
         return res.status(200).send({
             data:data,
+            // perfiles:perfiles,
+            entidades:entidades,
             roles:roles,
             menus:menus,
             permisos:permisos
@@ -97,7 +101,55 @@ module.exports = {
 
 
 
+// function getPerfil (userId,appId)  {
+//   let perfiles =[];
+//   let query= `  SELECT
+//   p.Id,
+//   p.Descripcion,
+//   p.Referencia
+//   FROM
+//   TiCentral.UsuarioPerfil up 
+//   LEFT join TiCentral.Perfiles p ON up.idPerfil = p.Id
+//   LEFT JOIN TiCentral.Usuarios u ON u.Id = up.idusuario
+//   WHERE 1=1
+//   and u.id=?
+//   AND p.IdApp=? `;
 
+//    db.query(query,[userId,appId] ,(err, result) => {
+//      if (err) {
+//        return res.status(500).send({
+//          error: err.sqlMessage,
+//        });
+//      }
+
+//      if (result.length) {
+//        perfiles.push(result);
+//      } else {
+//       perfiles =[];
+//      }
+//    });
+
+
+//    return perfiles;
+
+//  }
+function getUsuarioEntidad(idUsuario, idApp){
+  let data =[];
+  db.query(`CALL sp_ListaUsuarioEntidades(?, ?)`, [idUsuario, idApp], (err, result) => {
+    if (err) {
+      return res.status(500).send({
+        error: err.sqlMessage,
+      });
+    }
+
+    if (result.length) {
+      data.push(result[0]);
+    } else {
+     data =[];
+    }
+  });
+  return data;
+}
 
  
 function getRoles (userId,appId)  {
@@ -268,18 +320,17 @@ async function getMenus (userId,appId)  {
   let data =[];
   let query= `  SELECT
   men.ControlInterno,
-  per.Referencia,
   men.Menu
   FROM
   TiCentral.Usuarios us
-  INNER JOIN TiCentral.UsuarioRol ur ON us.id = ur.idUsuario
-  INNER JOIN TiCentral.Roles rol ON ur.idRol  = rol.id
-  INNER JOIN TiCentral.RolMenus rm ON rm.idRol = rol.id
-  INNER JOIN TiCentral.Menus  men ON men.id = rm.idMenu
-  INNER JOIN TiCentral.MenuPermisos rmenp ON  rmenp.idMenu = rm.idMenu and rmenp.idRol=rol.id
-  INNER JOIN TiCentral.Permisos per ON per.id = rmenp.idPermiso
-  WHERE 1=1
-  and us.id=?
+  INNER JOIN TiCentral.UsuarioRol ur ON us.Id = ur.IdUsuario
+  INNER JOIN TiCentral.Roles rol ON ur.IdRol  = rol.Id
+  INNER JOIN TiCentral.RolMenus rm ON rm.IdRol = rol.Id
+  INNER JOIN TiCentral.Menus  men ON men.Id = rm.IdMenu
+  INNER JOIN TiCentral.MenuPermisos rmenp ON  rmenp.IdMenu = rm.IdMenu and rmenp.IdRol=rol.Id
+  INNER JOIN TiCentral.Permisos per ON per.Id = rmenp.IdPermiso
+  WHERE
+  us.Id=?
   and rol.IdApp =?
   `;
 

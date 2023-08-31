@@ -297,58 +297,58 @@ router.put("/delete-tipodependencia", (req, res) => {
 
 
 
-//PERFILES
-router.post("/perfil", (req, res, next) => {
-  createPerfil(req, res);
-});
+// //PERFILES
+// router.post("/perfil", (req, res, next) => {
+//   createPerfil(req, res);
+// });
 
 
-router.get("/perfiles", (req, res) => {
-  getPerfiles(req, res);
-});
+// router.get("/perfiles", (req, res) => {
+//   getPerfiles(req, res);
+// });
 
-router.put("/perfil", (req, res) => {
-  modifyPerfil(req, res);
-});
+// router.put("/perfil", (req, res) => {
+//   modifyPerfil(req, res);
+// });
 
-router.delete("/perfil", (req, res) => {
-  deletePerfil(req, res);
-});
+// router.delete("/perfil", (req, res) => {
+//   deletePerfil(req, res);
+// });
 
 //SECRETARIAS
-router.post("/create-secretaria", (req, res, next) => {
-  createSecretaria(req, res);
-});
+// router.post("/create-secretaria", (req, res, next) => {
+//   createSecretaria(req, res);
+// });
 
-router.get("/secretarias", (req, res) => {
-  getSecretarias(req, res);
-});
+// router.get("/secretarias", (req, res) => {
+//   getSecretarias(req, res);
+// });
 
-router.put("/secretaria", (req, res) => {
-  modifySecretaria(req, res);
-});
+// router.put("/secretaria", (req, res) => {
+//   modifySecretaria(req, res);
+// });
 
-router.put("/delete-secretaria", (req, res) => {
-  deleteSecretaria(req, res);
-});
+// router.put("/delete-secretaria", (req, res) => {
+//   deleteSecretaria(req, res);
+// });
 
 
 //URESPONSABLES
-router.post("/create-uresponsable", (req, res, next) => {
-  createUResponsable(req, res);
-});
+// router.post("/create-uresponsable", (req, res, next) => {
+//   createUResponsable(req, res);
+// });
 
-router.get("/uresponsables", (req, res) => {
-  getUResponsables(req, res);
-});
+// router.get("/uresponsables", (req, res) => {
+//   getUResponsables(req, res);
+// });
 
-router.put("/uresponsable", (req, res) => {
-  modifyUResponsable(req, res);
-});
+// router.put("/uresponsable", (req, res) => {
+//   modifyUResponsable(req, res);
+// });
 
-router.put("/delete-uresponsable", (req, res) => {
-  deleteUResponsable(req, res);
-});
+// router.put("/delete-uresponsable", (req, res) => {
+//   deleteUResponsable(req, res);
+// });
 
 
 router.get("/usuarios-asignables", (req, res) => {
@@ -391,9 +391,16 @@ router.delete("/permiso-menu-rol",(req,res)=>{
 })
 
 
-router.post("/validarUserName",(req,res)=>{
+
+router.post("/validar-email",(req,res)=>{
+  validEmailExist(req,res)
+})
+
+router.post("/validar-userName",(req,res)=>{
   validUserNameExist(req,res)
 })
+
+
 
 
 
