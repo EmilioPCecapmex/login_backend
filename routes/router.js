@@ -410,7 +410,7 @@ router.post("/validar-email",(req,res)=>{
 })
 
 
-router.post("/validar-userName",(req,res)=>{
+router.post("/validar-username",(req,res)=>{
   validUserNameExist(req,res)
 })
 
