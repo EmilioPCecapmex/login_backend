@@ -145,12 +145,12 @@ module.exports = {
     
     modificarEntidad: (req, res) => {
         const {
-            Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, 
+            Id,Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, 
             PerteneceA, ControlInterno, ClaveSiregob, IdUsuario
         } = req.body;
     
         // Valida que todos los parámetros requeridos estén presentes
-        if (!(Nombre && Direccion && Telefono && IdTipoEntidad && IdTitular && IdUsuario)) {
+        if (!(Id && IdTitular && IdTipoEntidad && IdUsuario && PerteneceA && Nombre && Direccion && Telefono && ControlInterno && ClaveSiregob)) {
             return res.status(400).send({
                 error: "Por favor proporciona todos los campos necesarios.",
             });
@@ -158,8 +158,8 @@ module.exports = {
     
         // Llamado al Stored Procedure
         db.query(
-            `CALL sp_CrearEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
-            [Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, PerteneceA, ControlInterno, ClaveSiregob, IdUsuario],
+            `CALL sp_EditarEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+            [Id, IdTitular, IdTipoEntidad, IdUsuario, PerteneceA, Nombre, Direccion, Telefono, ControlInterno, ClaveSiregob],
             (err, result) => {
                 if (err) {
                     return res.status(500).send({
