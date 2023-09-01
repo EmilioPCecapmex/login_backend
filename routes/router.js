@@ -145,7 +145,7 @@ router.post("/forgot-password", (req, res) => {
 //   activateUser(req, res);
 // });users-apps
 
-router.get("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
+router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
   getUserApps(req, res);
 });
 
