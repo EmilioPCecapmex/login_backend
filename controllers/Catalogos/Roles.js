@@ -46,7 +46,7 @@ module.exports = {
           if (result.length) {
             const data = result[0];
 
-            console.log(data[0].Message)
+            
             const respo = data[0].Message;
             return res.status(200).send({
               data :respo,

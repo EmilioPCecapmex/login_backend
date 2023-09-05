@@ -13,7 +13,7 @@ module.exports = {
     const AdminPlataforma= req.body.AdminPlataforma;
     const PermisoFirma= req.body.PermisoFirma;
 
-    console.log("req.body.",req.body);
+  
     
     if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
       return res.status(409).send({
@@ -72,8 +72,7 @@ module.exports = {
             db.query(
               `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
               (err, result) => {
-                console.log("err",err);
-                console.log("result",result);
+               
                 if (err) {
                   return res.status(500).send({
                     error: err,
@@ -92,7 +91,7 @@ module.exports = {
 
                   sendEmail(d);
 
-                  console.log("Se envio el correo");
+                
                 }
 
                 if (result.length) {
