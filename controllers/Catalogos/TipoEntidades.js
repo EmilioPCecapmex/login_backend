@@ -28,19 +28,31 @@ module.exports = {
 
     crearTipoEntidad: (req, res) => {
         const { Nombre, Descripcion, IdUsuario } = req.body;
-    
-        if (!Nombre || !Descripcion || !IdUsuario) {
-
-            let error = "Ingrese:";
-            if (!Nombre) error += " Nombre,";
-            if (!Descripcion) error += " Descripcion,";
-            if (!IdUsuario) error += " IdUsuario";
+        
+        let contError=0;
+        let error = "Ingrese:";
+            if (!Nombre || (/^[\s]*$/.test(Nombre)))
+            {
+                error += " Nombre,";
+                contError++;
+            } 
+            if (!Descripcion || (/^[\s]*$/.test(Descripcion)))
+            {
+                error += " Descripcion,";
+                contError++;
+            } 
+            if (!IdUsuario || (/^[\s]*$/.test(IdUsuario)))
+            {
+                error += " IdUsuario";
+                contError++;
+            } 
         
             // Elimina la última coma si existe
             error = error.endsWith(',') ? error.slice(0, -1) : error;
             //Remplaza la ultima coma por un " y "
             error = error.replace(/,([^,]*)$/, ' y$1');
-
+    
+        if (contError!=0) {
             return res.status(400).send({
                 error: error,
             });
