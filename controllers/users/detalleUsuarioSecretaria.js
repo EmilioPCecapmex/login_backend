@@ -116,14 +116,7 @@ module.exports = {
                 error: error,
             });
         }
-        //###################################################################
-        // Valida que todos los parámetros requeridos estén presentes
-        // if (!(Nombre && Direccion && Telefono && IdTipoEntidad && IdTitular && IdUsuario)) {
-        //     return res.status(400).send({
-        //         error: "Por favor proporciona todos los campos necesarios.",
-        //     });
-        // }
-    
+      
         // Llamado al Stored Procedure
         db.query(
             `CALL sp_CrearEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
