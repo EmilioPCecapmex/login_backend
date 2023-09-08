@@ -26,6 +26,8 @@ module.exports = {
       }
     });
   },
+
+  
   
   getUsersInfo: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
@@ -47,6 +49,34 @@ module.exports = {
       }
     });
   },
+
+  getUsuariosRoles: (req, res) => {
+    const { ControlInterno, idApp } = req.body;
+
+    if (!ControlInterno || !idApp) {
+        return res.status(400).send({
+            error: "Los parámetros idRol e idApp son requeridos."
+        });
+    }
+
+    db.query(`CALL sp_ListaUsuariosRol(?, ?)`, [ControlInterno, idApp], (err, result) => {
+        if (err) {
+            return res.status(500).send({
+                error: err.sqlMessage
+            });
+        }
+
+        if (result[0] && result[0].length) {
+            return res.status(200).send({
+                data: result[0]
+            });
+        } else {
+            return res.status(404).send({
+                error: "¡Sin Información!"
+            });
+        }
+    });
+},
 
   getUserAppDetail: async (req, res) => {
     const userId = req.body.IdUsuario;

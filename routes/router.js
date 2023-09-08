@@ -11,6 +11,7 @@ const {
   getUserDetail,
   getUsersInfo,
   getUserAppDetail,
+  getUsuariosRoles,
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps, getUsersApp } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
@@ -50,6 +51,13 @@ const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntid
 
 // routes/router.js
 
+// PABMI 
+
+
+// PABMI
+router.get("/lista-usuarios-roles", (req, res) => {
+  getUsuariosRoles(req, res);
+});
 //Entidades
 
 router.post("/create-entidad", (req, res) => {
@@ -94,6 +102,7 @@ router.put("/editar-tipo-entidad", (req, res) => {
 router.delete("/eliminar-tipo-entidad", (req, res) => {
   eliminarTipoEntidad(req, res);
 });
+
 
 
 //////////// catalogos
