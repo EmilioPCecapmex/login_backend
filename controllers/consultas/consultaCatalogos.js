@@ -484,7 +484,7 @@ module.exports = {
         );
       }
 
-      if (result.length) {
+      // if (result.length) {
         let aux = [];
         aux.push({ Id: null, Nombre: "Sin asignar" });
 
@@ -498,11 +498,11 @@ module.exports = {
         return res.status(200).send({
           data,
         });
-      } else {
-        return res.status(409).send({
-          error: "¡Sin Información!",
-        });
-      }
+      // } else {
+      //   return res.status(409).send({
+      //     error: "¡Sin Información!",
+      //   });
+      // }
     });
   },
 };
