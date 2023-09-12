@@ -81,18 +81,16 @@ module.exports = {
 getUserPermissionsDetail: (req, res) => {
   const userId = req.body.IdUsuario;
   const menuControlInterno = req.body.ControlInternoMenu;
-  const rolId = req.body.IdRol;
+  
+  // Usamos un template string para insertar variables directamente en el query
+  const queryString = `CALL sp_DetalleUsuarioPermisos('${userId}', '${menuControlInterno}')`;
 
-  // Se utiliza la sintaxis de CALL para invocar el SP
-  const query = `CALL sp_DetalleUsuarioPermisos('${userId}', '${menuControlInterno}', '${rolId}')`;
-
-  db.query(query, (err, result) => {
+  db.query(queryString, (err, result) => {
     if (err) {
       return res.status(500).send({
         error: "Error",
       });
     }
-    
     if (result.length) {
       const data = result[0];
       if (data.length === 0) {
