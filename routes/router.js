@@ -12,6 +12,7 @@ const {
   getUsersInfo,
   getUserAppDetail,
   getUsuariosRoles,
+  getUserPermissionsDetail,
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps, getUsersApp } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
@@ -57,6 +58,10 @@ const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntid
 // PABMI
 router.get("/lista-usuarios-roles", (req, res) => {
   getUsuariosRoles(req, res);
+});
+
+router.get("/detalle-usuarios-permisos", (req, res) => {
+  getUserPermissionsDetail(req, res);
 });
 //Entidades
 

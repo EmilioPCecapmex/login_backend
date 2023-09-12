@@ -78,6 +78,39 @@ module.exports = {
     });
 },
 
+getUserPermissionsDetail: (req, res) => {
+  const userId = req.body.IdUsuario;
+  const menuControlInterno = req.body.ControlInternoMenu;
+  const rolId = req.body.IdRol;
+
+  // Se utiliza la sintaxis de CALL para invocar el SP
+  const query = `CALL sp_DetalleUsuarioPermisos('${userId}', '${menuControlInterno}', '${rolId}')`;
+
+  db.query(query, (err, result) => {
+    if (err) {
+      return res.status(500).send({
+        error: "Error",
+      });
+    }
+    
+    if (result.length) {
+      const data = result[0];
+      if (data.length === 0) {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+      return res.status(200).send({
+        data,
+      });
+    } else {
+      return res.status(409).send({
+        error: "¡Sin Información!",
+      });
+    }
+  });
+},
+
   getUserAppDetail: async (req, res) => {
     const userId = req.body.IdUsuario;
     const appId = req.body.IdApp;
