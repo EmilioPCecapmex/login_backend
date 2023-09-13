@@ -60,7 +60,7 @@ router.get("/lista-usuarios-roles", (req, res) => {
   getUsuariosRoles(req, res);
 });
 
-router.get("/detalle-usuarios-permisos", (req, res) => {
+router.post("/detalle-usuarios-permisos", (req, res) => {
   getUserPermissionsDetail(req, res);
 });
 //Entidades
