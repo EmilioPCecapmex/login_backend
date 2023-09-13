@@ -93,11 +93,6 @@ getUserPermissionsDetail: (req, res) => {
     }
     if (result.length) {
       const data = result[0];
-      if (data.length === 0) {
-        return res.status(409).send({
-          error: "¡Sin Información!",
-        });
-      }
       return res.status(200).send({
         data,
       });
