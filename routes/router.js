@@ -56,7 +56,7 @@ const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntid
 
 
 // PABMI
-router.get("/lista-usuarios-roles", (req, res) => {
+router.post("/lista-usuarios-roles", (req, res) => {
   getUsuariosRoles(req, res);
 });
 
