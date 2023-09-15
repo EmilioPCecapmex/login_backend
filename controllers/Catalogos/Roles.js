@@ -46,7 +46,7 @@ module.exports = {
           if (result.length) {
             const data = result[0];
 
-            console.log(data[0].Message)
+            
             const respo = data[0].Message;
             return res.status(200).send({
               data :respo,
@@ -88,44 +88,12 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyRol: (req, res) => {
-    const IdRol = req.body.Id;
-    const Nombre = req.body.Nombre;
-    const Descripcion = req.body.Descripcion;
-    const ControlInterno = req.body.ControlInterno;
-    const IdModificador = req.body.IdUsuario;
-    
-
-    if (IdRol == null ||/^[\s]*$/.test(IdRol)) {
-      return res.status(409).send({
-        error: "Ingrese IdRol",
-      });
-    }
-
-    if (Descripcion == null ||/^[\s]*$/.test(Descripcion)) {
-      return res.status(409).send({
-        error: "Ingrese Descripcion",
-      });
-    }
-    
-    if (Nombre == null ||/^[\s]*$/.test(Nombre)) {
-        return res.status(409).send({
-          error: "Ingrese Nombre",
-        });
-      }
-
-      if (ControlInterno == null ||/^[\s]*$/.test(ControlInterno)) {
-        return res.status(409).send({
-          error: "Ingrese ControlInterno",
-        });
-      }
-    if (IdModificador == null ||/^[\s]*$/.test(IdModificador)) {
-        return res.status(409).send({
-          error: "Ingrese IdUsuario",
-        });
-      } else {
-      db.query(
-        `CALL sp_ModificaRol('${IdRol}','${Nombre}','${Descripcion}','${ControlInterno}','${IdModificador}')`,
-        (err, result) => {
+    const {Id, Nombre, Descripcion, ControlInterno, IdApp, IdUsuario }= req.body
+    console.log("req.body",req.body);
+    let query= `CALL sp_ModificaRol(?,?,?,?,?,?)`
+      db.query(query,[Id,Nombre,Descripcion,ControlInterno,IdApp, IdUsuario],(err, result) => {
+        console.log("err",err);
+        console.log("result",result);
           if (err) {
             return res.status(500).send({
               error: err.sqlMessage,
@@ -148,7 +116,7 @@ module.exports = {
           }
         }
       );
-    }
+    
   },
 
   //Detalle

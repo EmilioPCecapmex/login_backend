@@ -66,13 +66,57 @@ module.exports = {
             PerteneceA, ControlInterno, ClaveSiregob, IdUsuario
         } = req.body;
     
-        // Valida que todos los parámetros requeridos estén presentes
-        if (!(Nombre && Direccion && Telefono && IdTipoEntidad && IdTitular && IdUsuario)) {
+        //###################################################################
+        let contError=0;
+        let error = "Ingrese:";
+            if (!Nombre || (/^[\s]*$/.test(Nombre)))
+            {
+                error += " Nombre,";
+                contError++;
+            } 
+            if (!Direccion || (/^[\s]*$/.test(Direccion)))
+            {
+                error += " Direccion,";
+                contError++;
+            }
+            if (!Telefono || (/^[\s]*$/.test(Telefono)))
+            {
+                error += " Telefono,";
+                contError++;
+            } 
+            if (!IdTipoEntidad || (/^[\s]*$/.test(IdTipoEntidad)))
+            {
+                error += " Tipo Entidad,";
+                contError++;
+            }
+            if ((/^[\s]*$/.test(IdTitular)))
+            {
+                error += " Titular,";
+                contError++;
+            }
+            if ((/^[\s]*$/.test(PerteneceA)))
+            {
+                error += " PerteneceA,";
+                contError++;
+            } 
+           
+            if (!IdUsuario || (/^[\s]*$/.test(IdUsuario)))
+            {
+                error += " IdUsuario";
+                contError++;
+            } 
+        
+            // Elimina la última coma si existe
+            error = error.endsWith(',') ? error.slice(0, -1) : error;
+            //Remplaza la ultima coma por un " y "
+            error = error.replace(/,([^,]*)$/, ' y$1');
+    
+        if (contError!=0) {
             return res.status(400).send({
-                error: "Por favor proporciona todos los campos necesarios.",
+                error: error,
             });
         }
-    
+      
         // Llamado al Stored Procedure
         db.query(
             `CALL sp_CrearEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
@@ -100,17 +144,43 @@ module.exports = {
                     error: err.sqlMessage,
                 });
             }
-
+                
             if (result.length) {
+                
                 const data = result[0];
                 return res.status(200).send({
                     data,
                 });
             } else {
-                return res.status(409).send({
-                    error: "¡Sin Información!",
+                const data=[]
+                return res.status(200).send({
+                    data,
                 });
             }
+        });
+    },
+    getEntidadesSelect: (req, res) => {
+        // Llamado al Stored Procedure
+        db.query(`CALL sp_ListaEntidadesSelect()`, (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    error: err.sqlMessage,
+                });
+            }
+            let aux = [];
+            aux.push({ Id: null, Nombre: "Sin asignar" });
+    
+            for (const elemento of result[0]) {
+              aux.push(elemento);
+            }
+    
+    
+            const data = aux;
+    
+            return res.status(200).send({
+              data,
+            });  
+          
         });
     },
 
@@ -145,17 +215,59 @@ module.exports = {
     
     modificarEntidad: (req, res) => {
         const {
-            Id,Nombre, Direccion, Telefono, IdTipoEntidad, IdTitular, 
+            Id,Nombre, Direccion, Telefono, IdTipoEntidad,IdTitular,
             PerteneceA, ControlInterno, ClaveSiregob, IdUsuario
         } = req.body;
     
-        // Valida que todos los parámetros requeridos estén presentes
-        if (!(Id && IdTitular && IdTipoEntidad && IdUsuario && PerteneceA && Nombre && Direccion && Telefono && ControlInterno && ClaveSiregob)) {
+        let contError=0;
+        let error = "Ingrese:";
+            if (!Nombre || (/^[\s]*$/.test(Nombre)))
+            {
+                error += " Nombre,";
+                contError++;
+            } 
+            if (!Direccion || (/^[\s]*$/.test(Direccion)))
+            {
+                error += " Direccion,";
+                contError++;
+            }
+            if (!Telefono || (/^[\s]*$/.test(Telefono)))
+            {
+                error += " Telefono,";
+                contError++;
+            } 
+            if (!IdTipoEntidad || (/^[\s]*$/.test(IdTipoEntidad)))
+            {
+                error += " Tipo Entidad,";
+                contError++;
+            }
+            if ((/^[\s]*$/.test(IdTitular)))
+            {
+                error += " Titular,";
+                contError++;
+            }
+            if ((/^[\s]*$/.test(PerteneceA)))
+            {
+                error += " PerteneceA,";
+                contError++;
+            } 
+           
+            if (!IdUsuario || (/^[\s]*$/.test(IdUsuario)))
+            {
+                error += " IdUsuario";
+                contError++;
+            } 
+        
+            // Elimina la última coma si existe
+            error = error.endsWith(',') ? error.slice(0, -1) : error;
+            //Remplaza la ultima coma por un " y "
+            error = error.replace(/,([^,]*)$/, ' y$1');
+    
+        if (contError!=0) {
             return res.status(400).send({
-                error: "Por favor proporciona todos los campos necesarios.",
+                error: error,
             });
         }
-    
         // Llamado al Stored Procedure
         db.query(
             `CALL sp_EditarEntidad(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
@@ -174,8 +286,4 @@ module.exports = {
             }
         );
     },
-    
-    
-    
-    
 }
