@@ -109,11 +109,11 @@ getUserPermissionsDetail: (req, res) => {
     const appId = req.body.IdApp;
     if ((userId == null || /^[\s]*$/.test(userId)) ) {
       return res.status(409).send({
-        error: "Ingrese userId valido.",
+        error: "Ingrese userId válido.",
       });
     }  if ((appId == null || /^[\s]*$/.test(appId)) ) {
       return res.status(409).send({
-        error: "Ingrese appId valido.",
+        error: "Ingrese appId válido.",
       });
     } 
 
