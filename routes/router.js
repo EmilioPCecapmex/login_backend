@@ -347,11 +347,12 @@ router.post("/ayuda",(req,res)=>{
 })
 
 router.get("/ayuda",(req,res)=>{
-  deletePreguntasFrecuentes(req,res)
+  getPreguntasFrecuentes(req,res)
 })
 
 router.delete("/ayuda",(req,res)=>{
-  getPreguntasFrecuentes(req,res)
+  deletePreguntasFrecuentes(req,res)
+  
 })
 
 

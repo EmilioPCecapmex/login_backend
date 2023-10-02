@@ -99,7 +99,7 @@ deletePreguntasFrecuentes:(req,res)=>{
 
 },
 getPreguntasFrecuentes:(req,res)=>{
-   const {Opcion,IdMenu} = req.body;
+   const {Opcion,IdMenu} = req.query;
 
    let contError=0;
         let error = "Ingrese:";
