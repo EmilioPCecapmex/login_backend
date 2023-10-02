@@ -346,6 +346,14 @@ router.post("/ayuda",(req,res)=>{
   createPreguntaFrecuente(req,res)
 })
 
+router.get("/ayuda",(req,res)=>{
+  createPreguntaFrecuente(req,res)
+})
+
+router.delete("/ayuda",(req,res)=>{
+  createPreguntaFrecuente(req,res)
+})
+
 
 
 
