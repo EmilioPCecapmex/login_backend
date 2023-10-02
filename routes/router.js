@@ -44,7 +44,7 @@ const { validEmailExist, validUserNameExist } = require("../controllers/solicitu
 const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades, eliminarEntidad, modificarEntidad, getEntidadesSelect } = require("../controllers/users/detalleUsuarioSecretaria.js");
 const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 const { getListas } = require("../controllers/Catalogos/Listas.js");
-const { createPreguntaFrecuente } = require("../controllers/ayudas/Ayudas.js");
+const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
 
 // routes/router.js
 
@@ -347,11 +347,11 @@ router.post("/ayuda",(req,res)=>{
 })
 
 router.get("/ayuda",(req,res)=>{
-  createPreguntaFrecuente(req,res)
+  deletePreguntasFrecuentes(req,res)
 })
 
 router.delete("/ayuda",(req,res)=>{
-  createPreguntaFrecuente(req,res)
+  getPreguntasFrecuentes(req,res)
 })
 
 
