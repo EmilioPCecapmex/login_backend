@@ -9,7 +9,7 @@
         "LOGIN_B_APP_DB_HOST": "10.200.4.161",
         "LOGIN_B_APP_DB_USER": "root",
         "LOGIN_B_APP_DB_DATABASE": "TiCentral",
-        "LOGIN_B_APP_DB_PASSWORD": "xQRA0xBC87Gs",
+        "LOGIN_B_APP_DB_PASSWORD": "Rx7TqKzxvY6W",
         "LOGIN_B_APP_PORT": "5000",
         "LOGIN_B_APP_JWT_SECRET_KEY": "2A95F5CCD11DE255FEE9451BDE433",
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",

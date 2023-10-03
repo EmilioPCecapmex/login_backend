@@ -2,45 +2,31 @@ const db = require("../../config/db.js");
 
 module.exports = {
   //CREAR
-  createSecretaria: (req, res) => {
-    const Nombre = req.body.Nombre;
-    const NombreCorto = req.body.NombreCorto;
-    const IdTitular = req.body.IdTitular;
-    const Direccion = req.body.Direccion;
-    const CreadoPor = req.body.CreadoPor;   
+  createPerfil: (req, res) => {
+   
+    const Descripcion = req.body.Descripcion;
+    const Referencia = req.body.Referencia;  
+    const CreadoPor = req.body.CreadoPor;  
 
-    if ((NombreCorto == null || /^[\s]*$/.test(NombreCorto)) ) {
-      return res.status(409).send({
-        error: "Ingrese NombreCorto válido.",
-      });
-    } 
 
-    if ((Nombre == null || /^[\s]*$/.test(Nombre)) ) {
+      if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
         return res.status(409).send({
-          error: "Ingrese Nombre válido.",
+          error: "Ingrese Descripcion válido.",
         });
-    } 
-
-    if ((IdTitular == null || /^[\s]*$/.test(IdTitular)) ) {
+      }
+      if ((Referencia == null || /^[\s]*$/.test(Referencia)) ) {
         return res.status(409).send({
-          error: "Ingrese IdTitular válido.",
+          error: "Ingrese Referencia válido.",
         });
-    }
-
-    if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
-        return res.status(409).send({
-          error: "Ingrese Dirección válido.",
-        });
-    }
-
-    if ((CreadoPor == null || /^[\s]*$/.test(CreadoPor)) ) {
+      }
+      if ((CreadoPor == null || /^[\s]*$/.test(CreadoPor)) ) {
         return res.status(409).send({
           error: "Ingrese CreadoPor válido.",
         });
-    }
+      }
    
       db.query(
-        `CALL sp_CrearSecretaria('${Nombre}','${NombreCorto}', '${IdTitular}','${Direccion}', '${CreadoPor}' )`,
+        `CALL sp_CrearPerfil('${Descripcion}','${Referencia}', '${CreadoPor}')`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -68,9 +54,9 @@ module.exports = {
   },
 
   //LISTADO COMPLETO
-  getSecretarias: (req, res) => {
-    
-    db.query(`CALL sp_ListaSecretarias()`, (err, result) => {
+  getPerfiles: (req, res) => {
+    const IdUsuario = req.query.IdUsuario;
+    db.query(`CALL sp_ListaPerfiles('${IdUsuario}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -93,53 +79,35 @@ module.exports = {
   
 
   //MODIFICA POR ID
-  modifySecretaria: (req, res) => {
-    const IdSecretaria = req.body.Id;
-    const Nombre = req.body.Nombre;
-    const NombreCorto = req.body.NombreCorto;
-    const IdTitular = req.body.IdTitular;
-    const Direccion = req.body.Direccion;
-    const IdModificador = req.body.IdModificador;   
-    
-
-    if ((IdSecretaria == null || /^[\s]*$/.test(IdSecretaria)) ) {
+  modifyPerfil: (req, res) => {
+    const IdPerfil = req.body.Id;
+    const Descripcion = req.body.Descripcion;
+    const Referencia = req.body.Referencia; 
+    const IdModificador = req.body.IdModificador;  
+    console.log(req.body);
+    if ((IdPerfil == null || /^[\s]*$/.test(IdPerfil)) ) {
         return res.status(409).send({
-          error: "Ingrese IdSecretaria válido.",
+          error: "Ingrese IdPerfil valido.",
         });
       } 
 
-    if ((NombreCorto == null || /^[\s]*$/.test(NombreCorto)) ) {
-      return res.status(409).send({
-        error: "Ingrese NombreCorto válido.",
-      });
-    } 
-
-    if ((Nombre == null || /^[\s]*$/.test(Nombre)) ) {
+      if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
         return res.status(409).send({
-          error: "Ingrese Nombre válido.",
+          error: "Ingrese Descripcion válido.",
         });
-    } 
-
-    if ((IdTitular == null || /^[\s]*$/.test(IdTitular)) ) {
+      }
+      if ((Referencia == null || /^[\s]*$/.test(Referencia)) ) {
         return res.status(409).send({
-          error: "Ingrese IdTitular válido.",
+          error: "Ingrese Referencia válido.",
         });
-    }
-
-    if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
-        return res.status(409).send({
-          error: "Ingrese Dirección válido.",
-        });
-    }
-
-    if ((IdModificador == null || /^[\s]*$/.test(IdModificador)) ) {
+      }
+      if ((IdModificador == null || /^[\s]*$/.test(IdModificador)) ) {
         return res.status(409).send({
           error: "Ingrese IdModificador válido.",
         });
-    }
-
+      }
       db.query(
-        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${NombreCorto}','${IdTitular}','${Direccion}','${IdModificador}')`,
+        `CALL sp_ModificaPerfil('${IdPerfil}','${Descripcion}','${Referencia}','${IdModificador}')`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -166,26 +134,19 @@ module.exports = {
     
   },
 
-  //Detalle
+   //Detalle
 
   //Borrado
-  deleteSecretaria: (req, res) => {
-    const IdSecretaria = req.body.Id;
+  deletePerfil: (req, res) => {
+    const IdPerfil = req.body.Id;
     const IdUsuario = req.body.IdUsuario;
     db.query(
-      `CALL sp_EliminarSecretaria('${IdSecretaria}', '${IdUsuario}')`,
+      `CALL sp_EliminarPerfil('${IdPerfil}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          if(err.sqlMessage){
-            return res.status(500).send({
-              error: err.sqlMessage,
-            });
-          }else{
-            return res.status(500).send({
-              error: 'error',
-            });
-          }
-         
+          return res.status(500).send({
+            error: "Error",
+          });
         }
         if (result.length) {
           const data = result[0][0];
@@ -204,7 +165,7 @@ module.exports = {
         }
       }
     );
-  }
+  }, 
 
   
 };

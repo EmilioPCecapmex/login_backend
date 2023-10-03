@@ -40,7 +40,7 @@ module.exports = {
 
         if (warning === undefined) {
           return res.status(201).send({
-            msg: "¡Registro eliminado con exito!",
+            msg: "¡Registro eliminado con éxito!",
           });
         } else {
           return res.status(409).send({

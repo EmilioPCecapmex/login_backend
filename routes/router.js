@@ -31,17 +31,11 @@ const { createComentario } = require("../controllers/solicitudesComentarios/crea
 const {modifySolicitud} = require("../controllers/solicitudesComentarios/modifySolicitud.js");
 const {getTipoSolicitud} = require("../controllers/solicitudesComentarios/getTipoSolicitud.js");
 const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSolicitudesApp.js");
-const { getComentariosSolicitud } = require("../controllers/solicitudesComentarios/getComentariosSolicitud,js");
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
 const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
-const { createDepartamento, getDepartamentos, modifyDepartamento, deleteDepartamento, getDetailDepartamentos } = require("../controllers/Catalogos/Departamentos.js");
 const { createRol, modifyRol, getRoles, deleteRol } = require("../controllers/Catalogos/Roles.js");
-const { createDependencia, getDependencias, modifyDependencia, createTpoDependencia, getTpoDependencias, modifyTpoDependencia, deleteTipoDependencia, deleteDependencia, getEntidadPadre } = require("../controllers/Catalogos/Dependencias.js");
-// const { createPerfil, getPerfiles, modifyPerfil, deletePerfil } = require("../controllers/Catalogos/Perfiles.js");
-const { createSecretaria, getSecretarias, modifySecretaria, deleteSecretaria } = require("../controllers/Catalogos/Secretarias.js");
-const { createUResponsable, getUResponsables, modifyUResponsable, deleteUResponsable } = require("../controllers/Catalogos/UnidadResponsable.js");
-const { getMenus, getMenusPerfil, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
+const { getMenus, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
 const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermisosMenuRol } = require("../controllers/Catalogos/Permisos.js");
 
 //Se agrega Controlador de endpoints donde se obtiene el Padre de una Dependencia y todo lo que hay para llegar a ella 
@@ -49,11 +43,10 @@ const { getPermisosMenu, getPermisosMenuRol, createPermisosMenuRol, deletedPermi
 const { validEmailExist, validUserNameExist } = require("../controllers/solicitudesComentarios/validUserExist.js");
 const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades, eliminarEntidad, modificarEntidad, getEntidadesSelect } = require("../controllers/users/detalleUsuarioSecretaria.js");
 const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
+const { getListas } = require("../controllers/Catalogos/Listas.js");
+const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
 
 // routes/router.js
-
-// PABMI 
-
 
 // PABMI
 router.post("/lista-usuarios-roles", (req, res) => {
@@ -160,10 +153,6 @@ router.post("/forgot-password", (req, res) => {
   forgotPassword(req, res);
 });
 
-// router.get("/activate", (req, res) => {
-//   activateUser(req, res);
-// });users-apps
-
 router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
   getUserApps(req, res);
 });
@@ -265,11 +254,6 @@ router.get("/solicitudes-app",verifyToken.verifyJWT, (req, res) => {
   getSolicitudesApp(req, res);
 })
 
-//lista Comentarios Solicitud
-// router.get("/comentarios-solicitudes",verifyToken.verifyJWT, (req, res) => {
-//   getComentariosSolicitud(req, res);
-// })
-
 //logica de solicitud
 router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
   solicitudTransaction(req, res);
@@ -286,29 +270,11 @@ router.get("/docSolicitudActualUsuario",verifyToken.verifyJWT, (req, res) => {
 
 
 //................................................CATALOGOS...........................................................
+//Listas
 
-//DEPARTAMENTOS
-// router.post("/create-departamento", (req, res, next) => {
-//   createDepartamento(req, res);
-// });
-
-
-// router.get("/departamentos", (req, res) => {
-//   getDepartamentos(req, res);
-// });
-
-// router.put("/departamento", (req, res) => {
-//   modifyDepartamento(req, res);
-// });
-
-// router.get("/detalle-departamento", (req, res) => {
-//   getDetailDepartamentos(req, res);
-// });
-
-// router.put("/delete-departamento", (req, res) => {
-//   deleteDepartamento(req, res);
-// });
-
+router.get("/listas", (req, res) => {
+  getListas(req, res);
+});
 
 //ROLES
 router.post("/rol", (req, res, next) => {
@@ -326,95 +292,6 @@ router.put("/rol", (req, res) => {
 router.delete("/rol", (req, res) => {
   deleteRol(req, res);
 });
-
-// //DEPENDENCIAS
-// router.post("/create-dependencia", (req, res, next) => {
-//   createDependencia(req, res);
-// });
-
-// router.get("/dependencias", (req, res) => {
-//   getDependencias(req, res);
-// });
-
-// router.put("/dependencia", (req, res) => {
-//   modifyDependencia(req, res);
-// });
-
-// router.put("/delete-dependencia", (req, res) => {
-//   deleteDependencia(req, res);
-// });
-
-// router.post("/create-tipodependencia", (req, res, next) => {
-//   createTpoDependencia(req, res);
-// });
-
-// router.get("/tipodependencias", (req, res) => {
-//   getTpoDependencias(req, res);
-// });
-
-// router.put("/tipodependencia", (req, res) => {
-//   modifyTpoDependencia(req, res);
-// });
-
-// router.put("/delete-tipodependencia", (req, res) => {
-//   deleteTipoDependencia(req, res);
-// });
-
-
-
-// //PERFILES
-// router.post("/perfil", (req, res, next) => {
-//   createPerfil(req, res);
-// });
-
-
-// router.get("/perfiles", (req, res) => {
-//   getPerfiles(req, res);
-// });
-
-// router.put("/perfil", (req, res) => {
-//   modifyPerfil(req, res);
-// });
-
-// router.delete("/perfil", (req, res) => {
-//   deletePerfil(req, res);
-// });
-
-//SECRETARIAS
-// router.post("/create-secretaria", (req, res, next) => {
-//   createSecretaria(req, res);
-// });
-
-// router.get("/secretarias", (req, res) => {
-//   getSecretarias(req, res);
-// });
-
-// router.put("/secretaria", (req, res) => {
-//   modifySecretaria(req, res);
-// });
-
-// router.put("/delete-secretaria", (req, res) => {
-//   deleteSecretaria(req, res);
-// });
-
-
-//URESPONSABLES
-// router.post("/create-uresponsable", (req, res, next) => {
-//   createUResponsable(req, res);
-// });
-
-// router.get("/uresponsables", (req, res) => {
-//   getUResponsables(req, res);
-// });
-
-// router.put("/uresponsable", (req, res) => {
-//   modifyUResponsable(req, res);
-// });
-
-// router.put("/delete-uresponsable", (req, res) => {
-//   deleteUResponsable(req, res);
-// });
-
 
 router.get("/usuarios-asignables", (req, res) => {
   getUsuariosAsignables(req, res);
@@ -463,6 +340,21 @@ router.post("/validar-email",(req,res)=>{
 router.post("/validar-username",(req,res)=>{
   validUserNameExist(req,res)
 })
+
+//#################################Admin Ayudas####################################
+router.post("/ayuda",(req,res)=>{
+  createPreguntaFrecuente(req,res)
+})
+
+router.get("/ayuda",(req,res)=>{
+  getPreguntasFrecuentes(req,res)
+})
+
+router.delete("/ayuda",(req,res)=>{
+  deletePreguntasFrecuentes(req,res)
+  
+})
+
 
 
 
