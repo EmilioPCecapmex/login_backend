@@ -44,6 +44,7 @@ const { validEmailExist, validUserNameExist } = require("../controllers/solicitu
 const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades, eliminarEntidad, modificarEntidad, getEntidadesSelect } = require("../controllers/users/detalleUsuarioSecretaria.js");
 const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 const { getListas } = require("../controllers/Catalogos/Listas.js");
+const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
 
 // routes/router.js
 
@@ -339,6 +340,21 @@ router.post("/validar-email",(req,res)=>{
 router.post("/validar-username",(req,res)=>{
   validUserNameExist(req,res)
 })
+
+//#################################Admin Ayudas####################################
+router.post("/ayuda",(req,res)=>{
+  createPreguntaFrecuente(req,res)
+})
+
+router.get("/ayuda",(req,res)=>{
+  getPreguntasFrecuentes(req,res)
+})
+
+router.delete("/ayuda",(req,res)=>{
+  deletePreguntasFrecuentes(req,res)
+  
+})
+
 
 
 
