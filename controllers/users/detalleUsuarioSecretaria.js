@@ -30,6 +30,33 @@ module.exports = {
         });
     },
 
+    getUsuarioEntidadNivel: (req, res) => {
+        const userId = req.body.IdUsuario;
+        const appId = req.body.IdApp;
+        db.query(`CALL sp_DetalleUsuarioEntidadUltimoNivel('${userId}', '${appId}')`, (err, result) => {
+          if (err) {
+            return res.status(500).send({
+              error: err,
+            });
+          }
+          if (result.length) {
+            const data = result[0];
+            if (data.length === 0) {
+              return res.status(409).send({
+                error: "¡Sin Información!",
+              });
+            }
+            return res.status(200).send({
+              data,
+            });
+          } else {
+            return res.status(409).send({
+              error: "¡Sin Información!",
+            });
+          }
+        });
+      },
+
     detalleEntidad: (req, res) => {
         const { IdEntidad } = req.body;
     
