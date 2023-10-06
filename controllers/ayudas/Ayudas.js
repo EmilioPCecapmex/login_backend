@@ -3,7 +3,7 @@ module.exports = {
 
 createPreguntaFrecuente: (req, res) => {
  const {IdMenu,Pregunta,Texto,RutaGuia,RutaVideo,NombreArchivo,NombreArchivoServidor,IdUsuario} = req.body;
-
+console.log(req.body);
         let contError=0;
         let error = "Ingrese:";
 
@@ -30,7 +30,7 @@ createPreguntaFrecuente: (req, res) => {
             });
          }
 
-        db.query(`CALL sp_CrearPreguntaFrecunte(?,?,?,?,?,?,?)`,[IdUsuario,IdMenu,Pregunta,Texto,RutaGuia,RutaVideo,NombreArchivo,NombreArchivoServidor], (err, result) => {
+        db.query(`CALL sp_CrearPreguntaFrecunte(?,?,?,?,?,?,?,?)`,[IdUsuario,IdMenu,Pregunta,Texto,RutaGuia,RutaVideo,NombreArchivo,NombreArchivoServidor], (err, result) => {
          if (err) {
            return res.status(500).send({
              error: err,
