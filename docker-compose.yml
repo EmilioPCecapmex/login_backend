@@ -4,7 +4,7 @@ services:
   backend-login:
     build: .
     environment:
-      LOGIN_B_APP_DB_HOST: "10.210.0.29"
+      LOGIN_B_APP_DB_HOST: "10.210.26.27"
       LOGIN_B_APP_DB_USER: "root"
       LOGIN_B_APP_DB_DATABASE: "TiCentral"
       LOGIN_B_APP_DB_PASSWORD: "z54YbmEg5nqDUg"
