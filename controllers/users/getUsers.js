@@ -344,6 +344,7 @@ async function getMenus (userId,appId)  {
   and us.id=? 
   and rol.IdApp =?
   AND m.MenuPadre =?
+  and m.Deleted=0
   order by m.Orden
   `;
 
@@ -366,6 +367,7 @@ async function getMenus (userId,appId)  {
   and us.id=? 
   and rol.IdApp =?
   AND m.MenuPadre =?
+  and m.Deleted=0
   order by m.Orden
   `;
   const result = await queryAsync(query,[userId,appId,menuPadre]);
