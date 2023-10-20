@@ -260,6 +260,7 @@ async function getMenus (userId,appId)  {
   m.nivel=0
   and us.id=?
   and rol.IdApp =?
+  and m.Deleted=0
   order by m.Orden;
   `;
 
