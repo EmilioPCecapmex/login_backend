@@ -154,7 +154,7 @@ router.put("/change-password", verifyToken.verifyJWT, (req, res) => {
 });
 
 router.put("/set-password", 
-// verifyToken.verifyJWT, 
+verifyToken.verifyJWT, 
 (req, res) => {
   setPassword(req, res);
 });
