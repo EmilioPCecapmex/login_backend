@@ -45,6 +45,9 @@ const { getUsuarioEntidad, detalleEntidad, crearEntidad, getEntidades, eliminarE
 const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntidad } = require("../controllers/Catalogos/TipoEntidades.js");
 const { getListas } = require("../controllers/Catalogos/Listas.js");
 const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
+const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre } = require("../controllers/AdminMenus/AdminMenus.js");
+const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
+
 
 // routes/router.js
 
@@ -358,6 +361,39 @@ router.delete("/ayuda",(req,res)=>{
   deletePreguntasFrecuentes(req,res)
   
 })
+
+//Admin Menus
+router.post("/AdminMenu",(req,res)=>{
+  createAdminMenu(req,res)
+})
+
+router.get("/AdminMenu",(req,res)=>{
+  getAdminMenu(req,res)
+})
+
+router.delete("/AdminMenu",(req,res)=>{
+  deleteAdminMenu(req,res)
+})
+
+router.get("/AdminMenu",(req,res)=>{
+  getMenusPadre(req,res)
+})
+
+//Admin Permisos
+router.post("/AdminPermiso",(req,res)=>{
+  createAdminPermiso(req,res)
+})
+
+router.get("/AdminPermiso",(req,res)=>{
+  getAdminPermiso(req,res)
+})
+
+router.delete("/AdminPermiso",(req,res)=>{
+  deleteAdminPermiso(req,res)
+})
+
+
+
 
 
 
