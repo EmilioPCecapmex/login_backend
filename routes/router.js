@@ -46,7 +46,7 @@ const { getTipoEntidades, crearTipoEntidad, editarTipoEntidad, eliminarTipoEntid
 const { getListas } = require("../controllers/Catalogos/Listas.js");
 const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
 const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre } = require("../controllers/AdminMenus/AdminMenus.js");
-const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
+const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
 
 
 // routes/router.js
@@ -391,6 +391,10 @@ router.get("/AdminPermiso",(req,res)=>{
 router.delete("/AdminPermiso",(req,res)=>{
   deleteAdminPermiso(req,res)
 })
+
+router.put("/AdminPermiso", (req, res) => {
+  editarPermiso(req, res);
+});
 
 
 
