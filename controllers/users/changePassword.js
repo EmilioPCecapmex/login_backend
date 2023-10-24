@@ -91,8 +91,6 @@ module.exports = {
       actualpassword = result[0].Contrasena || "";
 
       bcrypt.compare(password, actualpassword, (bErr, bResult) => {
-        console.log("bErr", bErr);
-        console.log("bResult", bResult);
         if (bErr) {
           return res.status(401).send({
             error: "Contraseña Incorrecta",
@@ -100,7 +98,6 @@ module.exports = {
         }
         if (bResult) {
           bcrypt.hash(newPassword, 10, (err, hash) => {
-            console.log("peticion",userId,hash);
             if (err) {
               return res.status(409).send({
                 error: "Error",

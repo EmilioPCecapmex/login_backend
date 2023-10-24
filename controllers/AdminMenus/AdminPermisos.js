@@ -95,7 +95,6 @@ module.exports = {
 
     createAdminPermiso:(req,res)=>{
         const {Permiso,Descripcion,ControlInterno,IdMenu,IdApp,IdUsuario} = req.body;
-        console.log(req.body);
         let contError=0;
         let error = "Ingrese:";
 

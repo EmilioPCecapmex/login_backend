@@ -89,11 +89,8 @@ module.exports = {
   //MODIFICA POR ID
   modifyRol: (req, res) => {
     const {Id, Nombre, Descripcion, ControlInterno, IdApp, IdUsuario }= req.body
-    console.log("req.body",req.body);
     let query= `CALL sp_ModificaRol(?,?,?,?,?,?)`
       db.query(query,[Id,Nombre,Descripcion,ControlInterno,IdApp, IdUsuario],(err, result) => {
-        console.log("err",err);
-        console.log("result",result);
           if (err) {
             return res.status(500).send({
               error: err.sqlMessage,

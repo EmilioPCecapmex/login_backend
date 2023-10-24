@@ -3,7 +3,6 @@ module.exports = {
 
 createAdminMenu: (req, res) => {
 const {Menu,IdApp,Descripcion,Nivel,Orden,MenuPadre,Icon,Path,ControlInterno,IdUsuario} = req.body;
-console.log(req.body);
         let contError=0;
         let error = "Ingrese:";
 
