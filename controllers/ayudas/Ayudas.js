@@ -2,7 +2,7 @@ const db = require("../../config/db.js");
 module.exports = {
 
 createPreguntaFrecuente: (req, res) => {
- const {IdMenu,Pregunta,Texto,RutaGuia,RutaVideo,NombreArchivo,NombreArchivoServidor,IdUsuario} = req.body;
+const {IdMenu,Pregunta,Texto,RutaGuia,RutaVideo,NombreArchivo,NombreArchivoServidor,IdUsuario} = req.body;
 console.log(req.body);
         let contError=0;
         let error = "Ingrese:";
