@@ -10,8 +10,17 @@ const {Menu,IdApp,Descripcion,Nivel,Orden,MenuPadre,Icon,Path,ControlInterno,IdU
             {
                 error += " Menu,";
                 contError++;
+            }
+            if (!Nivel || (/^[\s]*$/.test(Nivel)))
+            {
+                error += " Nivel,";
+                contError++;
             } 
-
+            if (!Orden || (/^[\s]*$/.test(Orden)))
+            {
+                error += " Orden,";
+                contError++;
+            } 
             if (!IdUsuario || (/^[\s]*$/.test(IdUsuario)))
             {
                 error += " IdUsuario";
@@ -28,6 +37,7 @@ const {Menu,IdApp,Descripcion,Nivel,Orden,MenuPadre,Icon,Path,ControlInterno,IdU
                 error: error,
             });
          }
+         console.log("MenuPadre",MenuPadre);
 
         db.query(`CALL sp_CrearMenu(?,?,?,?,?,?,?,?,?,?)`,[Menu,IdApp,Descripcion,Nivel,Orden,MenuPadre,Icon,Path,ControlInterno,IdUsuario], (err, result) => {
          if (err) {
@@ -165,19 +175,19 @@ getMenusPadre: (req, res) => {
 editarMenu:(req, res) =>{
   const { Id, Menu, IdApp, Descripcion, Nivel, Orden, MenuPadre, Icon, Path, ControlInterno, IdUsuario } = req.body;
     
-        if (!Id || !Menu || !IdApp || !Descripcion || !Nivel|| !Orden|| !MenuPadre|| !Icon|| !Path || !ControlInterno || !IdUsuario) {
+        if (!Id || !Menu || !IdApp || !Nivel|| !Orden||!IdUsuario) {
             let error = "Ingrese:";
     
             if (!Id) error += " Id,";
             if (!Menu) error += " Menu,";
             if (!IdApp) error += " IdApp,";
-            if (!Descripcion) error += " Descripcion,";
+            // if (!Descripcion) error += " Descripcion,";
             if (!Nivel) error += " Nivel,";
             if (!Orden) error += " Orden,";
-            if (!MenuPadre) error += " MenuPadre,";
-            if (!Icon) error += " Icon,";
-            if (!Path) error += " Path,";
-            if (!ControlInterno) error += " ControlInterno,";
+            // if (!MenuPadre) error += " MenuPadre,";
+            // if (!Icon) error += " Icon,";
+            // if (!Path) error += " Path,";
+            // if (!ControlInterno) error += " ControlInterno,";
             
             
             if (!IdUsuario) error += " IdUsuario";

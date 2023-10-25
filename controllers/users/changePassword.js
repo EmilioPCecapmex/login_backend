@@ -58,9 +58,9 @@ module.exports = {
 
 
       // Verificar la longitud mínima (al menos 10 caracteres)
-      if (newPassword.length < 10) {
+      if (newPassword.length < 8) {
         return res.status(409).send({
-          error: "longuitud minima 10 caracteres",
+          error: "longuitud minima 8 caracteres",
         });
       }
     
