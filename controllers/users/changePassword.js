@@ -33,11 +33,12 @@ module.exports = {
               }
               const d = {
                 to: userData.CorreoElectronico,
-                subject: "¡Cambio de Contraseña!",
+                subject: "¡Recuperación de contraseña exitosa!",
                 nombre: userData.Nombre,
                 usuario: userData.NombreUsuario,
                 contrasena: genPassword,
                 userid: userData.Id,
+                mensaje: "Su contraseña se actualizada con éxito",
               };
               sendEmail(d);
             }
@@ -67,7 +68,7 @@ module.exports = {
       // Verificar si contiene al menos un número
       if (!/\d/.test(newPassword)) {
         return res.status(409).send({
-          error: "la contraseña debe contener almenos un digito",
+          error: "la contraseña debe contener almenos un dígito",
         });
       }
     
@@ -121,11 +122,12 @@ module.exports = {
                     }
                     const d = {
                       to: userData.CorreoElectronico,
-                      subject: "¡Cambio de Contraseña!",
+                      subject: "¡Actualizacion de Contraseña!",
                       nombre: userData.Nombre,
                       usuario: userData.NombreUsuario,
                       contrasena: newPassword,
                       userid: userData.Id,
+                      mensaje:"tu contraseña a sido actualizada exitosamente."
                     };
                     sendEmail(d);
                   }
@@ -177,6 +179,7 @@ module.exports = {
                 usuario: userData.NombreUsuario,
                 contrasena: genPassword,
                 userid: userData.Id,
+                mensaje:"Le informamos que se ha generado una nueva contraseña para su cuenta debido a que ha perdido la contraseña anterior. A continuación, encontrará los detalles de su nueva contraseña:"
               };
               sendEmail(d);
             }

@@ -5,13 +5,14 @@ const { emailTemplate } = require("../mail/newUser");
 module.exports = {
   sendEmail: (req) => {
     const mailData = req;
-
+    console.log(req);
     var to = mailData.to;
     var subject = mailData.subject;
     var nombre = mailData.nombre;
     var usuario = mailData.usuario;
     var contrasena = mailData.contrasena;
     var userid = mailData.userid;
+    var mensaje=mailData.mensaje;
 
     var transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -30,7 +31,7 @@ module.exports = {
       to: to,
       subject: subject,
       text: "Plaintext version of the message",
-      html: emailTemplate(nombre, usuario, contrasena, userid),
+      html: emailTemplate(mensaje,nombre, usuario, contrasena, userid),
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

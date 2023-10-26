@@ -1,5 +1,5 @@
 module.exports = {
-  emailTemplate: (nombre, usuario, contrasena, userid) => {
+  emailTemplate: (mensaje,nombre, usuario, contrasena, userid) => {
     return `
     <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +33,7 @@ module.exports = {
       <h1 style="font-family: sans-serif; text-align: center;">Secretaría de Finanzas y Tesorería General del Estado</h1>
       <h2 style="font-family: sans-serif">Acceso a Usuarios</h2>
       <h3 style="text-align: center; font-family: sans-serif">
-        Hola ${nombre}, tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.
+        Hola ${nombre}, ${mensaje}
       </h3>
       <div
         style="
@@ -64,7 +64,10 @@ module.exports = {
       </div>
 
       <div>
-      <h4 style="font-family: sans-serif"><strong>Contraseña:</strong></h4>
+      <h4 style="font-family: sans-serif"><strong> Contraseña:</strong></h4>
+      </div>
+
+      <div>
         <h4 style="font-weight: lighter; font-family: sans-serif">
           ${contrasena}
         </h4>

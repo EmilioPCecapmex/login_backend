@@ -86,7 +86,9 @@ module.exports = {
                     nombre: nombre,
                     usuario: nusuario,
                     contrasena: genPassword,
+                    mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
                     userid: IdUsuario,
+                   
                   };
 
                   sendEmail(d);
