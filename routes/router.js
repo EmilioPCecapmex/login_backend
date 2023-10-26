@@ -13,6 +13,7 @@ const {
   getUserAppDetail,
   getUsuariosRoles,
   getUserPermissionsDetail,
+  getUserEmailRolControlInterno,
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps, getUsersApp } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
@@ -59,6 +60,10 @@ router.post("/lista-usuarios-roles", (req, res) => {
 router.post("/detalle-usuarios-permisos", (req, res) => {
   getUserPermissionsDetail(req, res);
 });
+
+router.post("/email-rol-controlInterno",(req,res)=>{
+  getUserEmailRolControlInterno(req,res)
+})
 //Entidades
 
 router.post("/create-entidad", (req, res) => {
