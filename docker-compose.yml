@@ -15,8 +15,8 @@ services:
       LOGIN_B_APP_EMAIL_USER: "noreply.cecapmex@gmail.com"
       LOGIN_B_APP_EMAIL_PASSWORD: "hpffapcifkvkfuey"
       LOGIN_B_APP_EMAIL_USER: "sistemas.tesoreria.virtual@nuevoleon.gob.mx"
-      LOGIN_B_APP_EMAIL_PASSWORD: "$ist3m@$tv*"
-      LOGIN_B_APP_EMAIL_USERNAME: "sistemas.tv"
+      LOGIN_B_APP_EMAIL_PASSWORD: $ist3m@$tv*
+      LOGIN_B_APP_EMAIL_USERNAME: sistemas.tv
       LOGIN_B_APP_FRONT: https://tesoreria-virtual.nl.gob.mx/
     volumes:
       - .:/usr/src/app
