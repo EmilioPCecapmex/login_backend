@@ -48,7 +48,7 @@ const { getListas } = require("../controllers/Catalogos/Listas.js");
 const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
 const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMenu } = require("../controllers/AdminMenus/AdminMenus.js");
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
-const { getSecretariaByEntidad } = require("../controllers/Catalogos/Entidades.js");
+const { getSecretariaByEntidad, getInfoEntidad } = require("../controllers/Catalogos/Entidades.js");
 
 
 // routes/router.js
@@ -59,6 +59,11 @@ const { getSecretariaByEntidad } = require("../controllers/Catalogos/Entidades.j
 router.get("/secretaria-by-entidad", (req, res) => {
   getSecretariaByEntidad(req, res);
 });
+
+router.get("/secretaria-by-Id", (req, res) => {
+  getInfoEntidad(req, res);
+});
+
 
 router.post("/lista-usuarios-roles", (req, res) => {
   getUsuariosRoles(req, res);
