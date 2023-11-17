@@ -48,13 +48,16 @@ const { getListas } = require("../controllers/Catalogos/Listas.js");
 const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuentes } = require("../controllers/ayudas/Ayudas.js");
 const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMenu } = require("../controllers/AdminMenus/AdminMenus.js");
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
-const { getSecretariaByEntidad, getInfoEntidad } = require("../controllers/Catalogos/Entidades.js");
+const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
 
 
 // routes/router.js
 
 // PABMI
 
+router.get("/depencias-by-entidad", (req, res) => {
+  getDependenciasByEntidad(req, res);
+});
 
 router.get("/secretaria-by-entidad", (req, res) => {
   getSecretariaByEntidad(req, res);
