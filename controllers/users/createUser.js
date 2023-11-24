@@ -80,7 +80,7 @@ module.exports = {
                       userid: userId,
                       mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
                     };
-                    // sendEmail(d);
+                    sendEmail(d);
                   }
                   if(result[0][0].Respuesta == 201){
                      return res.status(201).send({

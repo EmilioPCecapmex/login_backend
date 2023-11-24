@@ -91,7 +91,7 @@ module.exports = {
                    
                   };
 
-                  // sendEmail(d);
+                  sendEmail(d);
 
                 
                 }
