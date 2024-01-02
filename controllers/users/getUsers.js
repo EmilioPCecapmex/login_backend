@@ -137,6 +137,7 @@ module.exports = {
   },
 
   getUserAppDetail: async (req, res) => {
+    console.log(req.body);
     const userId = req.body.IdUsuario;
     const appId = req.body.IdApp;
     if (userId == null || /^[\s]*$/.test(userId)) {

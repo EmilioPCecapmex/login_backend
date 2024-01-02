@@ -18,12 +18,10 @@ module.exports = {
         });
       }
       if (result.length) {
-        
-       
-
-        return res.status(200).send({
-         result,
-        });
+        console.log("daots:",result[0][0]);
+        // return res.status(200).send({
+        //  result,
+        // });
         
       } else {
         return res.status(409).send({

@@ -33,7 +33,7 @@ const {modifySolicitud} = require("../controllers/solicitudesComentarios/modifyS
 const {getTipoSolicitud} = require("../controllers/solicitudesComentarios/getTipoSolicitud.js");
 const {getSolicitudesApp} = require("../controllers/solicitudesComentarios/getSolicitudesApp.js");
 const {solicitudTransaction} = require("../controllers/solicitudesComentarios/solicitudesTransaction.js");
-const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
+// const { getSolicitudUsuario } = require("../controllers/solicitudesComentarios/getLastSolicitudUSuario.js");
 const {getSolicitudActualDocumento} = require("../controllers/solicitudesComentarios/getSolicitudActualDocumento.js");
 const { createRol, modifyRol, getRoles, deleteRol } = require("../controllers/Catalogos/Roles.js");
 const { getMenus, getMenusRol, deleteMenuRol, createMenuRol } = require("../controllers/Catalogos/Menu.js");
@@ -49,6 +49,7 @@ const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuent
 const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMenu } = require("../controllers/AdminMenus/AdminMenus.js");
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
 const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
+const { getSolicitudUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
 
 
 // routes/router.js
@@ -293,13 +294,13 @@ router.get("/solicitudes-app",verifyToken.verifyJWT, (req, res) => {
 router.put("/solicitud-transaction", verifyToken.verifyJWT, (req, res, next) => {
   solicitudTransaction(req, res);
 });
-
+//................................................imprimir solicitud...........................................................
 //Ultima solicitud del usuario
-router.get("/docSolicitudUsuario",verifyToken.verifyJWT, (req, res) => {
+router.get("/docSolicitudUsuario", (req, res) => {
   getSolicitudUsuario(req, res);
 });
 
-router.get("/docSolicitudActualUsuario",verifyToken.verifyJWT, (req, res) => {
+router.get("/docSolicitudActualUsuario",(req, res) => {
   getSolicitudActualDocumento(req, res);
 });
 
