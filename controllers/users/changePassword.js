@@ -40,7 +40,7 @@ module.exports = {
                 userid: userData.Id,
                 mensaje: "Su contraseña se actualizada con éxito",
               };
-              sendEmail(d);
+               sendEmail(d);
             }
 
             return res.status(200).send({
@@ -179,7 +179,7 @@ module.exports = {
                 usuario: userData.NombreUsuario,
                 contrasena: genPassword,
                 userid: userData.Id,
-                mensaje:"Le informamos que se ha generado una nueva contraseña para su cuenta debido a que ha perdido la contraseña anterior. A continuación, encontrará los detalles de su nueva contraseña:"
+                mensaje:"le informamos que se ha generado una nueva contraseña para su cuenta. A continuación, encontrará los detalles de su nueva contraseña:"
               };
               sendEmail(d);
             }

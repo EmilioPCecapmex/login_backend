@@ -15,14 +15,15 @@ module.exports = {
     var mensaje=mailData.mensaje;
 
     var transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
+      host: 'correo.nl.gob.mx',
       port: 587,
       secure: false,
       auth: {
-        user: process.env.LOGIN_B_APP_EMAIL_USER, // enter your email address
+        user: process.env.LOGIN_B_APP_EMAIL_USERNAME, // enter your email address
         pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD, // enter your visible/encripted password
       },
-      tls : { rejectUnauthorized: false }
+      tls : {  
+      rejectUnauthorized: false, }
 
     });
 
