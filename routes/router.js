@@ -21,7 +21,7 @@ const { consultaCatalogos, getUsuariosAsignables } = require("../controllers/con
 const { deleteApp } = require("../controllers/apps/deleteApp.js");
 const { modifyUser } = require("../controllers/users/modifyUser.js");
 const { modifyApp } = require("../controllers/apps/modifyApp.js");
-const { changePassword, forgotPassword, setPassword } = require("../controllers/users/changePassword.js");
+const { changePassword, forgotPassword, setPassword, resendCredentials } = require("../controllers/users/changePassword.js");
 const { createApp } = require("../controllers/apps/createApp.js");
 const { linkUserApp, unlinkUserApp, manageUserApps } = require("../controllers/apps/linkUserApp.js");
 const { activateApp } = require("../controllers/apps/activateApp.js");
@@ -184,10 +184,14 @@ verifyToken.verifyJWT,
 });
 
 
-
 router.post("/forgot-password", (req, res) => {
   forgotPassword(req, res);
 });
+
+router.post("/reesend-credentials", (req, res) => {
+  resendCredentials(req, res);
+});
+
 
 router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
   getUserApps(req, res);

@@ -192,4 +192,49 @@ module.exports = {
       }
     });
   },
+
+  resendCredentials: (req, res) => {
+    const {NombreUsuario,Correo} = req.body;
+    const genPassword = generateRandomPassword(10);
+    bcrypt.hash(genPassword, 10, (err, hash) => {
+      if (err) {
+        return res.status(401).send({
+          error: "Error",
+        });
+      } else {
+        // has hashed pw => add to database
+        db.query(
+          `CALL sp_ReenviarCredenciales(?,?,?)`,[NombreUsuario,Correo,hash],
+          (err, result) => {
+            if (err) {
+              return res.status(401).send({
+                error: err,
+              });
+            } else {
+              const userData = result[0][0];
+              if (userData === undefined) {
+                return res.status(409).send({
+                  error: "Verificar Id Usuario",
+                });
+              }
+              const d = {
+                to: userData.CorreoElectronico,
+                subject: "¡Bienvenido!",
+                nombre: userData.Nombre,
+                usuario: userData.NombreUsuario,
+                contrasena: genPassword,
+                userid: userData.Id,
+                mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
+              };
+              sendEmail(d);
+            }
+
+            return res.status(200).send({
+              message: "Cambio de contraseña exitoso!",
+            });
+          }
+        );
+      }
+    });
+  },
 };
