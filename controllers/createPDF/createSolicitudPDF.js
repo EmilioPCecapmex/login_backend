@@ -55,7 +55,7 @@ module.exports = {
     let datosSolicitud;
     const htmlTemplate = fs.readFileSync(templateSolicitud, "utf8");
     const resLogoTesoreria = fs.readFileSync(
-      "../stylessheet/images/logoTesoreria192.png"
+      "controllers/stylessheet/images/logotesoreria192.png"
     );
     let html;
 
