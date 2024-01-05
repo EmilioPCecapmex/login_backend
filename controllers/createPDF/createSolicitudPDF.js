@@ -9,7 +9,6 @@ const templateSolicitud = path.join(
 );
 
 const replaceVariable = (template, variable, value) => {
-  console.log("variable:", `{{${variable}}}`);
   const regex = new RegExp(`{{${variable}}}`, "g");
   return template.replace(regex, value);
 };
@@ -70,8 +69,6 @@ module.exports = {
     db.query(
       `CALL sp_UltimaSolicitudUsuario('${NombreUsuario}')`,
       async (err, result) => {
-        console.log("error",err);
-        console.log("result",result[0]);
         if (err) {
           return res.status(500).send({
             error: "Error",
@@ -85,7 +82,6 @@ module.exports = {
               error: "¡Sin Información!",
             });
           }
-          console.log("daots:", result[0][0]);
           datosSolicitud = result[0][0];
           html = replaceAllVariables(htmlTemplate, {
             ...datosSolicitud,
@@ -125,7 +121,6 @@ module.exports = {
       
           let nombreArchivo = `${datosSolicitud?.Nombre} ${datosSolicitud?.ApellidoPaterno} - ${datosSolicitud?.TipoDeMovimiento} - ${datosSolicitud?.AccesoApp}`;
           nombreArchivo = nombreArchivo.toUpperCase();
-          console.log(nombreArchivo);
       
           const headers = {"Content-Disposition": `attachment; filename="${nombreArchivo}"`,
             "Content-Type": "application/pdf",
@@ -140,7 +135,6 @@ module.exports = {
         }
       }
     );
-    console.log("datosSolicitud",datosSolicitud);
     
   },
 };

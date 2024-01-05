@@ -5,9 +5,7 @@ module.exports = {
     const IdApp= req.body.IdApp;
     const ControlesInternos = JSON.stringify(req.body.ControlesInternos);
     db.query(`CALL sp_ObtenerCorreoPorRolControlInterno(?,?)`,[ControlesInternos,IdApp], (err, result) => {
-      console.log(req.body);
-      console.log("err",err);
-      console.log("result",result);
+      
       if (err) {
         return res.status(500).send({
           error: err,
@@ -137,7 +135,6 @@ module.exports = {
   },
 
   getUserAppDetail: async (req, res) => {
-    console.log(req.body);
     const userId = req.body.IdUsuario;
     const appId = req.body.IdApp;
     if (userId == null || /^[\s]*$/.test(userId)) {

@@ -30,10 +30,8 @@ const sendEmail = async (mailData) => {
 
   try {
     const info = await sendMailPromise(mailOptions);
-    console.log("Correo enviado con éxito:", info.response);
     return "Correo enviado con éxito:", info.response;
   } catch (error) {
-    console.error("Error al enviar el correo:", error);
     throw "Error al enviar el correo:", error;
   }
 };

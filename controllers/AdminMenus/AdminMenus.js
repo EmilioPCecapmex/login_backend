@@ -37,8 +37,6 @@ const {Menu,IdApp,Descripcion,Nivel,Orden,MenuPadre,Icon,Path,ControlInterno,IdU
                 error: error,
             });
          }
-         console.log("MenuPadre",MenuPadre);
-
         db.query(`CALL sp_CrearMenu(?,?,?,?,?,?,?,?,?,?)`,[Menu,IdApp,Descripcion,Nivel,Orden,MenuPadre,Icon,Path,ControlInterno,IdUsuario], (err, result) => {
          if (err) {
            return res.status(500).send({

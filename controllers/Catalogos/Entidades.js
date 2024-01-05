@@ -125,8 +125,6 @@ module.exports = {
       db.query(
         `CALL sp_ObtieneDependenciasPorEntidad(?)`,[IdEntidad],
         (err, result) => {
-          console.log("err",err);
-          console.log("result",result);
           if (err) {
             return res.status(500).send({
               error: err.sqlMessage,
