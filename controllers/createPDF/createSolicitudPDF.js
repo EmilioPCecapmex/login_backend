@@ -51,6 +51,7 @@ const replaceAllVariables = (template, variables) => {
 
 module.exports = {
   getSolicitudUsuario: async (req, res) => {
+    console.log("entro a la funcion 1");
     let datosSolicitud;
     const htmlTemplate = fs.readFileSync(templateSolicitud, "utf8");
     const resLogoTesoreria = fs.readFileSync(
@@ -65,10 +66,11 @@ module.exports = {
         error: "Ingrese NombreUsuario",
       });
     }
-
+    console.log("entro a la funcion 2");
     db.query(
       `CALL sp_UltimaSolicitudUsuario('${NombreUsuario}')`,
       async (err, result) => {
+        console.log("entro a la funcion 3");
         if (err) {
           return res.status(500).send({
             error: "Error",
@@ -126,6 +128,7 @@ module.exports = {
             "Content-Type": "application/pdf",
             
           };
+          console.log("entro a la funcion 4");
           res.set(headers);
           res.send(pdfBuffer);
         } else {
