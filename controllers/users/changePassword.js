@@ -193,48 +193,70 @@ module.exports = {
     });
   },
 
-  resendCredentials: (req, res) => {
-    const {NombreUsuario,Correo} = req.body;
+  resendCredentials: async (req, res) => {
+    const { NombreUsuario, Correo } = req.body;
     const genPassword = generateRandomPassword(10);
-    bcrypt.hash(genPassword, 10, (err, hash) => {
-      if (err) {
-        return res.status(401).send({
-          error: "Error",
+  
+    try {
+      const hash = await new Promise((resolve, reject) => {
+        bcrypt.hash(genPassword, 10, (err, hash) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(hash);
+          }
         });
-      } else {
-        // has hashed pw => add to database
+      });
+  
+      const result = await new Promise((resolve, reject) => {
         db.query(
-          `CALL sp_ReenviarCredenciales(?,?,?)`,[NombreUsuario,Correo,hash],
+          `CALL sp_ReenviarCredenciales(?,?,?)`,
+          [NombreUsuario, Correo, hash],
           (err, result) => {
             if (err) {
-              return res.status(401).send({
-                error: err,
-              });
+              reject(err);
             } else {
-              const userData = result[0][0];
-              if (userData === undefined) {
-                return res.status(409).send({
-                  error: "Verificar Id Usuario",
-                });
-              }
-              const d = {
-                to: userData.CorreoElectronico,
-                subject: "¡Bienvenido!",
-                nombre: userData.Nombre,
-                usuario: userData.NombreUsuario,
-                contrasena: genPassword,
-                userid: userData.Id,
-                mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
-              };
-              sendEmail(d);
+              resolve(result);
             }
-
-            return res.status(200).send({
-              message: "Cambio de contraseña exitoso!",
-            });
           }
         );
+      });
+  
+      const userData = result[0][0];
+  
+      if (!userData) {
+        return res.status(409).send({
+          error: "Verificar Id Usuario",
+        });
       }
-    });
+  
+      const d = {
+        to: userData.CorreoElectronico,
+        subject: "¡Bienvenido!",
+        nombre: userData.Nombre,
+        usuario: userData.NombreUsuario,
+        contrasena: genPassword,
+        userid: userData.Id,
+        mensaje: "tu usuario para ingresar a nuestros sistemas ha sido creado exitosamente.",
+      };
+  
+      // Llamada a sendEmail y retorno de la respuesta
+      const emailResponse = await sendEmail(d);
+  
+      // Aquí puedes hacer algo con emailResponse si lo necesitas
+      console.log("Respuesta de sendEmail:", emailResponse);
+  
+      // Retorno de la respuesta de sendEmail
+      return res.status(200).send({
+        message: "Cambio de contraseña exitoso!",
+        emailResponse: emailResponse,
+      });
+    } catch (error) {
+      console.error("Error en resendCredentials:", error);
+      return res.status(500).send({
+        msg: "Fallo el envio. ",
+        error: error.message,
+      });
+    }
   },
 };
