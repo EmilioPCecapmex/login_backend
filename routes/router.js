@@ -49,7 +49,7 @@ const { createPreguntaFrecuente, deletePreguntasFrecuentes, getPreguntasFrecuent
 const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMenu } = require("../controllers/AdminMenus/AdminMenus.js");
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
 const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
-const { getSolicitudUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
+const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
 
 
 // routes/router.js
@@ -305,7 +305,8 @@ router.get("/docSolicitudUsuario", (req, res) => {
 });
 
 router.get("/docSolicitudActualUsuario",(req, res) => {
-  getSolicitudActualDocumento(req, res);
+  // getSolicitudActualDocumento
+  getSolicitudActualUsuario(req, res);
 });
 
 
