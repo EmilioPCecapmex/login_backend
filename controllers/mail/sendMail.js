@@ -8,7 +8,8 @@ const transporter = nodemailer.createTransport({
   secure: process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
   auth: {
     user: process.env.LOGIN_B_APP_EMAIL_USERNAME,
-    pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD,
+    pass: "$ist3m@$tv*",
+    // process.env.LOGIN_B_APP_EMAIL_PASSWORD,
   },
   tls: {
     rejectUnauthorized: false,
