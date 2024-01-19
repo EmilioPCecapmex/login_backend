@@ -18,6 +18,18 @@ const transporter = nodemailer.createTransport({
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
 const sendEmail = async (mailData) => {
+  console.log(JSON.stringify({
+    host: process.env.LOGIN_B_APP_EMAIL_HOST,
+    port: process.env.LOGIN_B_APP_EMAIL_PORT,
+    secure: process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
+    auth: {
+      user: process.env.LOGIN_B_APP_EMAIL_USERNAME,
+      pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  }));
   const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
 
   const mailOptions = {
