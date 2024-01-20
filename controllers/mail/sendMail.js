@@ -20,6 +20,7 @@ const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
 const sendEmail = async (mailData) => {
   const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
+  console.log("entre");
 
   const mailOptions = {
     from: process.env.LOGIN_B_APP_EMAIL_USER,
