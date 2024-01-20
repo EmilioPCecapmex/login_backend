@@ -3,9 +3,12 @@ const { emailTemplate } = require("../mail/newUser");
 const util = require('util');
 
 const transporter = nodemailer.createTransport({
-  host: process.env.LOGIN_B_APP_EMAIL_HOST,
-  port: process.env.LOGIN_B_APP_EMAIL_PORT,
-  secure: process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
+  host: "correo.nl.gob.mx",
+  // process.env.LOGIN_B_APP_EMAIL_HOST,
+  port: "587",
+  // process.env.LOGIN_B_APP_EMAIL_PORT,
+  secure: "FALSE",
+  // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
   auth: {
     user: "sistemas.tv",
     // process.env.LOGIN_B_APP_EMAIL_USERNAME,
@@ -20,19 +23,7 @@ const transporter = nodemailer.createTransport({
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
 const sendEmail = async (mailData) => {
-  console.log(JSON.stringify({
-    host: process.env.LOGIN_B_APP_EMAIL_HOST,
-    port: process.env.LOGIN_B_APP_EMAIL_PORT,
-    secure: process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
-    auth: {
-      user: process.env.LOGIN_B_APP_EMAIL_USERNAME,
-      pass: "$ist3m@$tv*",
-      // process.env.LOGIN_B_APP_EMAIL_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  }));
+
   const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
 
   const mailOptions = {
