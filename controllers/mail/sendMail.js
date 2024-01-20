@@ -5,9 +5,9 @@ const util = require('util');
 const transporter = nodemailer.createTransport({
   host: "correo.nl.gob.mx",
   // process.env.LOGIN_B_APP_EMAIL_HOST,
-  port: "587",
+  port: 587,
   // process.env.LOGIN_B_APP_EMAIL_PORT,
-  secure: "FALSE",
+  secure: false,
   // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
   auth: {
     user: "sistemas.tv",
