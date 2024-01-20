@@ -18,6 +18,7 @@ const transporter = nodemailer.createTransport({
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
 const sendEmail = async (mailData) => {
+  console.log("entro al sendEmail");
   const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
 
   const mailOptions = {
