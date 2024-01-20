@@ -2,24 +2,6 @@ const nodemailer = require("nodemailer");
 const { emailTemplate } = require("../mail/newUser");
 const util = require('util');
 
-// const transporter = nodemailer.createTransport({
-//   host: correo.nl.gob.mx,
-//   // process.env.LOGIN_B_APP_EMAIL_HOST,
-//   port: 587,
-//   // process.env.LOGIN_B_APP_EMAIL_PORT,
-//   secure: false,
-//   // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
-//   auth: {
-//     user: "sistemas.tv",
-//     // process.env.LOGIN_B_APP_EMAIL_USERNAME,
-//     pass: "$ist3m@$tv*",
-//     // process.env.LOGIN_B_APP_EMAIL_PASSWORD,
-//   },
-//   tls: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
 const transporter = nodemailer.createTransport({
   host: "correo.nl.gob.mx",
   port: 587,
@@ -33,16 +15,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
 const sendEmail = async (mailData) => {
-
   const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
 
   const mailOptions = {
     from: "sistemas.tesoreria.virtual@nuevoleon.gob.mx",
-    // process.env.LOGIN_B_APP_EMAIL_USER,
     to: to,
     subject: subject,
     text: "Plaintext version of the message",
@@ -51,9 +30,9 @@ const sendEmail = async (mailData) => {
 
   try {
     const info = await sendMailPromise(mailOptions);
-    return "Correo enviado con éxito:", info.response;
+    return { message: "Correo enviado con éxito", response: info.response };
   } catch (error) {
-    throw "Error al enviar el correo:", error;
+    throw { message: "Error al enviar el correo", error: error };
   }
 };
 
