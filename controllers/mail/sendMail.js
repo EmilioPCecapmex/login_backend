@@ -2,23 +2,37 @@ const nodemailer = require("nodemailer");
 const { emailTemplate } = require("../mail/newUser");
 const util = require('util');
 
+// const transporter = nodemailer.createTransport({
+//   host: correo.nl.gob.mx,
+//   // process.env.LOGIN_B_APP_EMAIL_HOST,
+//   port: 587,
+//   // process.env.LOGIN_B_APP_EMAIL_PORT,
+//   secure: false,
+//   // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
+//   auth: {
+//     user: "sistemas.tv",
+//     // process.env.LOGIN_B_APP_EMAIL_USERNAME,
+//     pass: "$ist3m@$tv*",
+//     // process.env.LOGIN_B_APP_EMAIL_PASSWORD,
+//   },
+//   tls: {
+//     rejectUnauthorized: false,
+//   },
+// });
+
 const transporter = nodemailer.createTransport({
   host: "correo.nl.gob.mx",
-  // process.env.LOGIN_B_APP_EMAIL_HOST,
   port: 587,
-  // process.env.LOGIN_B_APP_EMAIL_PORT,
   secure: false,
-  // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
   auth: {
     user: "sistemas.tv",
-    // process.env.LOGIN_B_APP_EMAIL_USERNAME,
     pass: "$ist3m@$tv*",
-    // process.env.LOGIN_B_APP_EMAIL_PASSWORD,
   },
   tls: {
     rejectUnauthorized: false,
   },
 });
+
 
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
