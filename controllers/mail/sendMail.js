@@ -31,19 +31,6 @@ const sendEmail = async (mailData) => {
   };
 
   try {
-    console.log(JSON.stringify({
-      host: process.env.LOGIN_B_APP_EMAIL_HOST,
-      port: process.env.LOGIN_B_APP_EMAIL_PORT,
-      secure: false,
-      // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
-      auth: {
-        user: process.env.LOGIN_B_APP_EMAIL_USERNAME,
-        pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    }));
     const info = await sendMailPromise(mailOptions);
     return "Correo enviado con éxito:", info.response;
   } catch (error) {

@@ -14,8 +14,12 @@
         "LOGIN_B_APP_JWT_SECRET_KEY": "2A95F5CCD11DE255FEE9451BDE433",
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c0967",
-        "LOGIN_B_APP_EMAIL_USER": "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey"
+        "LOGIN_B_APP_EMAIL_HOST" : "smtp.gmail.com",
+        "LOGIN_B_APP_EMAIL_PORT" : 465,
+        "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
+        "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey",
+        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com"
       },
       "env_qa": {
         "NODE_ENV": "qa",
@@ -27,8 +31,30 @@
         "LOGIN_B_APP_JWT_SECRET_KEY": "2A95F5CCD11DE255FEE9451BDE568",
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c8567",
-        "LOGIN_B_APP_EMAIL_USER": "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey"
+        "LOGIN_B_APP_EMAIL_HOST" : "smtp.gmail.com",
+        "LOGIN_B_APP_EMAIL_PORT" : 465,
+        "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
+        "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey",
+        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com"
+      },
+      "env_prod": {
+        "NODE_ENV": "prod",
+        "LOGIN_B_APP_DB_HOST": "10.200.4.77",
+        "LOGIN_B_APP_DB_USER": "root",
+        "LOGIN_B_APP_DB_DATABASE": "TiCentral",
+        "LOGIN_B_APP_DB_PASSWORD": "Cg98Z6222",
+        "LOGIN_B_APP_PORT": "5000",
+        "LOGIN_B_APP_JWT_SECRET_KEY": "2A95F5CCD11DE255FEE9451BDE568",
+        "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
+        "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c8567",
+        "LOGIN_B_APP_EMAIL_HOST" : "correo.nl.gob.mx",
+        "LOGIN_B_APP_EMAIL_PORT" : 587,
+        "LOGIN_B_APP_EMAIL_SECURE": "FALSE",
+        "LOGIN_B_APP_EMAIL_USERNAME": "sistemas.tv",
+        "LOGIN_B_APP_EMAIL_PASSWORD": "$ist3m@$tv*",
+        "LOGIN_B_APP_EMAIL_USER" : "sistemas.tesoreria.virtual@nuevoleon.gob.mx"
+        
       }
     }
   ]
