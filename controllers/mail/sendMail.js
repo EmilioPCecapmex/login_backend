@@ -3,13 +3,13 @@ const { emailTemplate } = require("../mail/newUser");
 const util = require('util');
 
 const transporter = nodemailer.createTransport({
-  host: process.env.LOGIN_B_APP_EMAIL_HOST,
-  port: process.env.LOGIN_B_APP_EMAIL_PORT,
+  host: 'correo.nl.gob.mx',
+  port: 587,
   secure: false,
   // process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
   auth: {
-    user: process.env.LOGIN_B_APP_EMAIL_USERNAME,
-    pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD,
+    user: "sistemas.tv",
+    pass: "$ist3m@$tv*",
   },
   tls: {
     rejectUnauthorized: false,
@@ -23,7 +23,7 @@ const sendEmail = async (mailData) => {
   console.log("entre");
 
   const mailOptions = {
-    from: process.env.LOGIN_B_APP_EMAIL_USER,
+    from: "sistemas.tesoreria.virtual@nuevoleon.gob.mx",
     to: to,
     subject: subject,
     text: "Plaintext version of the message",
