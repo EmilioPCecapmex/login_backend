@@ -10,7 +10,7 @@ module.exports = {
        
         if (err != null ) {
           return res.status(500).send({
-            error: "Error",
+            error: err ,
           });
         }
         const ExisteNombre = result[0][0].ExisteNombre;
@@ -33,7 +33,7 @@ module.exports = {
               
               if (err) {
                 return res.status(500).send({
-                  error: "Error",
+                  error: err ,
                 });
               }
 
