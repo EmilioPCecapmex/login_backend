@@ -8,7 +8,6 @@ module.exports = {
     const userId = req.body.IdUsuario;
     const genPassword = req.body.ContrasenaNueva;
 
-
     bcrypt.hash(genPassword, 10, (err, hash) => {
       if (err) {
         return res.status(401).send({
@@ -19,7 +18,6 @@ module.exports = {
         db.query(
           `CALL sp_CambiarContrasena('${userId}','${hash}')`,
           (err, result) => {
-       
             if (err) {
               return res.status(401).send({
                 error: "Error",
@@ -35,13 +33,14 @@ module.exports = {
               }
               const d = {
                 to: userData.CorreoElectronico,
-                subject: "¡Cambio de Contraseña!",
+                subject: "¡Recuperación de contraseña exitosa!",
                 nombre: userData.Nombre,
                 usuario: userData.NombreUsuario,
                 contrasena: genPassword,
                 userid: userData.Id,
+                mensaje: "Su contraseña se actualizada con éxito",
               };
-              sendEmail(d);
+               sendEmail(d);
             }
 
             return res.status(200).send({
@@ -52,6 +51,103 @@ module.exports = {
       }
     });
   },
+
+  setPassword: (req, res) => {
+    const userId = req.body.IdUsuario;
+    const password = req.body.ContrasenaActual;
+    const newPassword = req.body.ContrasenaNueva;
+
+
+      // Verificar la longitud mínima (al menos 10 caracteres)
+      if (newPassword.length < 8) {
+        return res.status(409).send({
+          error: "longuitud minima 8 caracteres",
+        });
+      }
+    
+      // Verificar si contiene al menos un número
+      if (!/\d/.test(newPassword)) {
+        return res.status(409).send({
+          error: "la contraseña debe contener almenos un dígito",
+        });
+      }
+    
+      // Verificar si solo contiene letras (mayúsculas o minúsculas) y números
+      if (!/^[a-zA-Z0-9]+$/.test(newPassword)) {
+        return res.status(409).send({
+          error: "la contraseña no puede contener caracteres especiales",
+        });
+      }
+    
+     
+    let actualpassword = "";
+
+    let query = `Select Contrasena From TiCentral.Usuarios Where Id=?;`;
+    db.query(query, [userId], (err, result) => {
+      if (err) {
+        return res.status(401).send({
+          error: "Error",
+        });
+      }
+      actualpassword = result[0].Contrasena || "";
+
+      bcrypt.compare(password, actualpassword, (bErr, bResult) => {
+        if (bErr) {
+          return res.status(401).send({
+            error: "Contraseña Incorrecta",
+          });
+        }
+        if (bResult) {
+          bcrypt.hash(newPassword, 10, (err, hash) => {
+            if (err) {
+              return res.status(409).send({
+                error: "Error",
+              });
+            } else {
+              db.query(
+                `CALL sp_CambiarContrasena('${userId}','${hash}')`,
+                (err, result) => {
+                  if (err) {
+                    return res.status(409).send({
+                      error: "Error",
+                    });
+                  } else {
+                    const message = result[0][0].message;
+                    const userData = result[0][0];
+
+                    if (message !== undefined) {
+                      return res.status(409).send({
+                        error: message,
+                      });
+                    }
+                    const d = {
+                      to: userData.CorreoElectronico,
+                      subject: "¡Actualizacion de Contraseña!",
+                      nombre: userData.Nombre,
+                      usuario: userData.NombreUsuario,
+                      contrasena: newPassword,
+                      userid: userData.Id,
+                      mensaje:"tu contraseña a sido actualizada exitosamente."
+                    };
+                    sendEmail(d);
+                  }
+
+                  return res.status(200).send({
+                    message: "Cambio de contraseña exitoso!",
+                  });
+                }
+              );
+            }
+          });
+        } else {
+          return res.status(401).send({
+            error: "Contraseña Incorrecta",
+          });
+        }
+      });
+    });
+  },
+
   forgotPassword: (req, res) => {
     const user = req.body.NombreUsuario;
     const genPassword = generateRandomPassword(10);
@@ -83,6 +179,7 @@ module.exports = {
                 usuario: userData.NombreUsuario,
                 contrasena: genPassword,
                 userid: userData.Id,
+                mensaje:"le informamos que se ha generado una nueva contraseña para su cuenta. A continuación, encontrará los detalles de su nueva contraseña:"
               };
               sendEmail(d);
             }
@@ -94,5 +191,72 @@ module.exports = {
         );
       }
     });
+  },
+
+  resendCredentials: async (req, res) => {
+    const { NombreUsuario, Correo } = req.body;
+    const genPassword = generateRandomPassword(10);
+  
+    try {
+      const hash = await new Promise((resolve, reject) => {
+        bcrypt.hash(genPassword, 10, (err, hash) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(hash);
+          }
+        });
+      });
+  
+      const result = await new Promise((resolve, reject) => {
+        db.query(
+          `CALL sp_ReenviarCredenciales(?,?,?)`,
+          [NombreUsuario, Correo, hash],
+          (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          }
+        );
+      });
+  
+      const userData = result[0][0];
+  
+      if (!userData) {
+        return res.status(409).send({
+          error: "Verificar Id Usuario",
+        });
+      }
+  
+      const d = {
+        to: userData.CorreoElectronico,
+        subject: "¡Bienvenido!",
+        nombre: userData.Nombre,
+        usuario: userData.NombreUsuario,
+        contrasena: genPassword,
+        userid: userData.Id,
+        mensaje: "tu usuario para ingresar a nuestros sistemas ha sido creado exitosamente.",
+      };
+  
+      // Llamada a sendEmail y retorno de la respuesta
+      const emailResponse = await sendEmail(d);
+  
+      // Aquí puedes hacer algo con emailResponse si lo necesitas
+      console.log("Respuesta de sendEmail:", emailResponse);
+  
+      // Retorno de la respuesta de sendEmail
+      return res.status(200).send({
+        message: "Cambio de contraseña exitoso!",
+        emailResponse: emailResponse,
+      });
+    } catch (error) {
+      console.error("Error en resendCredentials:", error);
+      return res.status(500).send({
+        msg: "Fallo el envio. ",
+        error: error.message,
+      });
+    }
   },
 };

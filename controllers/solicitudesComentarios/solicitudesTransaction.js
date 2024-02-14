@@ -12,6 +12,8 @@ module.exports = {
     const TipoSoli= req.body.TipoSoli;
     const AdminPlataforma= req.body.AdminPlataforma;
     const PermisoFirma= req.body.PermisoFirma;
+
+  
     
     if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
       return res.status(409).send({
@@ -70,26 +72,28 @@ module.exports = {
             db.query(
               `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
               (err, result) => {
-
+               
                 if (err) {
                   return res.status(500).send({
-                    error: "Error de base de datos",
+                    error: err,
                   });
                 }
                 
-                if(result[0][0].Respuesta==201 && result[0][0].Mensaje=='Vinculación exitosa'){
+                if(result[0][0].Respuesta==201 && result[0][0].Mensaje=='Solicitud aprobada con éxito'){
                   const d = {
                     to: correo,
                     subject: "¡Bienvenido!",
                     nombre: nombre,
                     usuario: nusuario,
                     contrasena: genPassword,
+                    mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
                     userid: IdUsuario,
+                   
                   };
 
                   sendEmail(d);
 
-                  console.log("Se envio el correo");
+                
                 }
 
                 if (result.length) {

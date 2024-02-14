@@ -82,5 +82,34 @@ module.exports = {
         });
       }
     });
+  },getUsersApp: (req, res) => {
+    const {IdApp} = req.query;
+    let query=`CALL sp_ListaUsuariosApp(?)`
+    db.query(query,[IdApp], (err, result) => {
+      const data = result[0];
+      if (err) {
+        return res.status(500).send({
+          error: err,
+        });
+      }
+
+      if (result.length) {
+
+        if (data === undefined) {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }else{
+          return res.status(200).send({
+            data,
+          });
+        }
+     
+      } else {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+    });
   },
 };

@@ -6,7 +6,8 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const Descripcion = req.body.Descripcion;
     const ControlInterno = req.body.ControlInterno;
-    const CreadoPor = req.body.CreadoPor;   
+    const CreadoPor = req.body.IdUsuario;
+    const IdApp = req.body.IdApp;  
 
     if ((Descripcion == null || /^[\s]*$/.test(Descripcion)) ) {
       return res.status(409).send({
@@ -28,9 +29,14 @@ module.exports = {
           error: "Ingrese CreadoPor válido.",
         });
       }
+      if ((IdApp == null || /^[\s]*$/.test(IdApp)) ) {
+        return res.status(409).send({
+          error: "Ingrese IdApp válido.",
+        });
+      }
     else {
       db.query(
-        `CALL sp_CrearRol('${Nombre}','${Descripcion}', '${ControlInterno}', '${CreadoPor}' )`,
+        `CALL sp_CrearRol('${Nombre}','${Descripcion}', '${ControlInterno}',  '${IdApp}','${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -38,14 +44,12 @@ module.exports = {
             });
           }
           if (result.length) {
-            const data = result[0][0];
-            if (data.error) {
-              return res.status(409).send({
-                result: data,
-              });
-            }
+            const data = result[0];
+
+            
+            const respo = data[0].Message;
             return res.status(200).send({
-              data,
+              data :respo,
             });
           } else {
             return res.status(409).send({
@@ -59,9 +63,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getRoles: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
-    
-    db.query(`CALL sp_ListaRoles('${IdUsuario}')`, (err, result) => {
+    const IdApp = req.query.IdApp;
+    db.query(`CALL sp_ListaRoles('${IdApp}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -85,44 +88,9 @@ module.exports = {
 
   //MODIFICA POR ID
   modifyRol: (req, res) => {
-    const IdRol = req.body.Id;
-    const Nombre = req.body.Nombre;
-    const Descripcion = req.body.Descripcion;
-    const ControlInterno = req.body.ControlInterno;
-    const IdModificador = req.body.IdModificador;
-    console.log(req.body);
-
-    if (IdRol == null ||/^[\s]*$/.test(IdRol)) {
-      return res.status(409).send({
-        error: "Ingrese IdRol",
-      });
-    }
-
-    if (Descripcion == null ||/^[\s]*$/.test(Descripcion)) {
-      return res.status(409).send({
-        error: "Ingrese Descripcion",
-      });
-    }
-    
-    if (Nombre == null ||/^[\s]*$/.test(Nombre)) {
-        return res.status(409).send({
-          error: "Ingrese Nombre",
-        });
-      }
-
-      if (ControlInterno == null ||/^[\s]*$/.test(ControlInterno)) {
-        return res.status(409).send({
-          error: "Ingrese ControlInterno",
-        });
-      }
-    if (IdModificador == null ||/^[\s]*$/.test(IdModificador)) {
-        return res.status(409).send({
-          error: "Ingrese IdModificador",
-        });
-      } else {
-      db.query(
-        `CALL sp_ModificaRol('${IdRol}','${Nombre}','${Descripcion}','${ControlInterno}','${IdModificador}')`,
-        (err, result) => {
+    const {Id, Nombre, Descripcion, ControlInterno, IdApp, IdUsuario }= req.body
+    let query= `CALL sp_ModificaRol(?,?,?,?,?,?)`
+      db.query(query,[Id,Nombre,Descripcion,ControlInterno,IdApp, IdUsuario],(err, result) => {
           if (err) {
             return res.status(500).send({
               error: err.sqlMessage,
@@ -145,7 +113,7 @@ module.exports = {
           }
         }
       );
-    }
+    
   },
 
   //Detalle
@@ -158,9 +126,16 @@ module.exports = {
       `CALL sp_EliminarRoles('${IdRol}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
-            error: "Error",
-          });
+          if(err.sqlMessage){
+            return res.status(500).send({
+              error: err.sqlMessage,
+            });
+          }else{
+            return res.status(500).send({
+              error: 'error',
+            });
+          }
+         
         }
         if (result.length) {
           const data = result[0][0];

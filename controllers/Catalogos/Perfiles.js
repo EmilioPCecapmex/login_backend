@@ -1,7 +1,6 @@
 const db = require("../../config/db.js");
 
 module.exports = {
-  //CREAR
   createPerfil: (req, res) => {
    
     const Descripcion = req.body.Descripcion;
@@ -84,7 +83,7 @@ module.exports = {
     const Descripcion = req.body.Descripcion;
     const Referencia = req.body.Referencia; 
     const IdModificador = req.body.IdModificador;  
-    console.log(req.body);
+  
     if ((IdPerfil == null || /^[\s]*$/.test(IdPerfil)) ) {
         return res.status(409).send({
           error: "Ingrese IdPerfil valido.",

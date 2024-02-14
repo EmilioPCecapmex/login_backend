@@ -17,16 +17,14 @@ module.exports = {
         const Telefono = req.body.Telefono;
         const Extencion = req.body.Extencion;
         const TipoSolicitud = req.body.TipoSolicitud;
-        const DatosAdicionales = req.body.DatosAdicionales;
         const IdApp = req.body.IdApp;
         const CreadoPor = req.body.CreadoPor;
-        const IdUResponsable = req.body.IdUResponsable;
-        const IdPerfil = req.body.IdPerfil;
-        const IdRol = req.body.IdRol;
-        const IdDepartamento = req.body.IdDepartamento;
+        const Roles = req.body.Roles;
         const IdTipoUsuario = req.body.IdTipoUsuario;
         const PuedeFirmar = req.body.PuedeFirmar;
-        const Dependencia = req.body.Dependencia;
+        const Entidad = req.body.Entidad;
+       
+        
                 
         if (Nombre == null || /^[\s]*$/.test(Nombre)) {
             return res.status(409).send({
@@ -93,44 +91,27 @@ module.exports = {
                 error: "Ingrese tipo de solicitud",
             });
         } 
-        if (DatosAdicionales == null ) {
-            return res.status(409).send({
-                error: "Ingrese Id Datos adicionales ",
-            });
-        }
+      
         if (IdApp == null || /^[\s]*$/.test(IdApp)) {
             return res.status(409).send({
                 error: "Ingrese Id App",
             });
-        }
-        if (IdDepartamento == null || /^[\s]*$/.test(IdDepartamento)) {
-            return res.status(409).send({
-                error: "Ingrese Departamento",
-            });
         }   
-        if (IdRol == null || /^[\s]*$/.test(IdRol)) {
+        if (Roles == null || /^[\s]*$/.test(Roles)) {
             return res.status(409).send({
-                error: "Ingrese Rol",
+                error: "Ingrese Roles",
             });
         }  
-         if (IdPerfil == null || /^[\s]*$/.test(IdPerfil)) {
+        
+        if (Entidad == null || /^[\s]*$/.test(Entidad)) {
             return res.status(409).send({
-                error: "Ingrese Perfil",
-            });
-        }
-        if (IdUResponsable == null || /^[\s]*$/.test(IdUResponsable)) {
-            return res.status(409).send({
-                error: "Ingrese Unidad Responsable",
-            });
-        }
-        if (Dependencia == null || /^[\s]*$/.test(Dependencia)) {
-            return res.status(409).send({
-                error: "Ingrese Dependencia",
+                error: "Ingrese Entidad",
             });
         }
         
-        db.query(`CALL sp_CreaSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${DatosAdicionales}', '${IdApp}','${CreadoPor}','${IdUResponsable}','${IdPerfil}','${IdRol}','${IdDepartamento}','${IdTipoUsuario}','${PuedeFirmar}','${Dependencia}')`, (err, result) => {
-                if (err) {
+        db.query(`CALL sp_CrearSolicitud('${Nombre}','${APaterno}', '${AMaterno}', '${NombreUsuario}', '${Email}', '${Puesto}', '${Curp}', '${RFC}', '${Celular}', '${Telefono}', '${Extencion}', '${TipoSolicitud}', '${IdApp}','${CreadoPor}','${Roles}','${IdTipoUsuario}','${PuedeFirmar}','${Entidad}')`, (err, result) => {
+           
+            if (err) {
                     
                     return res.status(500).send({
                         error: err,

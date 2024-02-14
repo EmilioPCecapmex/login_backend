@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend-login:
+    build: .
+    environment:
+      LOGIN_B_APP_DB_HOST: "10.210.26.27"
+      LOGIN_B_APP_DB_USER: "root"
+      LOGIN_B_APP_DB_DATABASE: "TiCentral"
+      LOGIN_B_APP_DB_PASSWORD: "z54YbmEg5nqDUg"
+      LOGIN_B_APP_PORT: "3000"
+      LOGIN_B_APP_JWT_SECRET_KEY: "2A95F5CCD11DE255FEE9451BDE568"
+      LOGIN_B_APP_TOKEN_HEADER_KEY: "authorization"
+      LOGIN_B_APP_REFRESH_TOKEN_KEY: "4ebd020883285d698c44ec50939c8567" 
+      LOGIN_B_APP_EMAIL_USER: "sistemas.tesoreria.virtual@nuevoleon.gob.mx"
+      LOGIN_B_APP_EMAIL_PASSWORD: $ist3m@$tv*
+      LOGIN_B_APP_EMAIL_USERNAME: sistemas.tv
+      LOGIN_B_APP_FRONT: https://tesoreria-virtual.nl.gob.mx/
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+      - 9229:9229
+    restart: always

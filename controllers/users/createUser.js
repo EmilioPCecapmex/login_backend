@@ -78,6 +78,7 @@ module.exports = {
                       usuario: userData.NombreUsuario,
                       contrasena: genPassword,
                       userid: userId,
+                      mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
                     };
                     sendEmail(d);
                   }

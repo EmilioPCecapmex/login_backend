@@ -3,9 +3,6 @@ module.exports = {
   //LISTADO COMPLETO
     getListas: (req, res) => {
     const {Tabla,ValorCondicion}=req.query
-
-    console.log("hola no se si traje algo: ",req.query);
-    
     db.query(`CALL sp_ListaPorCatalogo(?,?)`,[Tabla,ValorCondicion], (err, result) => {
       if (err) {
         return res.status(500).send({

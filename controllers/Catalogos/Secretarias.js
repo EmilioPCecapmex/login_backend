@@ -6,7 +6,6 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
-    const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const CreadoPor = req.body.CreadoPor;   
 
@@ -28,15 +27,9 @@ module.exports = {
         });
     }
 
-    if ((PerteneceA == null || /^[\s]*$/.test(PerteneceA)) ) {
-        return res.status(409).send({
-          error: "Ingrese PerteneceA válido.",
-        });
-    }
-
     if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
         return res.status(409).send({
-          error: "Ingrese Direccion válido.",
+          error: "Ingrese Dirección válido.",
         });
     }
 
@@ -47,7 +40,7 @@ module.exports = {
     }
    
       db.query(
-        `CALL sp_CrearSecretaria('${Nombre}','${NombreCorto}', '${IdTitular}', '${PerteneceA}', '${Direccion}', '${CreadoPor}' )`,
+        `CALL sp_CrearSecretaria('${Nombre}','${NombreCorto}', '${IdTitular}','${Direccion}', '${CreadoPor}' )`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -76,9 +69,8 @@ module.exports = {
 
   //LISTADO COMPLETO
   getSecretarias: (req, res) => {
-    const IdUsuario = req.query.IdUsuario;
     
-    db.query(`CALL sp_ListaSecretarias('${IdUsuario}')`, (err, result) => {
+    db.query(`CALL sp_ListaSecretarias()`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err.sqlMessage,
@@ -106,10 +98,9 @@ module.exports = {
     const Nombre = req.body.Nombre;
     const NombreCorto = req.body.NombreCorto;
     const IdTitular = req.body.IdTitular;
-    const PerteneceA = req.body.PerteneceA;
     const Direccion = req.body.Direccion;
     const IdModificador = req.body.IdModificador;   
-    console.log(req.body);
+    
 
     if ((IdSecretaria == null || /^[\s]*$/.test(IdSecretaria)) ) {
         return res.status(409).send({
@@ -135,15 +126,9 @@ module.exports = {
         });
     }
 
-    if ((PerteneceA == null || /^[\s]*$/.test(PerteneceA)) ) {
-        return res.status(409).send({
-          error: "Ingrese PerteneceA válido.",
-        });
-    }
-
     if ((Direccion == null || /^[\s]*$/.test(Direccion)) ) {
         return res.status(409).send({
-          error: "Ingrese Direccion válido.",
+          error: "Ingrese Dirección válido.",
         });
     }
 
@@ -154,7 +139,7 @@ module.exports = {
     }
 
       db.query(
-        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${NombreCorto}','${IdTitular}','${PerteneceA}','${Direccion}','${IdModificador}')`,
+        `CALL sp_ModificaSecretaria('${IdSecretaria}','${Nombre}','${NombreCorto}','${IdTitular}','${Direccion}','${IdModificador}')`,
         (err, result) => {
           if (err) {
             return res.status(500).send({
@@ -191,9 +176,16 @@ module.exports = {
       `CALL sp_EliminarSecretaria('${IdSecretaria}', '${IdUsuario}')`,
       (err, result) => {
         if (err) {
-          return res.status(500).send({
-            error: "Error",
-          });
+          if(err.sqlMessage){
+            return res.status(500).send({
+              error: err.sqlMessage,
+            });
+          }else{
+            return res.status(500).send({
+              error: 'error',
+            });
+          }
+         
         }
         if (result.length) {
           const data = result[0][0];
