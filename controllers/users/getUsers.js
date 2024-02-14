@@ -57,7 +57,12 @@ module.exports = {
 
   getUsersInfo: (req, res) => {
     const IdUsuario = req.query.IdUsuario;
-    db.query(`CALL sp_ListaUsuarios('${IdUsuario}')`, (err, result) => {
+    const IdApp = req.query.IdApp;
+
+    console.log("IdApp: ",IdApp);
+    console.log("IdUsuario: ",IdUsuario);
+
+    db.query(`CALL sp_ListaUsuarios('${IdUsuario}', '${IdApp}')`, (err, result) => {
       if (err) {
         return res.status(500).send({
           error: "Error",
