@@ -1,283 +1,129 @@
-<html xmlns:v="urn:schemas-microsoft-com:vml"
-xmlns:o="urn:schemas-microsoft-com:office:office"
-xmlns:w="urn:schemas-microsoft-com:office:word"
-xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
-xmlns="http://www.w3.org/TR/REC-html40">
+<!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SFyTGE</title>
+        <style>
+          body {
+            height: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #f1f1f1;
+          }
+    
+          #container {
+            max-height: 100vh;
+            max-width: 600px;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+    
+          #logo {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+          }
+    
+          h1, h2, h3, h4 {
+            font-family: sans-serif;
+            text-align: center;
+          }
+    
+          #message {
+            border: 1px solid black;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+          }
+    
+          #security-tips {
+            background-color: #f7fafa;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+          }
+    
+          #access-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            margin: 10px;
+          }
+    
+          button {
+            background-color: rgb(196, 255, 190);
+            color: rgb(99, 99, 99);
+            border-radius: 1rem;
+            border-width: 0.1rem;
+            padding: 1vw; /* Ajusta el valor según tu preferencia */
+            cursor: pointer;
+            font-family: sans-serif;
+            width: 100%;
+            height: 50px;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="container">
+			<img style="width: 20vw; height: 10vh;" src="./Images/Palacio.png" />
 
-<head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=ProgId content=Word.Document>
-<meta name=Generator content="Microsoft Word 15">
-<meta name=Originator content="Microsoft Word 15">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:1;
-	mso-generic-font-family:roman;
-	mso-font-pitch:variable;
-	mso-font-signature:0 0 0 0 0 0;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-469750017 -1073732485 9 0 511 0;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{mso-style-unhide:no;
-	mso-style-qformat:yes;
-	mso-style-parent:"";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:minor-fareast;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;
-	text-underline:single;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;
-	text-underline:single;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	mso-style-unhide:no;
-	mso-style-qformat:yes;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:minor-fareast;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:minor-fareast;}
-p.msochpdefault, li.msochpdefault, div.msochpdefault
-	{mso-style-name:msochpdefault;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:minor-fareast;}
-p.msopapdefault, li.msopapdefault, div.msopapdefault
-	{mso-style-name:msopapdefault;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	margin-bottom:8.0pt;
-	margin-left:0cm;
-	line-height:106%;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	mso-fareast-font-family:"Times New Roman";
-	mso-fareast-theme-font:minor-fareast;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	mso-default-props:yes;
-	font-size:10.0pt;
-	mso-ansi-font-size:10.0pt;
-	mso-bidi-font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-ascii-font-family:Calibri;
-	mso-hansi-font-family:Calibri;
-	mso-bidi-font-family:Calibri;}
-.MsoPapDefault
-	{mso-style-type:export-only;
-	margin-bottom:8.0pt;
-	line-height:106%;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 3.0cm 70.85pt 3.0cm;
-	mso-header-margin:35.4pt;
-	mso-footer-margin:35.4pt;
-	mso-paper-source:0;}
-div.WordSection1
-	{page:WordSection1;}
--->
-</style>
-<!--[if gte mso 10]>
-<style>
- /* Style Definitions */
- table.MsoNormalTable
-	{mso-style-name:"Tabla normal";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:"";
-	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
-	mso-para-margin-top:0cm;
-	mso-para-margin-right:0cm;
-	mso-para-margin-bottom:8.0pt;
-	mso-para-margin-left:0cm;
-	line-height:106%;
-	mso-pagination:widow-orphan;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-</style>
-<![endif]--><!--[if gte mso 9]><xml>
- <o:shapedefaults v:ext="edit" spidmax="1026"/>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <o:shapelayout v:ext="edit">
-  <o:idmap v:ext="edit" data="1"/>
- </o:shapelayout></xml><![endif]-->
-</head>
-
-<body lang=EN-US link="#0563C1" vlink="#954F72" style='tab-interval:36.0pt'>
-
-<div class=WordSection1>
-
-<p class=MsoNormal align=center style='text-align:center'><b><span lang=ES
-style='font-size:16.0pt;mso-ansi-language:ES'>Bienvenido al Sistema Integral
-de Evaluaci&oacute;n del Desempe&ntilde;o Nuevo Le&oacute;n (SIEDNL)</span></b><span lang=ES
-style='mso-ansi-language:ES'><o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=ES style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>Estimado {{Nombre}}, tu usuario para ingresar a la
-plataforma <i><a href="localhost:5000">SIEDNL</a></i> ha sido creado
-exitosamente.<o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='font-size:14.0pt;mso-ansi-language:ES'>&nbsp;</span><span lang=ES
-style='mso-ansi-language:ES'><o:p></o:p></span></p>
-
-<div align=center>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=589 colspan=2 valign=top style='width:441.4pt;border:solid white 1.0pt;
-  background:#A5A5A5;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b><i><span
-  lang=ES style='font-size:20.0pt;color:#404040;mso-ansi-language:ES'>DATOS DE
-  ACCESO AL SIEDNL</span></i></b><span lang=ES style='mso-ansi-language:ES'><o:p></o:p></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=196 valign=top style='width:147.1pt;border:solid white 1.0pt;
-  border-top:none;background:#A5A5A5;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span lang=ES
-  style='font-size:16.0pt;color:#404040;mso-ansi-language:ES'>Usuario</span></b></p>
-  </td>
-  <td width=392 valign=top style='width:294.3pt;border-top:none;border-left:
-  none;border-bottom:solid white 1.0pt;border-right:solid white 1.0pt;
-  background:#DBDBDB;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span lang=ES
-  style='font-size:14.0pt;mso-ansi-language:ES'>{{usuario}}</span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=196 valign=top style='width:147.1pt;border:solid white 1.0pt;
-  border-top:none;background:#A5A5A5;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span lang=ES
-  style='font-size:16.0pt;color:#404040;mso-ansi-language:ES'>Contrase&ntilde;a</span></b></p>
-  </td>
-  <td width=392 valign=top style='width:294.3pt;border-top:none;border-left:
-  none;border-bottom:solid white 1.0pt;border-right:solid white 1.0pt;
-  background:#EDEDED;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span lang=ES
-  style='font-size:14.0pt;mso-ansi-language:ES'>{{contrasena}}</span></b></p>
-  </td>
- </tr>
-</table>
-
-</div>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=ES style='mso-ansi-language:ES'>&nbsp;</span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='font-size:9.0pt;mso-ansi-language:ES'>Consejos importantes de seguridad:</span></p>
-
-<p class=MsoListParagraph align=center style='text-align:center;text-indent:
--18.0pt'><span lang=ES style='font-size:9.0pt;mso-ansi-language:ES'>1.</span><span
-lang=ES style='font-size:7.0pt;font-family:"Times New Roman",serif;mso-ansi-language:
-ES'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=ES
-style='font-size:9.0pt;mso-ansi-language:ES'>Mant&eacute;n los datos de tu cuenta en
-un lugar seguro.</span><span lang=ES style='mso-ansi-language:ES'><o:p></o:p></span></p>
-
-<p class=MsoListParagraph align=center style='text-align:center;text-indent:
--18.0pt'><span lang=ES style='font-size:9.0pt;mso-ansi-language:ES'>2.</span><span
-lang=ES style='font-size:7.0pt;font-family:"Times New Roman",serif;mso-ansi-language:
-ES'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=ES
-style='font-size:9.0pt;mso-ansi-language:ES'>No compartas tus datos de acceso
-con otras personas.</span><span lang=ES style='mso-ansi-language:ES'><o:p></o:p></span></p>
-
-<p class=MsoListParagraph align=center style='text-align:center;text-indent:
--18.0pt'><span lang=ES style='font-size:9.0pt;mso-ansi-language:ES'>3.</span><span
-lang=ES style='font-size:7.0pt;font-family:"Times New Roman",serif;mso-ansi-language:
-ES'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang=ES
-style='font-size:9.0pt;mso-ansi-language:ES'>Cambia tu contrase&ntilde;a regularmente.
-Para habilitar tu cuenta.</span><span lang=ES style='mso-ansi-language:ES'><o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>Para activar tu cuenta da clic en el siguiente
-enlace:<o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span
-style='left:0px;position:absolute;z-index:-1895824384'><span lang=ES
-style='color:#0563C1;mso-ansi-language:ES;mso-no-proof:yes'><o:p>&nbsp;</o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><b style='mso-bidi-font-weight:
-normal'><span lang=ES style='font-size:18.0pt;mso-bidi-font-size:11.0pt;
-color:white;mso-themecolor:background1;mso-ansi-language:ES;mso-no-proof:yes'><a
-href="localhost:5000/api/activate">ACTIVA TU CUENTA</a><span style='background:
-black;mso-highlight:black'> </span><span style='mso-spacerun:yes'></span><span
-style='mso-spacerun:yes'></span></span></b><b style='mso-bidi-font-weight:
-normal'><span lang=ES style='font-size:18.0pt;mso-bidi-font-size:11.0pt;
-color:white;mso-themecolor:background1;mso-ansi-language:ES'><o:p></o:p></span></b></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=ES
-style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=ES style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-<p class=MsoNormal><span lang=ES style='mso-ansi-language:ES'>&nbsp;<o:p></o:p></span></p>
-
-</div>
-
-</body>
-
-</html>
+          <h1>Secretaría de Finanzas y Tesorería General del Estado</h1>
+          <h2>Acceso a Usuarios</h2>
+          <h3>
+            Hola ${nombre}, ${mensaje}
+          </h3>
+          <div id="message">
+            <h4>
+              DATOS DE ACCESO
+            </h4>
+            <div>
+              <h4 style="font-family: sans-serif"><strong> Usuario:</strong></h4>
+              <h4 style="font-weight: lighter; font-family: sans-serif">
+                ${usuario}
+              </h4>
+            </div>
+            <div>
+              <h4 style="font-family: sans-serif"><strong> Contraseña:</strong></h4>
+              <h4 style="font-weight: lighter; font-family: sans-serif">
+                ${contrasena}
+              </h4>
+            </div>
+          </div>
+          <div id="security-tips">
+            <h3>Consejos importantes de seguridad:</h3>
+            <h4
+              style="
+                font-weight: lighter;
+                color: rgb(101, 101, 101);
+                text-align: center;
+                font-family: sans-serif;
+              "
+            >
+              1. Mantén los datos de tu cuenta en un lugar seguro. <br />
+              2. No compartas tus datos de acceso con otras personas. <br />
+              3. Cambia tu contraseña regularmente.
+            </h4>
+          </div>
+          <div id="access-link">
+            <h4>Accede a la plataforma mediante el siguiente enlace:</h4>
+            <a href="${process.env.LOGIN_B_APP_FRONT}">
+              <button>
+                ACCEDER
+              </button>
+            </a>
+          </div>
+        </div>
+      </body>
+    </html>

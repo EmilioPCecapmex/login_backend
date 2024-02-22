@@ -1,7 +1,7 @@
 const db = require("../../config/db.js");
 const { generateRandomPassword } = require("../users/createPassword.js");
 const bcrypt = require("bcryptjs");
-const { sendEmail } = require("../mail/sendMail");
+const { sendEmail, sendEmailVinculacion } = require("../mail/sendMail");
 const { response } = require("express");
 
 module.exports = {
@@ -9,17 +9,16 @@ module.exports = {
     const IdUsuario = req.body.IdUsuario;
     const IdSolicitud = req.body.IdSolicitud;
     const Estado = req.body.Estado;
-    const TipoSoli= req.body.TipoSoli;
-    const AdminPlataforma= req.body.AdminPlataforma;
-    const PermisoFirma= req.body.PermisoFirma;
+    const TipoSoli = req.body.TipoSoli;
+    const AdminPlataforma = req.body.AdminPlataforma;
+    const PermisoFirma = req.body.PermisoFirma;
 
-  
-    
     if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
       return res.status(409).send({
         error: "Ingrese AdminPlataforma",
       });
-    }if (PermisoFirma == null || /^[\s]*$/.test(PermisoFirma)) {
+    }
+    if (PermisoFirma == null || /^[\s]*$/.test(PermisoFirma)) {
       return res.status(409).send({
         error: "Ingrese PermisoFirma",
       });
@@ -69,32 +68,56 @@ module.exports = {
               error: "Error de envio de correo ",
             });
           } else {
+            console.log( `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`);
             db.query(
               `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
               (err, result) => {
-               
+                console.log("result",result);
                 if (err) {
                   return res.status(500).send({
                     error: err,
                   });
                 }
                 
-                if(result[0][0].Respuesta==201 && result[0][0].Mensaje=='Solicitud aprobada con éxito'){
-                  const d = {
-                    to: correo,
-                    subject: "¡Bienvenido!",
-                    nombre: nombre,
-                    usuario: nusuario,
-                    contrasena: genPassword,
-                    mensaje:"tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
-                    userid: IdUsuario,
-                   
-                  };
+                  if (result[0][0]?.Respuesta == 201) {
+                  let d
+                  if (result[0][0].Mensaje == "Solicitud aprobada con éxito") {
+                     d = {
+                      to: correo,
+                      subject: "¡Bienvenido!",
+                      nombre: nombre,
+                      usuario: nusuario,
+                      contrasena: genPassword,
+                      mensaje:
+                        "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
+                      userid: IdUsuario,
+                    };
+                    sendEmail(d)
+                  }
+                  if (
+                    result[0][0].Mensaje == "Vinculación aprobada con éxito"
+                  ) {
+                     d = {
+                      to: correo,
+                      subject: `¡Nuevo acceso a ${result[0][0].App} !`,
+                      nombre: nombre,
+                      usuario: nusuario,
+                      // contrasena: genPassword,
+                      mensaje:
+                        `tu usuario para ingresar a Tesoreria Virtual ahora tienen acceso a la aplicación ${result[0][0].App}.`,
+                      userid: IdUsuario,
+                    };
+                    console.log("se llamo el sendMailVinculacion");
+                    sendEmailVinculacion(d);
+                  }
+                  
+                  
+                }
+                
 
-                  sendEmail(d);
+                // 'Vinculación aprobada con éxito'
 
                 
-                }
 
                 if (result.length) {
                   const data = result[0][0];
@@ -104,13 +127,9 @@ module.exports = {
                     });
                   }
 
-
-                  
-
                   return res.status(200).send({
                     result: data,
                   });
-
                 } else {
                   return res.status(409).send({
                     error: "¡Sin Información!",

@@ -446,11 +446,13 @@ router.put("/AdminPermiso", (req, res) => {
 
 router.get("/prueba-sendEmail",()=>{
   const d = {
-    to: "pedropardog009@gmail.com",
+    to: "prpardo@cecapmex.com",
     subject: "¡Bienvenido!",
     nombre: 'pedro ricardo pardo gaytan',
     usuario: 'prpardo',
     contrasena: 'genPassword',
+    mensaje:
+    "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
     userid: 'IdUsuario',
   };
 
