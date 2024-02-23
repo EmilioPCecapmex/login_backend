@@ -1,5 +1,5 @@
 module.exports = {
-  emailVinculacionTemplate: (mensaje,nombre, usuario, userid) => {
+  emailVinculacionTemplate: (mensaje, nombre, usuario, userid) => {
     return `
     <!DOCTYPE html>
 <html lang="es">
@@ -82,7 +82,7 @@ module.exports = {
   </head>
   <body>
     <div id="container">
-    <a href="controllers/mail/palacio.png" alt="palacio" sizes="(min-width: 600px) 200px, 50vw" id="logo"></a>
+    <img style="width: 60%; " src='cid:Palacio' />
       <h1>Secretaría de Finanzas y Tesorería General del Estado</h1>
       <h2>Acceso a Usuarios</h2>
       <h3>

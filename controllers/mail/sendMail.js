@@ -33,6 +33,13 @@ const sendEmail = async (mailData) => {
     subject: subject,
     text: "Plaintext version of the message",
     html: emailTemplate(mensaje, nombre, usuario, contrasena, userid),
+    attachments:[
+      {
+        filename:'Palacio.png',
+        path:'controllers/mail/Images/Palacio.png',
+        cid:'Palacio'
+      }
+    ]
   };
 
   try {
@@ -53,6 +60,13 @@ const sendEmailVinculacion = async (mailData) => {
     subject: subject,
     text: "Plaintext version of the message",
     html: emailVinculacionTemplate(mensaje, nombre, usuario, userid),
+    attachments:[
+      {
+        filename:'Palacio.png',
+        path:'controllers/mail/Images/Palacio.png',
+        cid:'Palacio'
+      }
+    ]
   };
 
   try {

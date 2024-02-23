@@ -97,7 +97,7 @@ module.exports = {
       </head>
       <body>
         <div id="container">
-        <img style="width: 20%; height: 10vh;" src=${base64ImageData} />
+        <img style="width: 60%; " src='cid:Palacio' />
 
 
           <h1>Secretaría de Finanzas y Tesorería General del Estado</h1>
