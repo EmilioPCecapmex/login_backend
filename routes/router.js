@@ -3,7 +3,7 @@ const router = express.Router();
 const registerUser = require("../controllers/users/validateRegister.js");
 const verifyToken = require("../controllers/auth/verifyToken.js");
 
-const { sendEmail } = require("../controllers/mail/sendMail.js");
+const { sendEmail, sendEmailVinculacion } = require("../controllers/mail/sendMail.js");
 const { createUser } = require("../controllers/users/createUser.js");
 const { userLogin, tokenRefresh } = require("../controllers/auth/userLogin.js");
 const { activateUser } = require("../controllers/users/activateUser.js");
@@ -446,7 +446,7 @@ router.put("/AdminPermiso", (req, res) => {
 
 router.get("/prueba-sendEmail",()=>{
   const d = {
-    to: "prpardo@cecapmex.com",
+    to: "baxterspartan009@gmail.com",
     subject: "¡Bienvenido!",
     nombre: 'pedro ricardo pardo gaytan',
     usuario: 'prpardo',
@@ -457,7 +457,7 @@ router.get("/prueba-sendEmail",()=>{
   };
 
   console.log(d);
-  sendEmail(d);
+  sendEmailVinculacion(d);
 })
 
 
