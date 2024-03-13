@@ -2,6 +2,8 @@ const nodemailer = require("nodemailer");
 const { emailTemplate } = require("../mail/newUser");
 const util = require('util');
 const { emailVinculacionTemplate } = require("./confirmacionVinculacion");
+const { escribirRegistro } = require("../../logs/logger");
+
 
 const transporter = nodemailer.createTransport({
   host: process.env.LOGIN_B_APP_EMAIL_HOST,
@@ -33,6 +35,7 @@ const sendEmail = async (mailData) => {
     subject: subject,
     text: "Plaintext version of the message",
     html: emailTemplate(mensaje, nombre, usuario, contrasena, userid),
+    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
     attachments:[
       {
         filename:'Palacio.png',
@@ -44,8 +47,10 @@ const sendEmail = async (mailData) => {
 
   try {
     const info = await sendMailPromise(mailOptions);
+    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
     return "Correo enviado con éxito:", info.response;
   } catch (error) {
+    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Error`);
     throw "Error al enviar el correo:", error;
   }
 };
@@ -60,6 +65,7 @@ const sendEmailVinculacion = async (mailData) => {
     subject: subject,
     text: "Plaintext version of the message",
     html: emailVinculacionTemplate(mensaje, nombre, usuario, userid),
+    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
     attachments:[
       {
         filename:'Palacio.png',
@@ -72,9 +78,11 @@ const sendEmailVinculacion = async (mailData) => {
   try {
     const info = await sendMailPromise(mailOptions);
     console.log("Correo enviado con éxito:");
+    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
     return "Correo enviado con éxito:", info.response;
   } catch (error) {
     console.log("Error al enviar el correo:");
+    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
     throw "Error al enviar el correo:", error;
   }
 };
