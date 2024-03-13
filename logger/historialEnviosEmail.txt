@@ -1,0 +1,11 @@
+[11/3/2024, 13:46:00] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 15:32:38] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 15:37:13] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 15:37:48] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 15:52:07] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 15:52:23] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 15:52:27] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 16:42:52] Correo: prpardo@cecapmex.com, Asunto:¡Cambio de Contraseña!, Status: Exito
+[11/3/2024, 16:43:48] Correo: prpardo@cecapmex.com, Asunto:¡Bienvenido!, Status: Exito
+[11/3/2024, 16:44:29] Correo: prpardo@cecapmex.com, Asunto:¡Actualizacion de Contraseña!, Status: Exito
+[11/3/2024, 16:45:38] Correo: prpardo@cecapmex.com, Asunto:¡Nuevo acceso a SIEDNL !, Status: Exito

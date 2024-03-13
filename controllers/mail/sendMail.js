@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const { emailTemplate } = require("../mail/newUser");
 const util = require('util');
 const { emailVinculacionTemplate } = require("./confirmacionVinculacion");
-const { escribirRegistro } = require("../../logs/logger");
+const { escribirRegistro } = require("../../logger/logger");
 
 
 const transporter = nodemailer.createTransport({
