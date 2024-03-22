@@ -4,8 +4,7 @@ const util = require('util');
 const { emailVinculacionTemplate } = require("./confirmacionVinculacion");
 const { escribirRegistro } = require("../../logger/logger");
 
-
-const transporter = nodemailer.createTransport({
+let objMailer={
   host: process.env.LOGIN_B_APP_EMAIL_HOST,
   // 'correo.nl.gob.mx',
   port: process.env.LOGIN_B_APP_EMAIL_PORT,
@@ -21,7 +20,9 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false,
   },
-});
+}
+console.log('objMailer',objMailer);
+const transporter = nodemailer.createTransport(objMailer);
 
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
