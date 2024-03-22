@@ -15,11 +15,12 @@
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c0967",
         "LOGIN_B_APP_EMAIL_HOST" : "smtp.gmail.com",
-        "LOGIN_B_APP_EMAIL_PORT" : 465,
+        "LOGIN_B_APP_EMAIL_PORT" : 587,
         "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey",
-        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com"
+        "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
+        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_CCO" : "noreply.cecapmex@gmail.com"
       },
       "env_qa": {
         "NODE_ENV": "qa",
@@ -32,11 +33,12 @@
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c8567",
         "LOGIN_B_APP_EMAIL_HOST" : "smtp.gmail.com",
-        "LOGIN_B_APP_EMAIL_PORT" : 465,
+        "LOGIN_B_APP_EMAIL_PORT" : 587,
         "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey",
-        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com"
+        "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
+        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_CCO" : "noreply.cecapmex@gmail.com"
       },
       "env_prod": {
         "NODE_ENV": "prod",
