@@ -34,7 +34,7 @@ const sendEmail = async (mailData) => {
     text: "Plaintext version of the message",
     html: emailTemplate(mensaje, nombre, usuario, contrasena, userid),
   };
-  console.log('mailOptions',mailOptions);
+  console.log('mailOptions',{...mailOptions, html:''});
   try {
     const info = await sendMailPromise(mailOptions);
     return "Correo enviado con éxito:", info.response;
@@ -54,7 +54,7 @@ const sendEmailVinculacion = async (mailData) => {
     text: "Plaintext version of the message",
     html: emailVinculacionTemplate(mensaje, nombre, usuario, userid),
   };
-  console.log('mailOptions',mailOptions);
+  console.log('mailOptions',{...mailOptions, html:''});
   try {
     const info = await sendMailPromise(mailOptions);
     console.log("Correo enviado con éxito:");
