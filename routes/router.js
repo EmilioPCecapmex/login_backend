@@ -50,6 +50,7 @@ const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMen
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
 const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
 const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
+const { getHistorico } = require("../controllers/Historico/Historico.js");
 
 
 // routes/router.js
@@ -433,6 +434,11 @@ router.delete("/AdminPermiso",(req,res)=>{
 router.put("/AdminPermiso", (req, res) => {
   editarPermiso(req, res);
 });
+
+// Historico
+router.get("/historico",(req,res)=>{
+  getHistorico(req,res)
+})
 
 
 
