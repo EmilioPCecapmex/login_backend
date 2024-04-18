@@ -47,7 +47,7 @@ module.exports = {
 
     deleteMenuRol: (req, res) => {
         const {Id, IdUsuario}=req.body
-        db.query(`CALL sp_EliminarRolMenu(?,?)`.[Id,IdUsuario],(err, result) => {
+        db.query(`CALL sp_EliminarRolMenu(?,?)`,[Id,IdUsuario],(err, result) => {
             if (err) {
                 return res.status(500).send({
                     error:"No se elimino el acceso al menu",
