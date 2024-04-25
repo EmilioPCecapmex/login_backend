@@ -50,7 +50,8 @@ const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMen
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
 const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
 const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
-const { getHistorico } = require("../controllers/Historico/Historico.js");
+const { getHistorico } = require("../controllers/Catalogos/historico.js");
+
 
 
 // routes/router.js
