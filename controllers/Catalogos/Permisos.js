@@ -71,9 +71,9 @@ module.exports = {
     },
 
     deletedPermisosMenuRol: (req, res) => {
-        const Id = req.body.Id
+        const {Id,IdUsuario} = req.body
         let query = `DELETE FROM TiCentral.MenuPermisos WHERE Id = ?`;
-        db.query(`CALL sp_EliminarPermisoMenuRol('${Id}')`, (err, result) => {
+        db.query(`CALL sp_EliminarPermisoMenuRol(?,?)`,[Id,IdUsuario], (err, result) => {
             if (err) {
                 return res.status(500).send({
                     msg: "No se eliminó el permiso. "+err.sqlMessage,
