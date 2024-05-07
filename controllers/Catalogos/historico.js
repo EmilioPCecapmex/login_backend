@@ -35,9 +35,6 @@ module.exports = {
           }
 
         db.query(`CALL sp_ObtenerTrazabilidad(?)`, [IdRegistro], (err, result) => {
-            console.log('err',err);
-            console.log('result',result[0]);
-
             if (err) {
                 return res.status(500).send({
                 error: "Error: "+err.sqlMessage,

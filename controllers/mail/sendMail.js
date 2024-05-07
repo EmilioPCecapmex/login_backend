@@ -21,7 +21,6 @@ let objMailer={
     rejectUnauthorized: false,
   },
 }
-console.log('objMailer',objMailer);
 const transporter = nodemailer.createTransport(objMailer);
 
 const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
