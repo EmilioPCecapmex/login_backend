@@ -46,7 +46,6 @@ const sendEmail = async (mailData) => {
   };
 
   try {
-    console.log('mailOptions',mailOptions);
     const info = await sendMailPromise(mailOptions);
     escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
     return "Correo enviado con éxito:", info.response;
