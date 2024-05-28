@@ -51,6 +51,7 @@ const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso }
 const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
 const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
 const { getHistorico } = require("../controllers/Catalogos/historico.js");
+const { createAdminAvisos, deleteAdminAvisos, getAdminAvisos, editarAdminAvisos, getAvisosVigentes } = require("../controllers/AvisosApp/AdminAvisos.js");
 
 
 
@@ -441,9 +442,26 @@ router.get("/historico",(req,res)=>{
   getHistorico(req,res)
 })
 
+//Admin Avisos
+router.post("/AdminAviso",(req,res)=>{
+  createAdminAvisos(req,res)
+})
 
+router.get("/AdminAviso",(req,res)=>{
+  getAdminAvisos(req,res)
+})
 
+router.put("/AdminAviso", (req, res) => {
+  editarAdminAvisos(req, res);
+});
 
+router.delete("/AdminAviso",(req,res)=>{
+  deleteAdminAvisos(req,res)
+})
+
+router.get("/AdminAvisosVigentes",(req,res)=>{
+  getAvisosVigentes(req,res)
+})
 
 
 
