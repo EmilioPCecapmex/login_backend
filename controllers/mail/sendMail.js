@@ -27,7 +27,7 @@ const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
 
 const sendEmail = async (mailData) => {
   const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
- 
+ console.log('objMailer',objMailer);
   const mailOptions = {
     from: process.env.LOGIN_B_APP_EMAIL_USER,
     // "sistemas.tesoreria.virtual@nuevoleon.gob.mx",
@@ -46,6 +46,7 @@ const sendEmail = async (mailData) => {
   };
 
   try {
+    console.log('mailOptions',mailOptions);
     const info = await sendMailPromise(mailOptions);
     escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
     return "Correo enviado con éxito:", info.response;
