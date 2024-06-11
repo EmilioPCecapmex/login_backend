@@ -12,7 +12,6 @@ module.exports = {
     const TipoSoli = req.body.TipoSoli;
     const AdminPlataforma = req.body.AdminPlataforma;
     const PermisoFirma = req.body.PermisoFirma;
-
     if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
       return res.status(409).send({
         error: "Ingrese AdminPlataforma",
@@ -67,29 +66,155 @@ module.exports = {
             return res.status(401).send({
               error: "Error de envio de correo ",
             });
-          } else { db.query(
-              `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
-              (err, result) => {
-                if (err) {
-                  return res.status(500).send({
-                    error: err,
-                  });
+          } else {
+            console.log( `CALL sp_('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`);
+            if (TipoSoli=='Alta') {
+              
+
+              db.query(
+                `CALL sp_SolicitudAlta('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${AdminPlataforma}', '${PermisoFirma}')`,
+                (err, result) => {
+                  console.log("result",result);
+                  if (err) {
+                    return res.status(500).send({
+                      error: err,
+                    });
+                  }
+                  
+                    if (result[0][0]?.Respuesta == 201) {
+                    let d
+                    if (result[0][0].Mensaje == "Solicitud aprobada con éxito") {
+                       d = {
+                        to: correo,
+                        subject: "¡Bienvenido!",
+                        nombre: nombre,
+                        usuario: nusuario,
+                        contrasena: genPassword,
+                        mensaje:
+                          "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
+                        userid: IdUsuario,
+                      };
+                      sendEmail(d)
+                    }
+                    
+                    
+                    
+                  }
+                  
+  
+                  // 'Vinculación aprobada con éxito'
+  
+                  
+  
+                  if (result.length) {
+                    const data = result[0][0];
+                    if (data === undefined) {
+                      return res.status(409).send({
+                        error: "Verificar Id App",
+                      });
+                    }
+  
+                    return res.status(200).send({
+                      result: data,
+                    });
+                  } else {
+                    return res.status(409).send({
+                      error: "¡Sin Información!",
+                    });
+                  }
                 }
-                
-                  if (result[0][0]?.Respuesta == 201) {
-                  let d
-                  if (result[0][0].Mensaje == "Solicitud aprobada con éxito") {
-                     d = {
-                      to: correo,
-                      subject: "¡Bienvenido!",
-                      nombre: nombre,
-                      usuario: nusuario,
-                      contrasena: genPassword,
-                      mensaje:
-                        "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
-                      userid: IdUsuario,
-                    };
-                    sendEmail(d)
+              );
+
+
+
+
+
+
+
+
+
+            } else
+
+
+
+            if (TipoSoli=='Baja') {
+              
+
+              db.query(
+                `CALL sp_SolicitudBaja('${IdUsuario}','${IdSolicitud}','${Estado}')`,
+                (err, result) => {
+                  console.log("result",result);
+                  if (err) {
+                    return res.status(500).send({
+                      error: err,
+                    });
+                  }
+
+                  if (result.length) {
+                    const data = result[0][0];
+                    if (data === undefined) {
+                      return res.status(409).send({
+                        error: "Verificar Id App",
+                      });
+                    }
+  
+                    return res.status(200).send({
+                      result: data,
+                    });
+                  } else {
+                    return res.status(409).send({
+                      error: "¡Sin Información!",
+                    });
+                  }
+                }
+              );
+
+            } else
+
+            if (TipoSoli=='Modificacion') {
+              
+
+              db.query(
+                `CALL sp_SolicitudModificacion('${IdUsuario}','${IdSolicitud}','${Estado}')`,
+                (err, result) => {
+                  console.log("result",result);
+                  if (err) {
+                    return res.status(500).send({
+                      error: err,
+                    });
+                  }
+
+                  if (result.length) {
+                    const data = result[0][0];
+                    if (data === undefined) {
+                      return res.status(409).send({
+                        error: "Verificar Id App",
+                      });
+                    }
+  
+                    return res.status(200).send({
+                      result: data,
+                    });
+                  } else {
+                    return res.status(409).send({
+                      error: "¡Sin Información!",
+                    });
+                  }
+                }
+              );
+
+            } else
+            if (TipoSoli=='Vinculacion') {
+              
+
+              db.query(
+                `CALL sp_SolicitudVinculacion('${IdUsuario}','${IdSolicitud}','${Estado}')`,
+                (err, result) => {
+                  console.log("result",result);
+                  if (err) {
+                    return res.status(500).send({
+                      error: err,
+                    });
                   }
                   if (
                     result[0][0].Mensaje == "Vinculación aprobada con éxito"
@@ -104,35 +229,98 @@ module.exports = {
                         `tu usuario para ingresar a Tesoreria Virtual ahora tienen acceso a la aplicación ${result[0][0].App}.`,
                       userid: IdUsuario,
                     };
+                    console.log("se llamo el sendMailVinculacion");
                     sendEmailVinculacion(d);
                   }
-                  
-                  
-                }
-                
-
-                // 'Vinculación aprobada con éxito'
-
-                
-
-                if (result.length) {
-                  const data = result[0][0];
-                  if (data === undefined) {
+            
+                  if (result.length) {
+                    const data = result[0][0];
+                    if (data === undefined) {
+                      return res.status(409).send({
+                        error: "Verificar Id App",
+                      });
+                    }
+  
+                    return res.status(200).send({
+                      result: data,
+                    });
+                  } else {
                     return res.status(409).send({
-                      error: "Verificar Id App",
+                      error: "¡Sin Información!",
                     });
                   }
-
-                  return res.status(200).send({
-                    result: data,
-                  });
-                } else {
-                  return res.status(409).send({
-                    error: "¡Sin Información!",
-                  });
                 }
-              }
-            );
+              );
+
+            }
+            // db.query(
+            //   `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
+            //   (err, result) => {
+            //     console.log("result",result);
+            //     if (err) {
+            //       return res.status(500).send({
+            //         error: err,
+            //       });
+            //     }
+                
+            //       if (result[0][0]?.Respuesta == 201) {
+            //       let d
+            //       if (result[0][0].Mensaje == "Solicitud aprobada con éxito") {
+            //          d = {
+            //           to: correo,
+            //           subject: "¡Bienvenido!",
+            //           nombre: nombre,
+            //           usuario: nusuario,
+            //           contrasena: genPassword,
+            //           mensaje:
+            //             "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
+            //           userid: IdUsuario,
+            //         };
+            //         sendEmail(d)
+            //       }
+            //       if (
+            //         result[0][0].Mensaje == "Vinculación aprobada con éxito"
+            //       ) {
+            //          d = {
+            //           to: correo,
+            //           subject: `¡Nuevo acceso a ${result[0][0].App} !`,
+            //           nombre: nombre,
+            //           usuario: nusuario,
+            //           // contrasena: genPassword,
+            //           mensaje:
+            //             `tu usuario para ingresar a Tesoreria Virtual ahora tienen acceso a la aplicación ${result[0][0].App}.`,
+            //           userid: IdUsuario,
+            //         };
+            //         console.log("se llamo el sendMailVinculacion");
+            //         sendEmailVinculacion(d);
+            //       }
+                  
+                  
+            //     }
+                
+
+            //     // 'Vinculación aprobada con éxito'
+
+                
+
+            //     if (result.length) {
+            //       const data = result[0][0];
+            //       if (data === undefined) {
+            //         return res.status(409).send({
+            //           error: "Verificar Id App",
+            //         });
+            //       }
+
+            //       return res.status(200).send({
+            //         result: data,
+            //       });
+            //     } else {
+            //       return res.status(409).send({
+            //         error: "¡Sin Información!",
+            //       });
+            //     }
+            //   }
+            // );
           }
         });
       }
