@@ -54,11 +54,11 @@ module.exports = {
         db.query(`CALL sp_CrearPermisosMenuRol('${IdMenu}','${IdPermiso}','${IdRol}','${CreadoPor}')`, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    msg: "No se otorgo el permiso. "+err.sqlMessage,
+                    msg: "No se otorgo el permiso. "+err,
                 });
             }
 
-            if (result.affectedRows === 1) {
+            if (result.affectedRows > 0) {
                 return res.status(200).send({
                     msg: "Se otorgo el permiso.",
                 });
@@ -71,16 +71,16 @@ module.exports = {
     },
 
     deletedPermisosMenuRol: (req, res) => {
-        const {Id,IdUsuario} = req.body
+        const {Id,CreadoPor} = req.body
         let query = `DELETE FROM TiCentral.MenuPermisos WHERE Id = ?`;
-        db.query(`CALL sp_EliminarPermisoMenuRol(?,?)`,[Id,IdUsuario], (err, result) => {
+        db.query(`CALL sp_EliminarPermisoMenuRol(?,?)`,[Id,CreadoPor], (err, result) => {
             if (err) {
                 return res.status(500).send({
                     msg: "No se eliminó el permiso. "+err.sqlMessage,
                 });
             }
 
-            if (result.affectedRows === 1) {
+            if (result.affectedRows > 0) {
                 return res.status(200).send({
                     msg: "Se eliminó el permiso.",
                 });
