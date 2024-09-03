@@ -154,7 +154,7 @@ module.exports = {
     bcrypt.hash(genPassword, 10, (err, hash) => {
       if (err) {
         return res.status(401).send({
-          error: "Error",
+          error: err,
         });
       } else {
         // has hashed pw => add to database
@@ -163,7 +163,7 @@ module.exports = {
           (err, result) => {
             if (err) {
               return res.status(401).send({
-                error: "Error",
+                error: err,
               });
             } else {
               const userData = result[0][0];
@@ -239,7 +239,6 @@ module.exports = {
         userid: userData.Id,
         mensaje: "tu usuario para ingresar a nuestros sistemas ha sido creado exitosamente.",
       };
-      console.log(d);
       // Llamada a sendEmail y retorno de la respuesta
       const emailResponse = await sendEmail(d);
   

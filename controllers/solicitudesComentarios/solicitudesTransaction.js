@@ -67,12 +67,9 @@ module.exports = {
             return res.status(401).send({
               error: "Error de envio de correo ",
             });
-          } else {
-            console.log( `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`);
-            db.query(
+          } else { db.query(
               `CALL sp_CambiaEstatusSolicitud('${IdUsuario}','${IdSolicitud}','${Estado}', '${hash}', '${TipoSoli}', '${AdminPlataforma}', '${PermisoFirma}')`,
               (err, result) => {
-                console.log("result",result);
                 if (err) {
                   return res.status(500).send({
                     error: err,
@@ -107,7 +104,6 @@ module.exports = {
                         `tu usuario para ingresar a Tesoreria Virtual ahora tienen acceso a la aplicación ${result[0][0].App}.`,
                       userid: IdUsuario,
                     };
-                    console.log("se llamo el sendMailVinculacion");
                     sendEmailVinculacion(d);
                   }
                   

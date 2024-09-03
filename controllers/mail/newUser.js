@@ -1,154 +1,128 @@
 const fs = require("fs");
 module.exports = {
   emailTemplate: (mensaje, nombre, usuario, contrasena, userid) => {
-    function imageToBase64(filePath) {
-      try {
-          const imageData = fs.readFileSync(filePath);
-          const base64Data = imageData.toString('base64');
-          return base64Data;
-      } catch (error) {
-          console.error('Error al leer el archivo:', error);
-          throw error; // O maneja el error de acuerdo a tu lógica
-      }
-  }
-  
-    const path = require('path');
-    const filePath = path.resolve(__dirname, './Images/Palacio.png');
-    console.log(filePath);
-    const base64ImageData = imageToBase64(filePath);
-
     return `
     <!DOCTYPE html>
-    <html lang="es">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>SFyTGE</title>
-        <style>
-          body {
-            height: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
-            background-color: #f1f1f1;
-          }
-    
-          #container {
-            max-height: 100vh;
-            max-width: 600px;
-            
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-    
-          #logo {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-          }
-    
-          h1, h2, h3, h4 {
-            font-family: sans-serif;
-            text-align: center;
-          }
-    
-          #message {
-            border: 1px solid black;
-            padding: 10px;
-            justify-content: center;
-            align-items: center;
-          }
-    
-          #security-tips {
-            background-color: #f7fafa;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 10px;
-          }
-    
-          #access-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-            margin: 10px;
-          }
-    
-          button {
-            background-color: rgb(196, 255, 190);
-            color: rgb(99, 99, 99);
-            border-radius: 1rem;
-            border-width: 0.1rem;
-            padding: 1vw; /* Ajusta el valor según tu preferencia */
-            cursor: pointer;
-            font-family: sans-serif;
-            width: 100%;
-            height: 50px;
-          }
-        </style>
-      </head>
-      <body>
-        <div id="container">
-        <img style="width: 20%; height: 10vh;" src=${base64ImageData} />
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SFyTGE</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+      font-family: sans-serif;
+    }
 
-          <h1>Secretaría de Finanzas y Tesorería General del Estado</h1>
-          <h2>Acceso a Usuarios</h2>
-          <h3>
-            Hola ${nombre}, ${mensaje}
-          </h3>
-          <div id="message">
-            <h4>
-              DATOS DE ACCESO
-            </h4>
-            <div>
-              <h4 style="font-family: sans-serif"><strong> Usuario:</strong></h4>
-              <h4 style="font-weight: lighter; font-family: sans-serif">
-                ${usuario}
-              </h4>
-            </div>
-            <div>
-              <h4 style="font-family: sans-serif"><strong> Contraseña:</strong></h4>
-              <h4 style="font-weight: lighter; font-family: sans-serif">
-                ${contrasena}
-              </h4>
-            </div>
-          </div>
-          <div id="security-tips">
-            <h3>Consejos importantes de seguridad:</h3>
-            <h4
-              style="
-                font-weight: lighter;
-                color: rgb(101, 101, 101);
-                text-align: center;
-                font-family: sans-serif;
-              "
-            >
-              1. Mantén los datos de tu cuenta en un lugar seguro. <br />
-              2. No compartas tus datos de acceso con otras personas. <br />
-              3. Cambia tu contraseña regularmente.
-            </h4>
-          </div>
-          <div id="access-link">
-            <h4>Accede a la plataforma mediante el siguiente enlace:</h4>
-            <a href="${process.env.LOGIN_B_APP_FRONT}">
-              <button>
-                ACCEDER
-              </button>
-            </a>
-          </div>
-        </div>
-      </body>
-    </html>
+    #container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      border: 1px solid #000; /* Ahora el borde rodea el contenido del contenedor */
+    }
+
+    #logo {
+      width: 60%;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #message {
+      border: 1px solid #000;
+      padding: 10px;
+      text-align: center;
+    }
+
+    #security-tips {
+      background-color: #f7fafa;
+      padding: 10px;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    #access-link {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    button {
+      background-color: #c4ffbe;
+      color: #636363;
+      border-radius: 1rem;
+      border: 0.1rem solid #000;
+      padding: 10px;
+      cursor: pointer;
+      font-family: sans-serif;
+      max-width: 200px;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <img id="logo" src='cid:Palacio' />
+
+    <h1>Secretaría de Finanzas y Tesorería General del Estado</h1>
+    <h2>Acceso a Usuarios</h2>
+    <h3>
+      Hola ${nombre}, ${mensaje}
+    </h3>
+
+    <div id="message">
+      <h4>DATOS DE ACCESO</h4>
+      <div>
+        <strong>Usuario:</strong>
+        ${usuario}
+      </div>
+      <div>
+        <strong>Contraseña:</strong>
+        ${contrasena}
+      </div>
+    </div>
+
+    <div id="security-tips">
+      <h3>Consejos importantes de seguridad:</h3>
+      <p>
+        1. Mantén los datos de tu cuenta en un lugar seguro. <br />
+        2. No compartas tus datos de acceso con otras personas. <br />
+        3. Cambia tu contraseña regularmente.
+      </p>
+    </div>
+
+    <div id="access-link">
+      <h4>Accede a la plataforma mediante el siguiente enlace:</h4>
+      <button>
+        <a href="${process.env.LOGIN_B_APP_FRONT}" style="text-decoration: none;">
+          ACCEDER
+        </a>
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>
+
     
-        `;
+    `;
   },
 };

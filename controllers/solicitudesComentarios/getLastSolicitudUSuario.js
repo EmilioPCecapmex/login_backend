@@ -18,8 +18,6 @@ module.exports = {
         });
       }
       if (result.length) {
-        console.log("daots:",result[0][0]);
-        
       } else {
         return res.status(409).send({
           error: "¡Sin Información!",

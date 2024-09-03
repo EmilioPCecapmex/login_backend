@@ -18,8 +18,9 @@
         "LOGIN_B_APP_EMAIL_PORT" : 465,
         "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey",
-        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com"
+        "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
+        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_CCO" : "noreply.cecapmex@gmail.com"
       },
       "env_qa": {
         "NODE_ENV": "qa",
@@ -35,8 +36,9 @@
         "LOGIN_B_APP_EMAIL_PORT" : 465,
         "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_PASSWORD": "hpffapcifkvkfuey",
-        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com"
+        "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
+        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_CCO" : "noreply.cecapmex@gmail.com"
       },
       "env_prod": {
         "NODE_ENV": "prod",

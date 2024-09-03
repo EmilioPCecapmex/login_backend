@@ -3,7 +3,7 @@ const router = express.Router();
 const registerUser = require("../controllers/users/validateRegister.js");
 const verifyToken = require("../controllers/auth/verifyToken.js");
 
-const { sendEmail } = require("../controllers/mail/sendMail.js");
+const { sendEmail, sendEmailVinculacion } = require("../controllers/mail/sendMail.js");
 const { createUser } = require("../controllers/users/createUser.js");
 const { userLogin, tokenRefresh } = require("../controllers/auth/userLogin.js");
 const { activateUser } = require("../controllers/users/activateUser.js");
@@ -50,6 +50,9 @@ const { createAdminMenu, deleteAdminMenu, getAdminMenu, getMenusPadre, editarMen
 const { createAdminPermiso, deleteAdminPermiso, getAdminPermiso, editarPermiso } = require("../controllers/AdminMenus/AdminPermisos.js");
 const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = require("../controllers/Catalogos/Entidades.js");
 const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
+const { getHistorico } = require("../controllers/Catalogos/historico.js");
+const { createAdminAvisos, deleteAdminAvisos, getAdminAvisos, editarAdminAvisos, getAvisosVigentes } = require("../controllers/AvisosApp/AdminAvisos.js");
+
 
 
 // routes/router.js
@@ -434,9 +437,31 @@ router.put("/AdminPermiso", (req, res) => {
   editarPermiso(req, res);
 });
 
+// Historico
+router.get("/historico",(req,res)=>{
+  getHistorico(req,res)
+})
 
+//Admin Avisos
+router.post("/AdminAviso",(req,res)=>{
+  createAdminAvisos(req,res)
+})
 
+router.get("/AdminAviso",(req,res)=>{
+  getAdminAvisos(req,res)
+})
 
+router.put("/AdminAviso", (req, res) => {
+  editarAdminAvisos(req, res);
+});
+
+router.delete("/AdminAviso",(req,res)=>{
+  deleteAdminAvisos(req,res)
+})
+
+router.get("/AdminAvisosVigentes",(req,res)=>{
+  getAvisosVigentes(req,res)
+})
 
 
 
@@ -446,7 +471,7 @@ router.put("/AdminPermiso", (req, res) => {
 
 router.get("/prueba-sendEmail",()=>{
   const d = {
-    to: "prpardo@cecapmex.com",
+    to: "baxterspartan009@gmail.com",
     subject: "¡Bienvenido!",
     nombre: 'pedro ricardo pardo gaytan',
     usuario: 'prpardo',
@@ -457,7 +482,7 @@ router.get("/prueba-sendEmail",()=>{
   };
 
   console.log(d);
-  sendEmail(d);
+  sendEmailVinculacion(d);
 })
 
 
