@@ -110,7 +110,7 @@ module.exports = {
   tokenRefresh: (req, res) => {
     
     const userData = req.body;
-
+    
     let jwtSecretKey = process.env.LOGIN_B_APP_REFRESH_TOKEN_KEY;
 
     // refresh the damn token
@@ -139,6 +139,7 @@ module.exports = {
           };
           // update the token in the list
           global.tokenList[userData.refreshToken].token = token;
+          db.query(`CALL RegistrarActividadUsuario(?,?,?)`,[user.IdUsuario,userData.IdApp,'Token de autenticación renovado']);
           res.status(200).json(response);
         } else {
           res.status(404).send("Invalid request");

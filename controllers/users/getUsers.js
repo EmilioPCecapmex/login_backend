@@ -2,10 +2,10 @@ const db = require("../../config/db.js");
 const util = require("util");
 module.exports = {
   getUserEmailRolControlInterno: (req, res) => {
-    const IdApp= req.body.IdApp;
+    const IdApp = req.body.IdApp;
     const ControlesInternos = JSON.stringify(req.body.ControlesInternos);
-    db.query(`CALL sp_ObtenerCorreoPorRolControlInterno(?,?)`,[ControlesInternos,IdApp], (err, result) => {
-      
+    db.query(`CALL sp_ObtenerCorreoPorRolControlInterno(?,?)`, [ControlesInternos, IdApp], (err, result) => {
+
       if (err) {
         return res.status(500).send({
           error: err,
@@ -189,39 +189,61 @@ module.exports = {
       }
     );
   },
+
+  getActividadUser: async (req, res) => {
+    const { fecha, fechaFinal } = req.query;
+    if (fecha == null || /^[\s]*$/.test(fecha)) {
+      return res.status(409).send({
+        error: "Ingrese fecha válido.",
+      });
+    }
+    if (fechaFinal == null || /^[\s]*$/.test(fechaFinal)) {
+      return res.status(409).send({
+        error: "Ingrese fechaFinal válido.",
+      });
+    }
+    // Convertir las fechas a objetos de Date para la comparación
+    const fechaObj = new Date(fecha);
+    const fechaFinalObj = new Date(fechaFinal);
+
+    // Verificar si fechaFinal es menor que fecha, en ese caso intercambiarlas
+    let fechaInicio = fechaObj;
+    let fechaFin = fechaFinalObj;
+
+    if (fechaFinalObj < fechaObj) {
+      fechaInicio = fechaFinalObj;
+      fechaFin = fechaObj;
+    }
+
+
+    db.query(
+      `CALL sp_ListaActividadUsuarios(?,?)`, [fechaInicio, fechaFin],
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: err.sqlMessage,
+          });
+        }
+        if (result.length) {
+          const data = result[0];
+          if (data === undefined || data.Error) {
+            return res.status(409).send({
+              error: "¡Sin Información!",
+            });
+          }
+          return res.status(200).send({
+            data: data,
+          });
+        } else {
+          return res.status(409).send({
+            error: "¡Sin Información!",
+          });
+        }
+      }
+    );
+  },
 };
 
-// function getPerfil (userId,appId)  {
-//   let perfiles =[];
-//   let query= `  SELECT
-//   p.Id,
-//   p.Descripcion,
-//   p.Referencia
-//   FROM
-//   TiCentral.UsuarioPerfil up
-//   LEFT join TiCentral.Perfiles p ON up.idPerfil = p.Id
-//   LEFT JOIN TiCentral.Usuarios u ON u.Id = up.idusuario
-//   WHERE 1=1
-//   and u.id=?
-//   AND p.IdApp=? `;
-
-//    db.query(query,[userId,appId] ,(err, result) => {
-//      if (err) {
-//        return res.status(500).send({
-//          error: err.sqlMessage,
-//        });
-//      }
-
-//      if (result.length) {
-//        perfiles.push(result);
-//      } else {
-//       perfiles =[];
-//      }
-//    });
-
-//    return perfiles;
-
-//  }
 function getUsuarioEntidad(idUsuario, idApp) {
   let data = [];
   db.query(
@@ -430,5 +452,41 @@ function getPermisos(userId, appId) {
 
   return data;
 }
+
+function getPermisos(userId, appId) {
+  let data = [];
+  let query = `  SELECT
+  per.ControlInterno,
+  men.ControlInterno menu
+  FROM
+  TiCentral.Usuarios us
+  INNER JOIN TiCentral.UsuarioRol ur ON us.Id = ur.IdUsuario
+  INNER JOIN TiCentral.Roles rol ON ur.IdRol  = rol.Id
+  INNER JOIN TiCentral.RolMenus rm ON rm.IdRol = rol.Id
+  INNER JOIN TiCentral.Menus  men ON men.Id = rm.IdMenu
+  INNER JOIN TiCentral.MenuPermisos rmenp ON  rmenp.IdMenu = rm.IdMenu and rmenp.IdRol=rol.Id
+  INNER JOIN TiCentral.Permisos per ON per.Id = rmenp.IdPermiso
+  WHERE
+  us.Id=?
+  and rol.IdApp =?
+  `;
+
+  db.query(query, [userId, appId], (err, result) => {
+    if (err) {
+      return res.status(500).send({
+        error: err.sqlMessage,
+      });
+    }
+
+    if (result.length) {
+      data.push(result);
+    } else {
+      data = [];
+    }
+  });
+
+  return data;
+}
+
 
 

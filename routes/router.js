@@ -14,6 +14,7 @@ const {
   getUsuariosRoles,
   getUserPermissionsDetail,
   getUserEmailRolControlInterno,
+  getActividadUser,
 } = require("../controllers/users/getUsers.js");
 const { getAppDetail, getAppsInfo, getUserApps, getUsersApp } = require("../controllers/apps/getApps.js");
 const { deleteUser } = require("../controllers/users/deleteUser.js");
@@ -186,6 +187,9 @@ verifyToken.verifyJWT,
   setPassword(req, res);
 });
 
+router.get("/activity-users", verifyToken.verifyJWT, (req, res) => {
+  getActividadUser(req, res);
+});
 
 router.post("/forgot-password", (req, res) => {
   forgotPassword(req, res);
