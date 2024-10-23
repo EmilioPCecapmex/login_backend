@@ -203,18 +203,22 @@ module.exports = {
       });
     }
     // Convertir las fechas a objetos de Date para la comparación
-    const fechaObj = new Date(fecha);
-    const fechaFinalObj = new Date(fechaFinal);
+    // const fechaObj = new Date(fecha);
+    // const fechaFinalObj = new Date(fechaFinal);
 
     // Verificar si fechaFinal es menor que fecha, en ese caso intercambiarlas
-    let fechaInicio = fechaObj;
-    let fechaFin = fechaFinalObj;
+    let fechaInicio = fecha;
+    let fechaFin = fechaFinal;
 
-    if (fechaFinalObj < fechaObj) {
-      fechaInicio = fechaFinalObj;
-      fechaFin = fechaObj;
+    if (fechaFinal < fecha) {
+      fechaInicio = fechaFinal;
+      fechaFin = fecha;
     }
 
+    console.log('fechaInicio',fechaInicio);
+    console.log('fechaFin',fechaFin);
+    
+    
 
     db.query(
       `CALL sp_ListaActividadUsuarios(?,?)`, [fechaInicio, fechaFin],
