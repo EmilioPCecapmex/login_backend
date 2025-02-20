@@ -3,7 +3,7 @@ const router = express.Router();
 const registerUser = require("../controllers/users/validateRegister.js");
 const verifyToken = require("../controllers/auth/verifyToken.js");
 
-const { sendEmail, sendEmailVinculacion } = require("../controllers/mail/sendMail.js");
+const { sendEmail, sendEmailVinculacion, sendEmailGeneric } = require("../controllers/mail/sendMail.js");
 const { createUser } = require("../controllers/users/createUser.js");
 const { userLogin, tokenRefresh } = require("../controllers/auth/userLogin.js");
 const { activateUser } = require("../controllers/users/activateUser.js");
@@ -205,9 +205,9 @@ router.post("/user-apps", verifyToken.verifyJWT, (req, res, next) => {
 });
 
 
-router.get("/users-app",(req, res, next) => {
-  getUsersApp(req, res);
-});
+// router.get("/users-app",(req, res, next) => {
+//   getUsersApp(req, res);
+// });
 
 
 router.get("/users-app",(req, res, next) => {
@@ -475,10 +475,10 @@ router.get("/AdminAvisosVigentes",(req,res)=>{
 
 router.get("/prueba-sendEmail",()=>{
   const d = {
-    to: "baxterspartan009@gmail.com",
+    to: "prpardo@cecapmex.com",
     subject: "¡Bienvenido!",
     nombre: 'pedro ricardo pardo gaytan',
-    usuario: 'prpardo',
+    usuario: 'CESAR GABRIEL RIVERA CANTU envia Fondo Fortalecimiento Para Los Municipios (FORTAMUN) Mensual',
     contrasena: 'genPassword',
     mensaje:
     "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
@@ -487,6 +487,17 @@ router.get("/prueba-sendEmail",()=>{
 
   console.log(d);
   sendEmailVinculacion(d);
+})
+
+router.get("/sendEmailGeneric",()=>{
+  const d = {
+    to: "prpardo@cecapmex.com",
+    subject: "CESAR GABRIEL RIVERA CANTU envia Fondos de Seguridad para los Municipios Mensual",
+    textoPlano:"Buen día, El Fondo de Aportaciones para el Fortalecimiento Municipal FORTAMUN fue publicado el 16 de enero del presente en el DOF para el ejercicio 2025, Los montos programados para cada mes, no sufren modificación durante el ejercicio salvo por actualización de variable (población); y en tal caso se deberá publicar una modificación en el DOF,Por lo anterior, las cifras capturadas en el sistema son la que deberán distribuirse durante el ejercicio actual, saludos"
+  };
+
+  console.log(d);
+  sendEmailGeneric(d);
 })
 
 
