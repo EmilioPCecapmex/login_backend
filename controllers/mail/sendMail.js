@@ -87,8 +87,38 @@ const sendEmailVinculacion = async (mailData) => {
   }
 };
 
+const sendEmailGeneric = async (mailData) => {
+  const { to, subject,  textoPlano } = mailData;
+
+  const mailOptions = {
+    from: process.env.LOGIN_B_APP_EMAIL_USER,
+    to: to,
+    subject: subject,
+    text: textoPlano || "Mensaje en texto plano no proporcionado", // Si no se pasa textoPlano, usa un mensaje predeterminado
+    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
+    attachments: [
+      {
+        filename: 'Palacio.png',
+        path: 'controllers/mail/Images/Palacio.png',
+        cid: 'Palacio'
+      }
+    ]
+  };
+
+  try {
+    const info = await sendMailPromise(mailOptions);
+    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
+    return `Correo enviado con éxito: ${info.response}`;
+  } catch (error) {
+    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Error`);
+    throw `Error al enviar el correo: ${error}`;
+  }
+};
+
+
 module.exports = {
   sendEmail: sendEmail,
   sendEmailVinculacion:sendEmailVinculacion,
+  sendEmailGeneric:sendEmailGeneric,
 };
 
