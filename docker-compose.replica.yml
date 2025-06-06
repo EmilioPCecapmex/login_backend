@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  backend-login:
+  backend-login-replica:
     build: .
     env_file:
       - .env.replica
