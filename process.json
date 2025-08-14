@@ -14,13 +14,15 @@
         "LOGIN_B_APP_JWT_SECRET_KEY": "2A95F5CCD11DE255FEE9451BDE433",
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c0967",
-        "LOGIN_B_APP_EMAIL_HOST" : "smtp.gmail.com",
-        "LOGIN_B_APP_EMAIL_PORT" : 465,
+        "LOGIN_B_APP_EMAIL_HOST": "smtp.gmail.com",
+        "LOGIN_B_APP_EMAIL_PORT": 465,
         "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
         "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
-        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_CCO" : "noreply.cecapmex@gmail.com"
+        "LOGIN_B_APP_EMAIL_USER": "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_CCO": "prpardo@cecapmex.com",
+        "LOGIN_B_APP_EMAIL_USER_NOTIFICATION": "pedropardog009@gmail.com",
+        "LOGIN_B_APP_EMAIL_USER_ALERTS": "prpardo@cecapmex.com"
       },
       "env_qa": {
         "NODE_ENV": "qa",
@@ -32,13 +34,15 @@
         "LOGIN_B_APP_JWT_SECRET_KEY": "2A95F5CCD11DE255FEE9451BDE568",
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c8567",
-        "LOGIN_B_APP_EMAIL_HOST" : "smtp.gmail.com",
-        "LOGIN_B_APP_EMAIL_PORT" : 465,
+        "LOGIN_B_APP_EMAIL_HOST": "smtp.gmail.com",
+        "LOGIN_B_APP_EMAIL_PORT": 465,
         "LOGIN_B_APP_EMAIL_SECURE": "TRUE",
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
         "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
-        "LOGIN_B_APP_EMAIL_USER" : "noreply.cecapmex@gmail.com",
-        "LOGIN_B_APP_EMAIL_CCO" : "noreply.cecapmex@gmail.com"
+        "LOGIN_B_APP_EMAIL_USER": "noreply.cecapmex@gmail.com",
+        "LOGIN_B_APP_EMAIL_CCO": "prpardo@cecapmex.com",
+        "LOGIN_B_APP_EMAIL_USER_NOTIFICATION": "pedropardog009@gmail.com",
+        "LOGIN_B_APP_EMAIL_USER_ALERTS": "prpardo@cecapmex.com"
       },
       "env_prod": {
         "NODE_ENV": "prod",
@@ -51,13 +55,15 @@
         "LOGIN_B_APP_TOKEN_HEADER_KEY": "authorization",
         "LOGIN_B_APP_REFRESH_TOKEN_KEY": "4ebd020883285d698c44ec50939c8567",
         "LOGIN_B_APP_FRONT": "https://tesoreria-virtual.nl.gob.mx/",
-        "LOGIN_B_APP_EMAIL_HOST" : "correo.nl.gob.mx",
-        "LOGIN_B_APP_EMAIL_PORT" : 587,
+        "LOGIN_B_APP_EMAIL_HOST": "correo.nl.gob.mx",
+        "LOGIN_B_APP_EMAIL_PORT": 587,
         "LOGIN_B_APP_EMAIL_SECURE": "FALSE",
         "LOGIN_B_APP_EMAIL_USERNAME": "sistemas.tv",
         "LOGIN_B_APP_EMAIL_PASSWORD": "$ist3m@$tv*",
-        "LOGIN_B_APP_EMAIL_USER" : "sistemas.tesoreria.virtual@nuevoleon.gob.mx"
-        
+        "LOGIN_B_APP_EMAIL_USER": "sistemas.tesoreria.virtual@nuevoleon.gob.mx",
+        "LOGIN_B_APP_EMAIL_CCO": "prpardo@cecapmex.com",
+        "LOGIN_B_APP_EMAIL_USER_NOTIFICATION": "nestor.ibarra@nuevoleon.gob.mx",
+        "LOGIN_B_APP_EMAIL_USER_ALERTS": "prpardo@cecapmex.com"
       }
     }
   ]
