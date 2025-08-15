@@ -23,8 +23,8 @@ const { v4: uuidv4 } = require('uuid');
 // Configuración de nodemailer
 const transporter = nodemailer.createTransport({
   host: process.env.LOGIN_B_APP_EMAIL_HOST,
-  port: parseInt(process.env.LOGIN_B_APP_EMAIL_PORT, 10),
-  secure: process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
+  port: parseInt(process.env.DEUDA_EMAIL_PORT = 587, 10),
+  secure: false,
   auth: {
     user: process.env.DEUDA_EMAIL_USERNAME,
     pass: process.env.DEUDA_EMAIL_PASSWORD
