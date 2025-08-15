@@ -33,6 +33,7 @@ const transporter = nodemailer.createTransport({
 
 // Correos de notificación
 const EMAIL_INFORMATION = process.env.LOGIN_B_APP_EMAIL_USER_ALERTS;
+const EMAIL_NOTIFICATION = process.env.LOGIN_B_APP_EMAIL_USER_NOTIFICATION;
 
 module.exports = {
   createGrupoDeuda: (req, res) => {
@@ -141,7 +142,7 @@ module.exports = {
 
       await sendEmail(
         body.correo,
-        EMAIL_INFORMATION,
+        EMAIL_NOTIFICATION,
         "✅ REGISTRO EXITOSO - CUARTA REUNIÓN DEL GRUPO DE DEUDA Y EMPRÉSTITOS 2024-2025",
         htmlExito,
         "exito"
