@@ -40,8 +40,9 @@
         "LOGIN_B_APP_EMAIL_USERNAME": "noreply.cecapmex@gmail.com",
         "LOGIN_B_APP_EMAIL_PASSWORD": "tfcfrudxwcbmupaa",
         "LOGIN_B_APP_EMAIL_USER": "noreply.cecapmex@gmail.com",
+
         "LOGIN_B_APP_EMAIL_CCO": "prpardo@cecapmex.com",
-        "LOGIN_B_APP_EMAIL_USER_NOTIFICATION": "pedropardog009@gmail.com",
+        "LOGIN_B_APP_EMAIL_USER_NOTIFICATION": "nestor.ibarra@nuevoleon.gob.mx",
         "LOGIN_B_APP_EMAIL_USER_ALERTS": "prpardo@cecapmex.com"
       },
       "env_prod": {
