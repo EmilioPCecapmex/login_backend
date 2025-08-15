@@ -21,19 +21,19 @@ module.exports = function generateEmailTemplate(data, isSuccess, confirmUrl = nu
     dependencia: "Dependencia",
     pais: "País",
     hotel: "Hotel",
-    fAsistenciaFormato: "Fecha de Asistencia a la Reunión",
-    fhSalidaFormato: "Fecha/Hora de Salida del Hotel",
+    fAsistencia: "Fecha de Asistencia a la Reunión",
+    fhSalidaFecha: "Fecha/Hora de Salida del Hotel",
     correo: "Correo Electrónico",
     telefono: "Teléfono",
     Extension: "Extensión",
     Celular: "Celular",
     medioTransporte: "Medio de Transporte",
     proveedorTransporte: "Proveedor de Transporte",
-    fhLlegadaFormato: "Fecha/Hora de Llegada del transporte"
+    fhLlegadaFecha: "Fecha/Hora de Llegada del transporte"
   };
 
   // Campos a excluir del correo
-  const excludeFields = ["fAsistencia", "fhSalida", "fhLlegada"];
+  const excludeFields = ["fAsistencia", "fhSalida", "fhLlegada","captchaToken"];
 
   const rows = Object.entries(data)
     .filter(([key]) => !excludeFields.includes(key)) // ⬅ Aquí filtramos
