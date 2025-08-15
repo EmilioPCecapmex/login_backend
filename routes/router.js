@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const registerUser = require("../controllers/users/validateRegister.js");
 const verifyToken = require("../controllers/auth/verifyToken.js");
