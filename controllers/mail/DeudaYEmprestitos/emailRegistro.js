@@ -33,7 +33,7 @@ module.exports = function generateEmailTemplate(data, isSuccess, confirmUrl = nu
   };
 
   // Campos a excluir del correo
-  const excludeFields = ["fAsistencia", "fhSalida", "fhLlegada","captchaToken"];
+  const excludeFields = [ "fhSalida", "fhLlegada","captchaToken"];
 
   const rows = Object.entries(data)
     .filter(([key]) => !excludeFields.includes(key)) // ⬅ Aquí filtramos
