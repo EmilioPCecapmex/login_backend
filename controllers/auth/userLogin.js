@@ -68,7 +68,7 @@ module.exports = {
                 };
 
                 token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
-                  expiresIn: "45m",
+                  expiresIn: "10m",
                 });
 
                 const refreshToken = jwt.sign(
@@ -132,7 +132,7 @@ module.exports = {
           };
           
           const token = jwt.sign(user, process.env.LOGIN_B_APP_JWT_SECRET_KEY, {
-            expiresIn: "45m",
+            expiresIn: "10m",
           });
           const response = {
             token: token,
