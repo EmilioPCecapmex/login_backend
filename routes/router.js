@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const registerUser = require("../controllers/users/validateRegister.js");
 const verifyToken = require("../controllers/auth/verifyToken.js");
@@ -53,6 +54,7 @@ const { getSecretariaByEntidad, getInfoEntidad, getDependenciasByEntidad } = req
 const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controllers/createPDF/createSolicitudPDF.js");
 const { getHistorico } = require("../controllers/Catalogos/historico.js");
 const { createAdminAvisos, deleteAdminAvisos, getAdminAvisos, editarAdminAvisos, getAvisosVigentes } = require("../controllers/AvisosApp/AdminAvisos.js");
+const { createGrupoDeuda,confirmGrupoDeuda } = require("../controllers/grupoDeudaempresitos/asistentes.js");
 
 
 
@@ -469,7 +471,13 @@ router.get("/AdminAvisosVigentes",(req,res)=>{
 
 
 
+router.post("/registro-asistencia-deuda-emprestitos",(req,res)=>{
+  createGrupoDeuda(req,res)
+})
 
+router.get("/registro-asistencia-deuda-emprestitos/confirmacion",(req,res)=>{
+  confirmGrupoDeuda(req,res)
+})
 
 
 

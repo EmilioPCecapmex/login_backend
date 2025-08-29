@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "logs/*",
+    "grupo_deuda_requests.json",
+    "*.log"
+  ]
+}
