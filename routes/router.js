@@ -55,6 +55,7 @@ const { getSolicitudUsuario, getSolicitudActualUsuario } = require("../controlle
 const { getHistorico } = require("../controllers/Catalogos/historico.js");
 const { createAdminAvisos, deleteAdminAvisos, getAdminAvisos, editarAdminAvisos, getAvisosVigentes } = require("../controllers/AvisosApp/AdminAvisos.js");
 const { createGrupoDeuda,confirmGrupoDeuda } = require("../controllers/grupoDeudaempresitos/asistentes.js");
+const { createInvitado, confirmInvitado } = require("../controllers/semanaFormacionArmonizacionContable/asistentes.js");
 
 
 
@@ -470,7 +471,9 @@ router.get("/AdminAvisosVigentes",(req,res)=>{
 })
 
 
+//#################################Fin Admin Ayudas####################################
 
+//Grupo Deuda Empresitos
 router.post("/registro-asistencia-deuda-emprestitos",(req,res)=>{
   createGrupoDeuda(req,res)
 })
@@ -478,7 +481,11 @@ router.post("/registro-asistencia-deuda-emprestitos",(req,res)=>{
 router.get("/registro-asistencia-deuda-emprestitos/confirmacion",(req,res)=>{
   confirmGrupoDeuda(req,res)
 })
-
+//#################################Fin Grupo Deuda Empresitos####################################
+//Semana_Formacion_Armonizacion_Contable
+router.post("/registro-asistencia-semana-formacion-armonizacion-contable",(req,res)=>{
+  createInvitado(req,res)
+})
 
 
 router.get("/prueba-sendEmail",()=>{
