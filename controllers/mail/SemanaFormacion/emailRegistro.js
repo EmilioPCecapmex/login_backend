@@ -5,7 +5,7 @@ module.exports = function generateEmailTemplate(data, isSuccess, confirmUrl = nu
 
   const introMessage = isSuccess
     ? `<p>Estimado(a),</p>
-       <p>Su registro para la <strong>Semana de Formación en Armonización Contable</strong> se ha completado correctamente. A continuación, se muestran los datos capturados:</p>`
+       <p>Su registro para la Semana de Formación en Armonización Contable se ha completado correctamente. A continuación, se muestran los datos capturados:</p>`
     : `<p>Estimado(a),</p>
        <p>Ocurrió un error al intentar registrar su participación. Estos son los datos que se intentaron enviar:</p>`;
 
@@ -17,15 +17,29 @@ module.exports = function generateEmailTemplate(data, isSuccess, confirmUrl = nu
     tpoInvitacion: "Tipo de Invitación",
     municipioFideicomiso: "Municipio/Fideicomiso",
     asistencia: "Asistencia",
-    sector: "Sector",
-    nivelGobierno: "Nivel de Gobierno",
-    dependencia: "Dependencia",
-    fAsistencia: "Fecha de Asistencia",
     correo: "Correo Electrónico",
     telefono: "Teléfono",
     Extension: "Extensión",
     Celular: "Celular"
   };
+
+  // ✅ Nueva lógica: agregar la nota según tipo de asistencia
+  let asistenciaNota = "";
+  if (data.asistencia && typeof data.asistencia === "string") {
+    const tipo = data.asistencia.trim().toLowerCase();
+    if (tipo === "presencial") {
+      asistenciaNota = `
+        <p style="color:red;margin-top:15px;">
+          Nota importante: Le recomendamos llegar con tiempo ya que el recinto no cuenta con estacionamiento,
+          se pueden utilizar estacionamientos aledaños sujeto a disponibilidad, por ejemplo en el estacionamiento del estadio universitario.
+        </p>`;
+    } else if (tipo === "virtual") {
+      asistenciaNota = `
+        <p style="color:red;margin-top:15px;">
+          Nota importante: El link de la sesión se enviará 2 días antes del evento al correo registrado.
+        </p>`;
+    }
+  }
 
   const excludeFields = ["captchaToken"];
   const rows = Object.entries(data)
@@ -59,10 +73,10 @@ module.exports = function generateEmailTemplate(data, isSuccess, confirmUrl = nu
                 ${introMessage}
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:15px;">
                   ${rows}
-                  
                 </table>
+                ${asistenciaNota}
                 <p style="margin-top:25px;padding-top:10px;border-top:1px solid #ccc;color:#777;font-size:12px;text-align:center;">
-                  <strong>Semana de Formación en Armonización Contable</strong><br>
+                  Semana de Formación en Armonización Contable<br>
                   Este es un mensaje automático, por favor no responda este correo.
                 </p>
               </td>

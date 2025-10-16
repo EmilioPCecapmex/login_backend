@@ -87,7 +87,7 @@ module.exports = {
 
     // === Validar campos obligatorios ===
     const requiredFields = [
-      "nombre", "aPaterno", "correo", "asistencia", "dependencia"
+      "nombre", "aPaterno", "correo", "asistencia"
     ];
     const missingFields = requiredFields.filter(f => !body[f]);
 
@@ -105,10 +105,10 @@ module.exports = {
     const sql = `
       INSERT INTO Semana_Formacion_Armonizacion_Contable.Invitados (
         id, nombre, aPaterno, aMaterno, cargo, tpoInvitacion, municipioFideicomiso,
-        asistencia, sector, nivelGobierno, dependencia, fAsistencia, correo,
+        asistencia, correo,
         telefono, Extension, Celular
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const params = [
@@ -120,10 +120,6 @@ module.exports = {
       body.tpoInvitacion || null,
       body.municipioFideicomiso || null,
       body.asistencia || null,
-      body.sector || null,
-      body.nivelGobierno || null,
-      body.dependencia || null,
-      body.fAsistencia || null,
       body.correo || null,
       body.telefono || null,
       body.Extension || null,
