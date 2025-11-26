@@ -1,14 +1,13 @@
 version: '3'
 
 services:
-  backend-login:
+  backend-login-replica:
     build: .
     env_file:
-      - .env
+      - .env.replica
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - 5000:5000
-      - 9229:9229
+      - 3000:3000
     restart: always
