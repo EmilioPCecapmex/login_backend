@@ -2,6 +2,7 @@ const db = require("../../config/db.js");
 const bcrypt = require("bcryptjs");
 const { sendEmail } = require("../mail/sendMail");
 const { generateRandomPassword } = require("./createPassword");
+const { generarTokenServicio } = require("../auth/verifyToken.js");
 
 module.exports = {
   changePassword: (req, res) => {
@@ -56,8 +57,7 @@ module.exports = {
     const userId = req.body.IdUsuario;
     const password = req.body.ContrasenaActual;
     const newPassword = req.body.ContrasenaNueva;
-
-
+    const token = req.headers.authorization?.replace("Bearer ", "");
       // Verificar la longitud mínima (al menos 10 caracteres)
       if (newPassword.length < 8) {
         return res.status(409).send({
@@ -127,7 +127,9 @@ module.exports = {
                       usuario: userData.NombreUsuario,
                       contrasena: newPassword,
                       userid: userData.Id,
-                      mensaje:"tu contraseña a sido actualizada exitosamente."
+                      mensaje:"tu contraseña a sido actualizada exitosamente.",
+                      tipo:"restablecido",
+                      token:token
                     };
                     sendEmail(d);
                   }
@@ -151,6 +153,7 @@ module.exports = {
   forgotPassword: (req, res) => {
     const user = req.body.NombreUsuario;
     const genPassword = generateRandomPassword(10);
+    const token = generarTokenServicio();
     bcrypt.hash(genPassword, 10, (err, hash) => {
       if (err) {
         return res.status(401).send({
@@ -179,7 +182,9 @@ module.exports = {
                 usuario: userData.NombreUsuario,
                 contrasena: genPassword,
                 userid: userData.Id,
-                mensaje:"le informamos que se ha generado una nueva contraseña para su cuenta. A continuación, encontrará los detalles de su nueva contraseña:"
+                mensaje:"le informamos que se ha generado una nueva contraseña para su cuenta. A continuación, encontrará los detalles de su nueva contraseña:",
+                tipo:"restablecido",
+                token:token
               };
               sendEmail(d);
             }
@@ -196,7 +201,8 @@ module.exports = {
   resendCredentials: async (req, res) => {
     const { NombreUsuario, Correo } = req.body;
     const genPassword = generateRandomPassword(10);
-  
+    const token = req.headers.authorization?.replace("Bearer ", "");
+
     try {
       const hash = await new Promise((resolve, reject) => {
         bcrypt.hash(genPassword, 10, (err, hash) => {
@@ -238,6 +244,8 @@ module.exports = {
         contrasena: genPassword,
         userid: userData.Id,
         mensaje: "tu usuario para ingresar a nuestros sistemas ha sido creado exitosamente.",
+        tipo:"restablecido",
+        token:token
       };
       // Llamada a sendEmail y retorno de la respuesta
       const emailResponse = await sendEmail(d);

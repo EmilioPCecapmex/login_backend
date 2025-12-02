@@ -12,6 +12,7 @@ module.exports = {
     const TipoSoli = req.body.TipoSoli;
     const AdminPlataforma = req.body.AdminPlataforma;
     const PermisoFirma = req.body.PermisoFirma;
+    const token = req.headers.authorization?.replace("Bearer ", "");
 
     if (AdminPlataforma == null || /^[\s]*$/.test(AdminPlataforma)) {
       return res.status(409).send({
@@ -88,6 +89,8 @@ module.exports = {
                       mensaje:
                         "tu usuario para ingresar a nuestros sitemas ha sido creado exitosamente.",
                       userid: IdUsuario,
+                      tipo:"bienvenido",
+                      token:token
                     };
                     sendEmail(d)
                   }

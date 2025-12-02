@@ -1,124 +1,67 @@
-const nodemailer = require("nodemailer");
-const { emailTemplate } = require("../mail/newUser");
-const util = require('util');
-const { emailVinculacionTemplate } = require("./confirmacionVinculacion");
+const axios = require("axios");
 const { escribirRegistro } = require("../../logger/logger");
+const https = require("https");
 
-let objMailer={
-  host: // process.env.LOGIN_B_APP_EMAIL_HOST,
-  'correo.nl.gob.mx',
-  port: // process.env.LOGIN_B_APP_EMAIL_PORT,
-  587,
-  secure:  //process.env.LOGIN_B_APP_EMAIL_SECURE === "TRUE",
-  false,
-  auth: {
-     user: "sistemas.tv",
-     pass: "$ist3m@$tv*",
-    //user: process.env.LOGIN_B_APP_EMAIL_USERNAME,
-    //pass: process.env.LOGIN_B_APP_EMAIL_PASSWORD,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-}
-const transporter = nodemailer.createTransport(objMailer);
+const agent = new https.Agent({ rejectUnauthorized: false });
 
-const sendMailPromise = util.promisify(transporter.sendMail).bind(transporter);
+const ENDPOINT_SEND_MAIL =
+  "https://tesoreria-virtual-servicios.nl.gob.mx/api/ApiDoc/correo/envia-pass";
+
+// ========================================================
+// ENVÍA CORREO USANDO EL NUEVO endpoint /correo/envia-pass
+// TOKEN ENTRANTE ES REENVIADO
+// ========================================================
 
 const sendEmail = async (mailData) => {
-  const { to, subject, nombre, usuario, contrasena, userid, mensaje } = mailData;
- console.log('objMailer',objMailer);
-  const mailOptions = {
-    from://  process.env.LOGIN_B_APP_EMAIL_USER,
-    "sistemas.tesoreria.virtual@nuevoleon.gob.mx",
-    to: to,
-    subject: subject,
-    text: "Plaintext version of the message",
-    html: emailTemplate(mensaje, nombre, usuario, contrasena, userid),
-    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
-    attachments:[
-      {
-        filename:'Palacio.png',
-        path:'controllers/mail/Images/Palacio.png',
-        cid:'Palacio'
-      }
-    ]
-  };
-  console.log('mailOptions',{...mailOptions, html:''});
-  try {
-    const info = await sendMailPromise(mailOptions);
-    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
-    return "Correo enviado con éxito:", info.response;
-  } catch (error) {
-    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Error`);
-    throw "Error al enviar el correo:", error;
+  console.log("mailData:", mailData);
+
+  const {
+    to,
+    subject,
+    usuario,
+    tipo,
+    token,               // ← token que llega del frontend
+    contrasena           // ← así viene realmente
+  } = mailData;
+
+  if (!token) {
+    throw new Error("El token no fue proporcionado en mailData.token");
   }
-};
 
-const sendEmailVinculacion = async (mailData) => {
-  const { to, subject, nombre, usuario, userid, mensaje } = mailData;
- 
-  const mailOptions = {
-    from: //process.env.LOGIN_B_APP_EMAIL_USER,
-     "sistemas.tesoreria.virtual@nuevoleon.gob.mx",
-    to: to,
-    subject: subject,
-    text: "Plaintext version of the message",
-    html: emailVinculacionTemplate(mensaje, nombre, usuario, userid),
-    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
-    attachments:[
-      {
-        filename:'Palacio.png',
-        path:'controllers/mail/Images/Palacio.png',
-        cid:'Palacio'
-      }
-    ]
-  };
-  console.log('mailOptions',{...mailOptions, html:''});
-  try {
-    const info = await sendMailPromise(mailOptions);
-    console.log("Correo enviado con éxito:");
-    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
-    return "Correo enviado con éxito:", info.response;
-  } catch (error) {
-    console.log("Error al enviar el correo:");
-    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
-    throw "Error al enviar el correo:", error;
-  }
-};
-
-const sendEmailGeneric = async (mailData) => {
-  const { to, subject,  textoPlano } = mailData;
-
-  const mailOptions = {
-    from: process.env.LOGIN_B_APP_EMAIL_USER,
-    to: to,
-    subject: subject,
-    text: textoPlano || "Mensaje en texto plano no proporcionado", // Si no se pasa textoPlano, usa un mensaje predeterminado
-    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
-    attachments: [
-      {
-        filename: 'Palacio.png',
-        path: 'controllers/mail/Images/Palacio.png',
-        cid: 'Palacio'
-      }
-    ]
+  // Body EXACTO que pide Laravel
+  const body = {
+    password: contrasena || "SinPass",
+    tipo: tipo || "restablecido",
+    correo: to,
+    usuario: usuario || "desconocido"
   };
 
   try {
-    const info = await sendMailPromise(mailOptions);
+    const response = await axios.post(ENDPOINT_SEND_MAIL, body, {
+      timeout: 15000,
+      httpsAgent: agent,
+      headers: {
+        Authorization: `Bearer ${token}`,   // ← FORWARD REAL DEL JWT
+        "Content-Type": "application/json"
+      }
+    });
+
     escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Exito`);
-    return `Correo enviado con éxito: ${info.response}`;
+    return response.data;
+
   } catch (error) {
-    escribirRegistro(`Correo: ${to}, Asunto:${subject}, Status: Error`);
-    throw `Error al enviar el correo: ${error}`;
+    const detalle = error.response?.data || error.message;
+
+    console.error("ERROR COMPLETO:", JSON.stringify(detalle, null, 2));
+
+    escribirRegistro(
+      `Correo SICSA: ${to}, Asunto:${subject}, Status: Error -> ${JSON.stringify(detalle)}`
+    );
+
+    throw new Error(`Error al enviar el correo: ${JSON.stringify(detalle)}`);
   }
 };
-
 
 module.exports = {
-  sendEmail: sendEmail,
-  sendEmailVinculacion:sendEmailVinculacion,
-  sendEmailGeneric:sendEmailGeneric,
+  sendEmail
 };
-

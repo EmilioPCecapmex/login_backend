@@ -473,19 +473,19 @@ router.get("/AdminAvisosVigentes",(req,res)=>{
 
 //#################################Fin Admin Ayudas####################################
 
-//Grupo Deuda Empresitos
-router.post("/registro-asistencia-deuda-emprestitos",(req,res)=>{
-  createGrupoDeuda(req,res)
-})
-
-router.get("/registro-asistencia-deuda-emprestitos/confirmacion",(req,res)=>{
-  confirmGrupoDeuda(req,res)
-})
-//#################################Fin Grupo Deuda Empresitos####################################
-//Semana_Formacion_Armonizacion_Contable
-router.post("/registro-asistencia-semana-formacion-armonizacion-contable",(req,res)=>{
-  createInvitado(req,res)
-})
+// //Grupo Deuda Empresitos
+// router.post("/registro-asistencia-deuda-emprestitos",(req,res)=>{
+//   createGrupoDeuda(req,res)
+// })
+// 
+// router.get("/registro-asistencia-deuda-emprestitos/confirmacion",(req,res)=>{
+//   confirmGrupoDeuda(req,res)
+// })
+// //#################################Fin Grupo Deuda Empresitos####################################
+// //Semana_Formacion_Armonizacion_Contable
+// router.post("/registro-asistencia-semana-formacion-armonizacion-contable",(req,res)=>{
+//   createInvitado(req,res)
+// })
 
 
 router.get("/prueba-sendEmail",()=>{

@@ -49,4 +49,17 @@ module.exports = {
       });
     }
   },
+
+  // Genera un token válido para ApiDoc
+  generarTokenServicio:() => {
+    return jwt.sign(
+      {
+        sistema: "LOGIN_BACKEND",
+        permiso: "correo_envia_pass",
+      },
+      process.env.LOGIN_B_APP_JWT_SECRET_KEY,   // <<< tu secret compartida
+      { expiresIn: "2m" }              // <<< duración corta por seguridad
+    );
+  },
+
 };
