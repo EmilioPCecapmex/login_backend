@@ -86,7 +86,7 @@ module.exports = {
                 });
             } else {
                 return res.status(500).send({
-                    msg: "No se eliminó el permiso.",
+                    msg: "No se eliminó el permiso.", 
                 });
             }
         });
