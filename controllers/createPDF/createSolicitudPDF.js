@@ -82,6 +82,7 @@ module.exports = {
             });
           }
           datosSolicitud = result[0][0];
+          if(!datosSolicitud.Celular) datosSolicitud.Celular = "Sin Dato";
           html = replaceAllVariables(htmlTemplate, {
             ...datosSolicitud,
           }).replaceAll(
@@ -168,6 +169,7 @@ module.exports = {
             });
           }
           datosSolicitud = result[0][0];
+          if(!datosSolicitud.Celular) datosSolicitud.Celular = "Sin Dato";
           html = replaceAllVariables(htmlTemplate, {
             ...datosSolicitud,
           }).replaceAll(

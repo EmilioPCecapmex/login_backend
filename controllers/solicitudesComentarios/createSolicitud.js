@@ -66,12 +66,15 @@ module.exports = {
                 error: "Ingrese RFC",
             });
         }
+        /*
         if (Celular == null || /^[\s]*$/.test(Celular)) {
             return res.status(409).send({
                 error: "Ingrese Celular",
             });
         }
+        */
         if (Telefono == null || /^[\s]*$/.test(Telefono)) {
+
             return res.status(409).send({
                 error: "Ingrese Telefono",
             });
