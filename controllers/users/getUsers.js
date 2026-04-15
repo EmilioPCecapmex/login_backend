@@ -1,42 +1,53 @@
 const db = require("../../config/db.js");
 const util = require("util");
+
+const queryAsync = util.promisify(db.query).bind(db);
+
 module.exports = {
   getUserEmailRolControlInterno: (req, res) => {
     const IdApp = req.body.IdApp;
     const ControlesInternos = JSON.stringify(req.body.ControlesInternos);
-    db.query(`CALL sp_ObtenerCorreoPorRolControlInterno(?,?)`, [ControlesInternos, IdApp], (err, result) => {
 
-      if (err) {
-        return res.status(500).send({
-          error: err,
-        });
-      }
-      if (result.length) {
-        const data = result[0];
-        if (data === undefined) {
-          return res.status(409).send({
-            error: "¡Sin Información!",
+    db.query(
+      `CALL sp_ObtenerCorreoPorRolControlInterno(?,?)`,
+      [ControlesInternos, IdApp],
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: err,
           });
         }
-        return res.status(200).send({
-          data,
-        });
-      } else {
+
+        if (result.length) {
+          const data = result[0];
+          if (data === undefined) {
+            return res.status(409).send({
+              error: "¡Sin Información!",
+            });
+          }
+
+          return res.status(200).send({
+            data,
+          });
+        }
+
         return res.status(409).send({
           error: "¡Sin Información!",
         });
       }
-    });
+    );
   },
 
   getUserDetail: (req, res) => {
     const userId = req.body.IdUsuario;
-    db.query(`CALL sp_DetalleUsuario('${userId}')`, (err, result) => {
+
+    db.query(`CALL sp_DetalleUsuario(?)`, [userId], (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err,
         });
       }
+
       if (result.length) {
         const data = result[0][0];
         if (data === undefined) {
@@ -44,14 +55,15 @@ module.exports = {
             error: "¡Sin Información!",
           });
         }
+
         return res.status(200).send({
           data,
         });
-      } else {
-        return res.status(409).send({
-          error: "¡Sin Información!",
-        });
       }
+
+      return res.status(409).send({
+        error: "¡Sin Información!",
+      });
     });
   },
 
@@ -59,24 +71,23 @@ module.exports = {
     const IdUsuario = req.query.IdUsuario;
     const IdApp = req.query.IdApp;
 
-
-
-    db.query(`CALL sp_ListaUsuarios('${IdUsuario}', '${IdApp}')`, (err, result) => {
+    db.query(`CALL sp_ListaUsuarios(?, ?)`, [IdUsuario, IdApp], (err, result) => {
       if (err) {
         return res.status(500).send({
           error: err,
         });
       }
+
       if (result.length) {
         const data = result[0];
         return res.status(200).send({
           data,
         });
-      } else {
-        return res.status(409).send({
-          error: "¡Sin Información!",
-        });
       }
+
+      return res.status(409).send({
+        error: "¡Sin Información!",
+      });
     });
   },
 
@@ -103,11 +114,11 @@ module.exports = {
           return res.status(200).send({
             data: result[0],
           });
-        } else {
-          return res.status(404).send({
-            error: "¡Sin Información!",
-          });
         }
+
+        return res.status(404).send({
+          error: "¡Sin Información!",
+        });
       }
     );
   },
@@ -116,97 +127,112 @@ module.exports = {
     const userId = req.body.IdUsuario;
     const menuControlInterno = req.body.ControlInternoMenu;
 
-    // Usamos un template string para insertar variables directamente en el query
-    const queryString = `CALL sp_DetalleUsuarioPermisos('${userId}', '${menuControlInterno}')`;
+    db.query(
+      `CALL sp_DetalleUsuarioPermisos(?, ?)`,
+      [userId, menuControlInterno],
+      (err, result) => {
+        if (err) {
+          return res.status(500).send({
+            error: "Error",
+          });
+        }
 
-    db.query(queryString, (err, result) => {
-      if (err) {
-        return res.status(500).send({
-          error: "Error",
-        });
-      }
-      if (result.length) {
-        const data = result[0];
-        return res.status(200).send({
-          data,
-        });
-      } else {
+        if (result.length) {
+          const data = result[0];
+          return res.status(200).send({
+            data,
+          });
+        }
+
         return res.status(409).send({
           error: "¡Sin Información!",
         });
       }
-    });
+    );
   },
 
   getUserAppDetail: async (req, res) => {
-    const userId = req.body.IdUsuario;
-    const appId = req.body.IdApp;
-    if (userId == null || /^[\s]*$/.test(userId)) {
-      return res.status(409).send({
-        error: "Ingrese userId válido.",
-      });
-    }
-    if (appId == null || /^[\s]*$/.test(appId)) {
-      return res.status(409).send({
-        error: "Ingrese appId válido.",
-      });
-    }
+    try {
+      const userId = req.body.IdUsuario;
+      const appId = req.body.IdApp;
 
-    //  let perfiles=getPerfil(userId,appId);
-    let entidades = getUsuarioEntidad(userId, appId);
-    let roles = getRoles(userId, appId);
-    let menus = await getMenus(userId, appId);
-    let permisos = getPermisos(userId, appId);
-
-    db.query(
-      `CALL sp_DetalleUsuarioAplicacion('${userId}','${appId}')`,
-      (err, result) => {
-        if (err) {
-          return res.status(500).send({
-            error: err.sqlMessage,
-          });
-        }
-        if (result.length) {
-          const data = result[0][0];
-          if (data === undefined || data.Error) {
-            return res.status(409).send({
-              error: "¡Sin Información!",
-            });
-          }
-          return res.status(200).send({
-            data: data,
-            // perfiles:perfiles,
-            entidades: entidades,
-            roles: roles,
-            menus: menus,
-            permisos: permisos,
-          });
-        } else {
-          return res.status(409).send({
-            error: "¡Sin Información!",
-          });
-        }
+      if (userId == null || /^[\s]*$/.test(userId)) {
+        return res.status(409).send({
+          error: "Ingrese userId válido.",
+        });
       }
-    );
+
+      if (appId == null || /^[\s]*$/.test(appId)) {
+        return res.status(409).send({
+          error: "Ingrese appId válido.",
+        });
+      }
+
+      const [entidades, roles, menus, permisos, result] = await Promise.all([
+        getUsuarioEntidad(userId, appId),
+        getRoles(userId, appId),
+        getMenus(userId, appId),
+        getPermisos(userId, appId),
+        queryAsync(`CALL sp_DetalleUsuarioAplicacion(?, ?)`, [userId, appId]),
+      ]);
+
+      if (!result || !result.length || !result[0] || !result[0].length) {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+
+      const data = result[0][0];
+
+      if (data === undefined || data.Error) {
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
+      }
+
+      if (
+        data.Respuesta === "500" ||
+        data.Respuesta === 500 ||
+        (data.Respuesta && String(data.Respuesta) !== "200")
+      ) {
+        return res.status(500).send({
+          data,
+          entidades,
+          roles,
+          menus,
+          permisos,
+        });
+      }
+
+      return res.status(200).send({
+        data,
+        entidades,
+        roles,
+        menus,
+        permisos,
+      });
+    } catch (err) {
+      return res.status(500).send({
+        error: err.sqlMessage || err.message || "Error interno del servidor.",
+      });
+    }
   },
 
   getActividadUser: async (req, res) => {
     const { fecha, fechaFinal } = req.query;
+
     if (fecha == null || /^[\s]*$/.test(fecha)) {
       return res.status(409).send({
         error: "Ingrese fecha válido.",
       });
     }
+
     if (fechaFinal == null || /^[\s]*$/.test(fechaFinal)) {
       return res.status(409).send({
         error: "Ingrese fechaFinal válido.",
       });
     }
-    // Convertir las fechas a objetos de Date para la comparación
-    // const fechaObj = new Date(fecha);
-    // const fechaFinalObj = new Date(fechaFinal);
 
-    // Verificar si fechaFinal es menor que fecha, en ese caso intercambiarlas
     let fechaInicio = fecha;
     let fechaFin = fechaFinal;
 
@@ -215,19 +241,19 @@ module.exports = {
       fechaFin = fecha;
     }
 
-    console.log('fechaInicio',fechaInicio);
-    console.log('fechaFin',fechaFin);
-    
-    
+    console.log("fechaInicio", fechaInicio);
+    console.log("fechaFin", fechaFin);
 
     db.query(
-      `CALL sp_ListaActividadUsuarios(?,?)`, [fechaInicio, fechaFin],
+      `CALL sp_ListaActividadUsuarios(?,?)`,
+      [fechaInicio, fechaFin],
       (err, result) => {
         if (err) {
           return res.status(500).send({
             error: err.sqlMessage,
           });
         }
+
         if (result.length) {
           const data = result[0];
           if (data === undefined || data.Error) {
@@ -235,262 +261,188 @@ module.exports = {
               error: "¡Sin Información!",
             });
           }
+
           return res.status(200).send({
-            data: data,
-          });
-        } else {
-          return res.status(409).send({
-            error: "¡Sin Información!",
+            data,
           });
         }
+
+        return res.status(409).send({
+          error: "¡Sin Información!",
+        });
       }
     );
   },
 };
 
-function getUsuarioEntidad(idUsuario, idApp) {
-  let data = [];
-  db.query(
-    `CALL sp_ListaUsuarioEntidades(?, ?)`,
-    [idUsuario, idApp],
-    (err, result) => {
-      if (err) {
-        return res.status(500).send({
-          error: err.sqlMessage,
-        });
-      }
-
-      if (result.length) {
-        data.push(result[0]);
-      } else {
-        data = [];
-      }
-    }
-  );
-  return data;
-}
-
-function getRoles(userId, appId) {
-  let data = [];
-  let query = `   SELECT
-  rol.Id,
-  rol.Nombre,
-  rol.Descripcion,
-  rol.ControlInterno
-  FROM
-  TiCentral.Usuarios us
-  LEFT JOIN TiCentral.UsuarioRol ur ON us.id = ur.idUsuario
-  LEFT JOIN TiCentral.Roles rol ON ur.idRol = rol.id
-  WHERE us.Id =? 
-  AND rol.IdApp =?`;
-
-  db.query(query, [userId, appId], (err, result) => {
-    if (err) {
-      return res.status(500).send({
-        error: err.sqlMessage,
-      });
-    }
+async function getUsuarioEntidad(idUsuario, idApp) {
+  try {
+    const result = await queryAsync(`CALL sp_ListaUsuarioEntidades(?, ?)`, [
+      idUsuario,
+      idApp,
+    ]);
 
     if (result.length) {
-      data.push(result);
-    } else {
-      data = [];
+      return [result[0]];
     }
-  });
 
-  return data;
+    return [];
+  } catch (err) {
+    return [];
+  }
+}
+
+async function getRoles(userId, appId) {
+  try {
+    const query = `
+      SELECT DISTINCT
+        rol.Id,
+        rol.Nombre,
+        rol.Descripcion,
+        rol.ControlInterno
+      FROM TiCentral.UsuarioRol ur
+      INNER JOIN TiCentral.Roles rol
+        ON ur.IdRol = rol.Id
+      WHERE ur.IdUsuario = ?
+        AND rol.IdApp = ?
+        AND IFNULL(ur.Deleted, 0) = 0
+        AND IFNULL(rol.Deleted, 0) = 0
+    `;
+
+    const result = await queryAsync(query, [userId, appId]);
+
+    if (result.length) {
+      return [result];
+    }
+
+    return [];
+  } catch (err) {
+    return [];
+  }
 }
 
 async function getMenus(userId, appId) {
-  const queryAsync = util.promisify(db.query).bind(db);
+  try {
+    const query = `
+      SELECT DISTINCT
+        m.Id,
+        m.FechaDeCreacion,
+        m.UltimaModificacion,
+        m.CreadoPor,
+        m.ModificadoPor,
+        m.Deleted,
+        m.Menu,
+        m.Descripcion,
+        m.MenuPadre,
+        m.Icon,
+        m.Path,
+        m.Nivel,
+        m.Orden,
+        m.ControlInterno,
+        m.IdApp
+      FROM TiCentral.UsuarioRol ur
+      INNER JOIN TiCentral.Roles rol
+        ON rol.Id = ur.IdRol
+      INNER JOIN TiCentral.RolMenus rm
+        ON rm.IdRol = rol.Id
+      INNER JOIN TiCentral.Menus m
+        ON m.Id = rm.IdMenu
+      WHERE ur.IdUsuario = ?
+        AND rol.IdApp = ?
+        AND IFNULL(ur.Deleted, 0) = 0
+        AND IFNULL(rol.Deleted, 0) = 0
+        AND IFNULL(rm.Deleted, 0) = 0
+        AND IFNULL(m.Deleted, 0) = 0
+      ORDER BY m.Nivel, m.Orden, m.Menu
+    `;
 
-  let data = [];
-  let menus = [];
-  let menussub2 = [];
-  let query = `  
-  SELECT distinct m.* FROM
-  TiCentral.Usuarios us
-  LEFT JOIN TiCentral.UsuarioRol ur ON ur.idUsuario = us.id
-  LEFT JOIN TiCentral.Roles rol ON rol.id = ur.idRol
-  LEFT JOIN TiCentral.RolMenus rm ON rm.idRol = rol.id
-  LEFT JOIN TiCentral.Menus m ON m.id = rm.idMenu
-  WHERE
-  m.nivel=0
-  and us.id=?
-  and rol.IdApp =?
-  and m.Deleted=0
-  order by m.Orden;
-  `;
+    const rows = await queryAsync(query, [userId, appId]);
 
-  const result = await queryAsync(query, [userId, appId]);
+    if (!rows.length) {
+      return [];
+    }
 
-  if (result.length > 0) {
-    for (var i = 0; i < result.length; i++) {
-      const children = await getMenusnivel1(userId, appId, result[i].Id);
+    const byId = new Map();
 
-      for (var j = 0; j < children.length; j++) {
-        const children2 = await getMenusnivel2(userId, appId, children[j].Id);
-        obj = {
-          Id: children[j].Id,
-          FechaDeCreacion: children[j].FechaDeCreacion,
-          UltimaModificacion: children[j].UltimaModificacion,
-          CreadoPor: children[j].CreadoPor,
-          ModificadoPor: children[j].ModificadoPor,
-          Deleted: children[j].Deleted,
-          Menu: children[j].Menu,
-          Descripcion: children[j].Descripcion,
-          MenuPadre: children[j].MenuPadre,
-          Icon: children[j].Icon,
-          Path: children[j].Path,
-          Nivel: children[j].Nivel,
-          Orden: children[j].Orden,
-          ControlInterno: children[j].ControlInterno,
-          IdApp: children[j].IdApp,
-          item: children2,
-        };
-        menussub2.push(obj);
+    for (const row of rows) {
+      byId.set(row.Id, {
+        Id: row.Id,
+        FechaDeCreacion: row.FechaDeCreacion,
+        UltimaModificacion: row.UltimaModificacion,
+        CreadoPor: row.CreadoPor,
+        ModificadoPor: row.ModificadoPor,
+        Deleted: row.Deleted,
+        Menu: row.Menu,
+        Descripcion: row.Descripcion,
+        MenuPadre: row.MenuPadre,
+        Icon: row.Icon,
+        Path: row.Path,
+        Nivel: row.Nivel,
+        Orden: row.Orden,
+        ControlInterno: row.ControlInterno,
+        IdApp: row.IdApp,
+        item: [],
+      });
+    }
+
+    const roots = [];
+
+    for (const row of rows) {
+      const node = byId.get(row.Id);
+
+      if (!row.MenuPadre || Number(row.Nivel) === 0) {
+        roots.push(node);
+        continue;
       }
 
-      obj = {
-        Id: result[i].Id,
-        FechaDeCreacion: result[i].FechaDeCreacion,
-        UltimaModificacion: result[i].UltimaModificacion,
-        CreadoPor: result[i].CreadoPor,
-        ModificadoPor: result[i].ModificadoPor,
-        Deleted: result[i].Deleted,
-        Menu: result[i].Menu,
-        Descripcion: result[i].Descripcion,
-        MenuPadre: result[i].MenuPadre,
-        Icon: result[i].Icon,
-        Path: result[i].Path,
-        Nivel: result[i].Nivel,
-        Orden: result[i].Orden,
-        ControlInterno: result[i].ControlInterno,
-        IdApp: result[i].IdApp,
-        item: menussub2,
-      };
-      menus.push(obj);
-      menussub2 = [];
+      const parent = byId.get(row.MenuPadre);
+      if (parent) {
+        parent.item.push(node);
+      }
     }
 
-    data.push(menus);
+    return [roots];
+  } catch (err) {
+    return [];
   }
-
-  return data;
 }
 
-async function getMenusnivel1(userId, appId, menuPadre) {
-  const queryAsync = util.promisify(db.query).bind(db);
-  let query = `  
-  SELECT distinct m.* FROM
-  TiCentral.Usuarios us
-  INNER JOIN TiCentral.UsuarioRol ur ON ur.idUsuario = us.id
-  INNER JOIN TiCentral.Roles rol ON rol.id = ur.idRol
-  INNER JOIN TiCentral.RolMenus rm ON rm.idRol = rol.id
-  INNER JOIN TiCentral.Menus m ON m.id = rm.idMenu
-  WHERE
-  m.nivel=1
-  and us.id=? 
-  and rol.IdApp =?
-  AND m.MenuPadre =?
-  and m.Deleted=0
-  order by m.Orden
-  `;
+async function getPermisos(userId, appId) {
+  try {
+    const query = `
+      SELECT DISTINCT
+        per.ControlInterno,
+        men.ControlInterno AS menu
+      FROM TiCentral.UsuarioRol ur
+      INNER JOIN TiCentral.Roles rol
+        ON ur.IdRol = rol.Id
+      INNER JOIN TiCentral.RolMenus rm
+        ON rm.IdRol = rol.Id
+      INNER JOIN TiCentral.Menus men
+        ON men.Id = rm.IdMenu
+      INNER JOIN TiCentral.MenuPermisos rmenp
+        ON rmenp.IdMenu = rm.IdMenu
+       AND rmenp.IdRol = rol.Id
+      INNER JOIN TiCentral.Permisos per
+        ON per.Id = rmenp.IdPermiso
+      WHERE ur.IdUsuario = ?
+        AND rol.IdApp = ?
+        AND IFNULL(ur.Deleted, 0) = 0
+        AND IFNULL(rol.Deleted, 0) = 0
+        AND IFNULL(rm.Deleted, 0) = 0
+        AND IFNULL(men.Deleted, 0) = 0
+        AND IFNULL(rmenp.Deleted, 0) = 0
+        AND IFNULL(per.Deleted, 0) = 0
+    `;
 
-  const result = await queryAsync(query, [userId, appId, menuPadre]);
-  return result;
-}
-
-async function getMenusnivel2(userId, appId, menuPadre) {
-  const queryAsync = util.promisify(db.query).bind(db);
-  let query = `  
-  SELECT distinct m.* FROM
-  TiCentral.Usuarios us
-  INNER JOIN TiCentral.UsuarioRol ur ON ur.idUsuario = us.id
-  INNER JOIN TiCentral.Roles rol ON rol.id = ur.idRol
-  INNER JOIN TiCentral.RolMenus rm ON rm.idRol = rol.id
-  INNER JOIN TiCentral.Menus m ON m.id = rm.idMenu
-  WHERE
-  m.nivel=2
-  and us.id=? 
-  and rol.IdApp =?
-  AND m.MenuPadre =?
-  and m.Deleted=0
-  order by m.Orden
-  `;
-  const result = await queryAsync(query, [userId, appId, menuPadre]);
-  return result;
-}
-
-function getPermisos(userId, appId) {
-  let data = [];
-  let query = `  SELECT
-  per.ControlInterno,
-  men.ControlInterno menu
-  FROM
-  TiCentral.Usuarios us
-  INNER JOIN TiCentral.UsuarioRol ur ON us.Id = ur.IdUsuario
-  INNER JOIN TiCentral.Roles rol ON ur.IdRol  = rol.Id
-  INNER JOIN TiCentral.RolMenus rm ON rm.IdRol = rol.Id
-  INNER JOIN TiCentral.Menus  men ON men.Id = rm.IdMenu
-  INNER JOIN TiCentral.MenuPermisos rmenp ON  rmenp.IdMenu = rm.IdMenu and rmenp.IdRol=rol.Id
-  INNER JOIN TiCentral.Permisos per ON per.Id = rmenp.IdPermiso
-  WHERE
-  us.Id=?
-  and rol.IdApp =?
-  `;
-
-  db.query(query, [userId, appId], (err, result) => {
-    if (err) {
-      return res.status(500).send({
-        error: err.sqlMessage,
-      });
-    }
+    const result = await queryAsync(query, [userId, appId]);
 
     if (result.length) {
-      data.push(result);
-    } else {
-      data = [];
+      return [result];
     }
-  });
 
-  return data;
+    return [];
+  } catch (err) {
+    return [];
+  }
 }
-
-function getPermisos(userId, appId) {
-  let data = [];
-  let query = `  SELECT
-  per.ControlInterno,
-  men.ControlInterno menu
-  FROM
-  TiCentral.Usuarios us
-  INNER JOIN TiCentral.UsuarioRol ur ON us.Id = ur.IdUsuario
-  INNER JOIN TiCentral.Roles rol ON ur.IdRol  = rol.Id
-  INNER JOIN TiCentral.RolMenus rm ON rm.IdRol = rol.Id
-  INNER JOIN TiCentral.Menus  men ON men.Id = rm.IdMenu
-  INNER JOIN TiCentral.MenuPermisos rmenp ON  rmenp.IdMenu = rm.IdMenu and rmenp.IdRol=rol.Id
-  INNER JOIN TiCentral.Permisos per ON per.Id = rmenp.IdPermiso
-  WHERE
-  us.Id=?
-  and rol.IdApp =?
-  `;
-
-  db.query(query, [userId, appId], (err, result) => {
-    if (err) {
-      return res.status(500).send({
-        error: err.sqlMessage,
-      });
-    }
-
-    if (result.length) {
-      data.push(result);
-    } else {
-      data = [];
-    }
-  });
-
-  return data;
-}
-
-
-
