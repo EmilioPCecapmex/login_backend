@@ -5,20 +5,20 @@ const path = require("path");
 const nodemailer = require("nodemailer");
 const { v4: uuidv4 } = require('uuid');
 // === Validar variables de entorno ===
-[
-  "LOGIN_B_APP_EMAIL_HOST",
-  "LOGIN_B_APP_EMAIL_PORT",
-  "LOGIN_B_APP_EMAIL_SECURE",
-  "DEUDA_EMAIL_USERNAME",
-  "DEUDA_EMAIL_PASSWORD",
-  "DEUDA_EMAIL_USER",
-  "LOGIN_B_APP_EMAIL_USER_ALERTS"
-].forEach(envVar => {
-  console.error(`variable de entorno: ${process.env[envVar]}`);
-  if (!process.env[envVar]) {
-    console.error(`❌ Falta la variable de entorno: ${envVar}`);
-  }
-});
+// [
+//   "LOGIN_B_APP_EMAIL_HOST",
+//   "LOGIN_B_APP_EMAIL_PORT",
+//   "LOGIN_B_APP_EMAIL_SECURE",
+//   "DEUDA_EMAIL_USERNAME",
+//   "DEUDA_EMAIL_PASSWORD",
+//   "DEUDA_EMAIL_USER",
+//   "LOGIN_B_APP_EMAIL_USER_ALERTS"
+// ].forEach(envVar => {
+//   console.error(`variable de entorno: ${process.env[envVar]}`);
+//   if (!process.env[envVar]) {
+//     console.error(`❌ Falta la variable de entorno: ${envVar}`);
+//   }
+// });
 
 // Configuración de nodemailer
 const transporter = nodemailer.createTransport({
