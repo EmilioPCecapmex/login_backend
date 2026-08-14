@@ -65,7 +65,6 @@ const sendEmailVinculacion = async (mailData) => {
     subject: subject,
     text: "Plaintext version of the message",
     html: emailVinculacionTemplate(mensaje, nombre, usuario, userid),
-    bcc: process.env.LOGIN_B_APP_EMAIL_CCO,
     attachments:[
       {
         filename:'Palacio.png',
